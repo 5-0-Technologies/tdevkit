@@ -43,25 +43,12 @@ namespace tDevkit
             httpClient.DefaultRequestHeaders.Add("Api-Key", connectionOptions.ApiKey);
         }
 
+        #region REQUESTS
         private async Task<Type> GetRequest<Type>(string subUrl)
         {
             var task = await SendGetRequest(subUrl);
 
-            var responseString = await task.Content.ReadAsStringAsync();
-
-            switch (task.StatusCode)
-            {
-                case (System.Net.HttpStatusCode)400:
-                    throw new BadRequestException(BadRequestException.message);
-                case (System.Net.HttpStatusCode)401:
-                    throw new NotAuthorizedException(NotAuthorizedException.message);
-                case (System.Net.HttpStatusCode)404:
-                    var response = JsonSerializer.Deserialize<ServerErrorResponseContract>(responseString);
-                    throw new NotFoundException(NotFoundException.message + " " + response.Message);
-                case (System.Net.HttpStatusCode)500:
-                    throw new InternalServerErrorException(InternalServerErrorException.message);
-            }
-
+            string responseString = await ProcessResponse(task);
             return JsonSerializer.Deserialize<Type>(responseString);
         }
         private async Task<Type> PostRequest<Type>(string subUrl, object body)
@@ -69,9 +56,65 @@ namespace tDevkit
             string bodyContent = JsonSerializer.Serialize(body);
             var task = await SendPostRequest(subUrl, bodyContent);
 
-            var responseString = await task.Content.ReadAsStringAsync();
+            string responseString = await ProcessResponse(task);
+            return JsonSerializer.Deserialize<Type>(responseString);
+        }
+        private async Task<Type> PatchRequest<Type>(string subUrl, object body)
+        {
+            string bodyContent = JsonSerializer.Serialize(body);
+            var task = await SendPatchRequest(subUrl, bodyContent);
 
-            switch (task.StatusCode)
+            string responseString = await ProcessResponse(task);
+            return JsonSerializer.Deserialize<Type>(responseString);
+        }
+        private async Task<HttpResponseMessage> DeleteRequest(string subUrl)
+        {
+            var task = await SendDeleteRequest(subUrl);
+
+            string responseString = await ProcessResponse(task);
+
+            if (responseString == "")
+            {
+                return new HttpResponseMessage();
+            }
+            return JsonSerializer.Deserialize<HttpResponseMessage>(responseString);
+        }
+        #endregion
+
+        #region SEND REQUESTS
+        private async Task<HttpResponseMessage> SendGetRequest(string subUrl)
+        {
+            var task = await httpClient.GetAsync(baseAddress + subUrl);
+
+            return task;
+        }
+        private async Task<HttpResponseMessage> SendPostRequest(string subUrl, string bodyContent)
+        {
+            HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
+            var task = await httpClient.PostAsync(baseAddress + subUrl, httpContent);
+
+            return task;
+        }
+        private async Task<HttpResponseMessage> SendPatchRequest(string subUrl, string bodyContent)
+        {
+            HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
+            var task = await httpClient.PatchAsync(baseAddress + subUrl, httpContent);
+
+            return task;
+        }
+        private async Task<HttpResponseMessage> SendDeleteRequest(string subUrl)
+        {
+            var task = await httpClient.DeleteAsync(baseAddress + subUrl);
+
+            return task;
+        }
+        #endregion
+
+        private async Task<string> ProcessResponse(HttpResponseMessage response)
+        {
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            switch (response.StatusCode)
             {
                 case (System.Net.HttpStatusCode)400:
                     var responseA = JsonSerializer.Deserialize<ServerErrorResponseContract>(responseString);
@@ -85,27 +128,13 @@ namespace tDevkit
                     throw new InternalServerErrorException(InternalServerErrorException.message);
             }
 
-            return JsonSerializer.Deserialize<Type>(responseString);
+            return responseString;
         }
 
-        private async Task<HttpResponseMessage> SendGetRequest(string subUrl, List<Dictionary<string, string>> headers = null)
-        {
-            var getTask = await httpClient.GetAsync(baseAddress + subUrl);
+        #region AOS (0/13)
+        #endregion
 
-            return getTask;
-        }
-        private async Task<HttpResponseMessage> SendPostRequest(string subUrl, string bodyContent)
-        {
-            HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
-            var getTask = await httpClient.PostAsync(baseAddress + subUrl, httpContent);
-
-            return getTask;
-        }
-
-        //AOS (0/13)
-
-        //AREAS (2/2)
-
+        #region AREAS (2/2)
         public async Task<AreaContract[]> GetAreas()
         {
             string subUrl = Address.Areas;
@@ -120,12 +149,21 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //AUTHORIZATION (1/3)
-
-        public async Task<HttpResponseMessage> DeleteToken()
+        #region AUTHORIZATION (2/3)
+        public async Task<HttpResponseMessage> DeleteCurrentToken()
         {
-            return null;
+            string subUrl = Address.AuthorizationToken;
+
+            httpClient.DefaultRequestHeaders.Clear();
+            httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
+
+            var response = await DeleteRequest(subUrl);
+
+            resetHttpClientHeaders();
+
+            return response;
         }
         public async Task<HttpResponseMessage> GetToken()
         {
@@ -179,8 +217,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //BEACONS (2/5)
+        #region BEACONS (5/5)
 
         public async Task<BeaconContract[]> GetBeacons()
         {
@@ -189,28 +228,47 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<HttpResponseMessage> AddBeacon()
+        public async Task<BeaconContract> AddBeacon(BeaconContract beaconContract)
         {
-            return null;
+            string subUrl = Address.Beacons;
+            var response = await PostRequest<AddBeaconResponseContract>(subUrl, beaconContract);
+
+            if (response.ErrorMessage != null)
+                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return (BeaconContract)response;
         }
         public async Task<HttpResponseMessage> DeleteBeacon(int id)
         {
-            return null;
+            string subUrl = Address.Beacons + id;
+            var response = await DeleteRequest(subUrl);
+
+            return response;
         }
         public async Task<BeaconContract> GetBeacon(int id)
         {
-            string subUrl = Address.Beacons;
+            string subUrl = Address.Beacons + id;
             var response = await GetRequest<BeaconContract>(subUrl);
 
             return response;
         }
-        public async Task<BeaconContract> UpdateBeacon(BeaconContract beacon)
+        public async Task<AddBeaconResponseContract> UpdateBeacon(BeaconContract beaconContract)
         {
-            return null;
+            if (beaconContract.Id == 0)
+            {
+                throw new BadRequestException(NotFoundException.message + " Beacon object has no Id.");
+            }
+            string subUrl = Address.Beacons + beaconContract.Id;
+            var response = await PatchRequest<AddBeaconResponseContract>(subUrl, beaconContract);
+
+            if (response.ErrorMessage != null)
+                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return response;
         }
+        #endregion
 
-        //BRANCHES (2/2)
-
+        #region BRANCHES (2/2)
         public async Task<BranchContract[]> GetBranches(string queryString = "")
         {
             string subUrl = Address.Branches + queryString;
@@ -225,9 +283,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //CLIENTS (1/1)
-
+        #region CLIENTS (1/1)
         public async Task<ClientContract[]> GetClients()
         {
             string subUrl = Address.Clients;
@@ -235,16 +293,16 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //CONFIGURATION (2/3)
-
+        #region CONFIGURATION (3/3)
         public async Task<ConfigurationContract> GetBranchConfiguration(string key)
         {
             string subUrl = Address.ConfigurationBranch + key;
 
             var task = await SendGetRequest(subUrl);
 
-            var responseString = await task.Content.ReadAsStringAsync();
+            var responseString = await ProcessResponse(task);
             ConfigurationContract response = new ConfigurationContract
             {
                 Value = responseString
@@ -255,9 +313,10 @@ namespace tDevkit
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
             string subUrl = Address.ConfigurationAccount + key;
+
             var task = await SendGetRequest(subUrl);
 
-            var responseString = await task.Content.ReadAsStringAsync();
+            var responseString = await ProcessResponse(task);
             ConfigurationContract response = new ConfigurationContract
             {
                 Value = responseString
@@ -265,13 +324,19 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<HttpResponseMessage> GetConfigurationLastChange(string key)
+        public async Task<long> GetConfigurationLastChange(string key)
         {
-            return null;
+            string subUrl = Address.Configuration + key + "/last-change/";
+
+            var task = await SendGetRequest(subUrl);
+
+            var responseString = await ProcessResponse(task);
+
+            return Convert.ToInt64(responseString);
         }
+        #endregion
 
-        //DEVICES (5/6)
-
+        #region DEVICES (5/6)
         public async Task<DeviceContract[]> GetDevices()
         {
             string subUrl = Address.Devices;
@@ -311,9 +376,9 @@ namespace tDevkit
         {
             return null;
         }
+        #endregion
 
-        //LAYERS (2/2)
-
+        #region LAYERS (2/2)
         public async Task<LayerContract[]> GetLayers()
         {
             string subUrl = Address.Layers;
@@ -328,9 +393,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //LOCALIZATION (2/2)
-
+        #region LOCALIZATION (2/2)
         public async Task<PostResponseContract[]> AddLocalizationData(DeviceLocationContract[] deviceLocationContract)
         {
             string subUrl = Address.LocalizationAddDataBatch;
@@ -375,9 +440,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //SECTORS (2/2)
-
+        #region SECTORS (2/2)
         public async Task<SectorContract[]> GetSectors()
         {
             string subUrl = Address.Sectors;
@@ -392,9 +457,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //SENSORS (4/5)
-
+        #region SENSORS (4/5)
         public async Task<SensorContract[]> GetSensors()
         {
             string subUrl = Address.Sensors;
@@ -461,8 +526,9 @@ namespace tDevkit
 
             return response;
         }
+        #endregion
 
-        //USERS (1/1)
+        #region USERS (1/1)
         public async Task<UserContract> GetUserInfo()
         {
             string subUrl = Address.Users;
@@ -470,6 +536,6 @@ namespace tDevkit
 
             return response;
         }
-
+        #endregion
     }
 }

@@ -28,18 +28,22 @@ namespace SDK.Models
 
         public bool Position { get; set; }
 
-  public int BeaconTypeId {get; set;}
-
-  public string BeaconType {get; set;}
+        public int TypeId { get; set; }
 
         public bool Geofence { get; set; }
-        
-        public int GeofenceRange { get; set; }
+
+        public double GeofenceRange { get; set; }
 
         public string Cluster { get; set; }
 
         public long LastTimeOnline { get; set; }
 
         public bool UseGps { get; set; }
+
+        public string CFUUID { get; set; }
+
+        public long Created { get; set; }
+
+        public long Update { get; set; }
     }
 }

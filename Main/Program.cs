@@ -33,7 +33,7 @@ namespace Main
                 .Login("ondrejicka")
                 .Password("zJz1sJRUMNr4b4M")
                 .Build();
-
+            //FeF/lTE9ZBPYMvKkQZnRMRK7loOXdfeD1qOcVMr00uQ=
             //Console.WriteLine("Url: " + connectionOptions.Url);
             Console.WriteLine("Token: " + connectionOptions.Token);
             Console.WriteLine("Client: " + connectionOptions.Client);
@@ -52,6 +52,9 @@ namespace Main
             AuthenticationResponseContract auth = await devkitConnector.Authenticate(true);
             Console.WriteLine(auth);
 
+            HttpResponseMessage auth2 = await devkitConnector.DeleteCurrentToken();
+            Console.WriteLine(auth2);
+
             //----------AREAS
 
             //List<AreaContract> area1 = await devkitConnector.GetAreas();
@@ -65,8 +68,17 @@ namespace Main
             //List<BeaconContract> beacon1 = await devkitConnector.GetBeacons();
             //Console.WriteLine(beacon1);
 
-            //BeaconContract beacon2 = await devkitConnector.GetBeacon(34);
+            //BeaconContract beacon2 = await devkitConnector.AddBeacon(TestData.GetBeacon());
             //Console.WriteLine(beacon2);
+
+            //HttpResponseMessage beacon3 = await devkitConnector.DeleteBeacon(beacon2.Id);
+            //Console.WriteLine(beacon3);
+
+            //BeaconContract beacon4 = await devkitConnector.GetBeacon(34);
+            //Console.WriteLine(beacon4);
+
+            //BeaconContract beacon5 = await devkitConnector.UpdateBeacon(TestData.GetBeaconPatch());
+            //Console.WriteLine(beacon5);
 
             //----------BRANCHES
 
@@ -81,10 +93,24 @@ namespace Main
             //List<ClientContract> client1 = await devkitConnector.GetClients();
             //Console.WriteLine(client1);
 
+            //----------CONFIGURATION
+
+            //ConfigurationContract config1 = await devkitConnector.GetBranchConfiguration("3D_APP");
+            //Console.WriteLine(config1);
+
+            //AuthenticationResponseContract auth2 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
+            //Console.WriteLine(auth2);
+
+            //ConfigurationContract config2 = await devkitConnector.GetAccountConfiguration("3D_APP");
+            //Console.WriteLine(config2);
+
+            //long config3 = await devkitConnector.GetConfigurationLastChange("3D_APP");
+            //Console.WriteLine(config3);
+
             //----------DEVICES
 
-            AuthenticationResponseContract auth2 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
-            Console.WriteLine(auth2);
+            //AuthenticationResponseContract auth2 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
+            //Console.WriteLine(auth2);
 
             //List<DeviceContract> device1 = await devkitConnector.GetDevices();
             //Console.WriteLine(device1);
@@ -115,8 +141,8 @@ namespace Main
             //Console.WriteLine(local1);
 
 
-            PostResponseContract[] local2 = await devkitConnector.AddLocalizationData(TestData.GetLocalizationData());
-            Console.WriteLine(local2);
+            //PostResponseContract[] local2 = await devkitConnector.AddLocalizationData(TestData.GetLocalizationData());
+            //Console.WriteLine(local2);
 
             //----------SECTORS
 
