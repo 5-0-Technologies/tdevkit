@@ -6,4 +6,4 @@ Providing whole API endpoint communication methods and data contracts for easy s
 ## Future features
 - **protobuffers** serialization
 - automated order system(AOS) for logistics integration
-- **MQTT communication protocol** implementation
+- **MQTT** communication protocol implementation
