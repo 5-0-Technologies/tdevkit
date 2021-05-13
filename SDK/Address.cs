@@ -19,9 +19,9 @@ namespace SDK.Models
 
         public const string Clients = "branches/";
 
-        public const string ConfigurationBranch = "branches/branch/";
-        public const string ConfigurationAccount = "branches/account/";
-        public const string ConfigurationLastChange = "branches/{key}/last-change/";
+        public const string Configuration = "configuration/";
+        public const string ConfigurationBranch = "configuration/branch/";
+        public const string ConfigurationAccount = "configuration/account/";
 
         public const string Devices = "devices/";
         public const string DevicesLogin = "devices/login/";
