@@ -34,10 +34,10 @@ namespace Main
         {
             return new BeaconContract
             {
-                Id = 139,
+                Id = 148,
                 SectorId = 1,
                 BranchId = 1,
-                Mac = "aa:aa:aa:aa:aa:aa",
+                Mac = "aa:aa:aa:aa:aa:ac",
                 X = 0,
                 Y = 0,
                 Z = 0,
@@ -97,6 +97,50 @@ namespace Main
             };
         }
 
+        public static SensorContract GetSensor()
+        {
+            SensorDataContract data1 = new SensorDataContract
+            {
+                Quantity = "Temperature",
+                Value = "16",
+                Unit = "°C",
+                DataType = "Single"
+            };
+            SensorDataContract data2 = new SensorDataContract
+            {
+                Quantity = "Humidity",
+                Value = "31",
+                Unit = "%",
+                DataType = "Single"
+            };
+            SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2 };
+
+            SensorContract sensor = new SensorContract
+            {
+                Id = 7351,
+                Login = "sdk-sensor2",
+                Password = "sdk",
+                Title = "testtt",
+                SectorId = 2,
+                SensorData = sensorDataContracts,
+                AreaId = 19
+            };
+
+            return sensor;
+        }
+        public static SensorContract GetSensorUpdate()
+        {
+            SensorContract sensor = new SensorContract
+            {
+                Id = 7351,
+                Login = "sdk-sensor2",
+                Title = "tests",
+                SectorId = 2,
+                AreaId = 19
+            };
+
+            return sensor;
+        }
         public static SensorContract[] GetSensorDataBatch()
         {
             SensorDataContract data1 = new SensorDataContract

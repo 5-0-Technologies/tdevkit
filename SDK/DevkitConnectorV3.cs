@@ -12,6 +12,7 @@ using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Contracts.Data;
 using SDK.Contracts.Communication;
+using System.IO;
 
 namespace tDevkit
 {
@@ -59,13 +60,13 @@ namespace tDevkit
             string responseString = await ProcessResponse(task);
             return JsonSerializer.Deserialize<Type>(responseString);
         }
-        private async Task<Type> PatchRequest<Type>(string subUrl, object body)
+        private async Task<PatchResponseContract> PatchRequest(string subUrl, object body)
         {
             string bodyContent = JsonSerializer.Serialize(body);
             var task = await SendPatchRequest(subUrl, bodyContent);
 
             string responseString = await ProcessResponse(task);
-            return JsonSerializer.Deserialize<Type>(responseString);
+            return new PatchResponseContract();
         }
         private async Task<HttpResponseMessage> DeleteRequest(string subUrl)
         {
@@ -122,7 +123,14 @@ namespace tDevkit
                 case (System.Net.HttpStatusCode)401:
                     throw new NotAuthorizedException(NotAuthorizedException.message);
                 case (System.Net.HttpStatusCode)404:
-                    var responseB = JsonSerializer.Deserialize<ServerErrorResponseContract>(responseString);
+                    ServerErrorResponseContract responseB;
+                    try {
+                        responseB = JsonSerializer.Deserialize<ServerErrorResponseContract>(responseString);
+                    }
+                    catch (JsonException)
+                    {
+                        throw new NotFoundException(NotFoundException.message);
+                    }
                     throw new NotFoundException(NotFoundException.message + " " + responseB.Message);
                 case (System.Net.HttpStatusCode)500:
                     throw new InternalServerErrorException(InternalServerErrorException.message);
@@ -151,7 +159,7 @@ namespace tDevkit
         }
         #endregion
 
-        #region AUTHORIZATION (2/3)
+        #region AUTHORIZATION (3/3)
         public async Task<HttpResponseMessage> DeleteCurrentToken()
         {
             string subUrl = Address.AuthorizationToken;
@@ -165,24 +173,24 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<HttpResponseMessage> GetToken()
+        public async Task<AuthenticationResponseContract> GetToken()
         {
-            string url = Address.AuthorizationToken;
+            string subUrl = Address.AuthorizationToken;
 
-            var task = await SendGetRequest(url);
+            var response = await GetRequest<AuthenticationResponseContract>(subUrl);
 
-            if (task.IsSuccessStatusCode)
-            {
-                var responseString = await task.Content.ReadAsStringAsync();
+            if (response.ErrorMessage != null)
+                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
 
-                AuthenticationResponseContract response = JsonSerializer.Deserialize<AuthenticationResponseContract>(responseString);
+            connectionOptions.Token = response.Token;
+            if (response.Client != null)
+                connectionOptions.ClientGuid = response.Client;
+            if (response.Branch != null)
+                connectionOptions.BranchGuid = response.Branch;
 
-                connectionOptions.Token = response.Token;
-                httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
-            }
+            resetHttpClientHeaders();
 
-            return task;
-
+            return response;
         }
         public async Task<AuthenticationResponseContract> Authenticate(bool superUser)
         {
@@ -252,14 +260,14 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<AddBeaconResponseContract> UpdateBeacon(BeaconContract beaconContract)
+        public async Task<PatchResponseContract> UpdateBeacon(BeaconContract beaconContract)
         {
             if (beaconContract.Id == 0)
             {
                 throw new BadRequestException(NotFoundException.message + " Beacon object has no Id.");
             }
             string subUrl = Address.Beacons + beaconContract.Id;
-            var response = await PatchRequest<AddBeaconResponseContract>(subUrl, beaconContract);
+            var response = await PatchRequest(subUrl, beaconContract);
 
             if (response.ErrorMessage != null)
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
@@ -467,6 +475,37 @@ namespace tDevkit
 
             return response;
         }
+        public async Task<SensorContract> AddSensor(SensorContract sensorContract)
+        {
+            string subUrl = Address.Sensors;
+            var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
+
+            if (response.ErrorMessage != null)
+                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return (SensorContract)response;
+        }
+        public async Task<SensorContract> GetSensor(int id)
+        {
+            string subUrl = Address.Sensors + id;
+            var response = await GetRequest<SensorContract>(subUrl);
+
+            return response;
+        }
+        public async Task<PatchResponseContract> UpdateSensor(SensorContract sensorContract)
+        {
+            if (sensorContract.Id == 0)
+            {
+                throw new BadRequestException(NotFoundException.message + " Sensor object has no Id.");
+            }
+            string subUrl = Address.Sensors + sensorContract.Id;
+            var response = await PatchRequest(subUrl, sensorContract);
+
+            if (response.ErrorMessage != null)
+                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return response;
+        }
         public async void GetSensorAppFile()
         {
             //string subUrl = Address.SensorsAppFile;
@@ -533,6 +572,49 @@ namespace tDevkit
         {
             string subUrl = Address.Users;
             var response = await GetRequest<UserContract>(subUrl);
+
+            return response;
+        }
+        #endregion
+
+        #region UTILS (5/5)
+        public async Task<FileInfoContract[]> GetDemoFilesInfo()
+        {
+            string subUrl = Address.UtilsDemoFilesInfo;
+            var response = await GetRequest<FileInfoContract[]>(subUrl);
+
+            return response;
+        }
+        public async Task<byte[]> GetFile(string fileName)
+        {
+            string subUrl = Address.UtilsFile + fileName;
+
+            return await GetFile(fileName, subUrl);
+        }
+        public async Task<byte[]> GetDemoFile(string fileName)
+        {
+            string subUrl = Address.UtilsDemoFile + fileName;
+            //File.WriteAllBytes("C:\\Users\\mondr\\source\\repos\\twinzo-sdk\\bytes.jpg", bytes);
+            return await GetFile(fileName, subUrl);            
+        }
+        private async Task<byte[]> GetFile(string fileName, string subUrl)
+        {
+            var task = await SendGetRequest(subUrl);
+
+            string responseString = await ProcessResponse(task);
+            return Encoding.UTF8.GetBytes(responseString);
+        }
+        public async Task<string> GetUnityLastVersion(string platform)
+        {
+            string subUrl = Address.UtilsUnityLastVersion + platform;
+            var response = await GetRequest<UserContract>(subUrl);
+
+            return null;
+        }
+        public async Task<FileInfoContract> GetUnityBundleInfo(string bundleName)
+        {
+            string subUrl = Address.UtilsUnityBundleInfo + bundleName;
+            var response = await GetRequest<FileInfoContract>(subUrl);
 
             return response;
         }

@@ -43,5 +43,11 @@ namespace SDK.Models
         public const string SensorsAddData = "sensors/sensor-data/";
 
         public const string Users = "users/detail";
+
+        public const string UtilsDemoFilesInfo = "utils/demo-files-info/";
+        public const string UtilsFile = "utils/file/";
+        public const string UtilsDemoFile = "utils/demo-file/";
+        public const string UtilsUnityLastVersion = "utils/unity-last-version/";
+        public const string UtilsUnityBundleInfo = "utils/unity-bundle-info/";
     }
 }

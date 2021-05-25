@@ -5,6 +5,7 @@ using SDK.Contracts.Data;
 using SDK.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using tDevkit;
@@ -52,8 +53,11 @@ namespace Main
             AuthenticationResponseContract auth = await devkitConnector.Authenticate(true);
             Console.WriteLine(auth);
 
-            HttpResponseMessage auth2 = await devkitConnector.DeleteCurrentToken();
-            Console.WriteLine(auth2);
+            //AuthenticationResponseContract auth2 = await devkitConnector.GetToken();
+            //Console.WriteLine(auth2);
+
+            //HttpResponseMessage auth3 = await devkitConnector.DeleteCurrentToken();
+            //Console.WriteLine(auth3);
 
             //----------AREAS
 
@@ -77,7 +81,7 @@ namespace Main
             //BeaconContract beacon4 = await devkitConnector.GetBeacon(34);
             //Console.WriteLine(beacon4);
 
-            //BeaconContract beacon5 = await devkitConnector.UpdateBeacon(TestData.GetBeaconPatch());
+            //var beacon5 = await devkitConnector.UpdateBeacon(TestData.GetBeaconPatch());
             //Console.WriteLine(beacon5);
 
             //----------BRANCHES
@@ -98,8 +102,8 @@ namespace Main
             //ConfigurationContract config1 = await devkitConnector.GetBranchConfiguration("3D_APP");
             //Console.WriteLine(config1);
 
-            //AuthenticationResponseContract auth2 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
-            //Console.WriteLine(auth2);
+            //AuthenticationResponseContract auth3 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
+            //Console.WriteLine(auth3);
 
             //ConfigurationContract config2 = await devkitConnector.GetAccountConfiguration("3D_APP");
             //Console.WriteLine(config2);
@@ -109,8 +113,8 @@ namespace Main
 
             //----------DEVICES
 
-            //AuthenticationResponseContract auth2 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
-            //Console.WriteLine(auth2);
+            //AuthenticationResponseContract auth4 = await devkitConnector.Authenticate("sdk-device", "awMMSgtzhZ8X29l", false);
+            //Console.WriteLine(auth4);
 
             //List<DeviceContract> device1 = await devkitConnector.GetDevices();
             //Console.WriteLine(device1);
@@ -154,8 +158,8 @@ namespace Main
 
             //----------SENSORS
 
-            //AuthenticationResponseContract auth3 = await devkitConnector.Authenticate("sdk-sensor", "PtfnmktJucgkP9t", false);
-            //Console.WriteLine(auth3);
+            //AuthenticationResponseContract auth5 = await devkitConnector.Authenticate("sdk-sensor", "PtfnmktJucgkP9t", false);
+            //Console.WriteLine(auth5);
 
             //List<SensorDataContract> dataList = new List<SensorDataContract>();
             //SensorDataContract data1 = new SensorDataContract
@@ -188,6 +192,15 @@ namespace Main
             //List<SensorContract> sensor1 = await devkitConnector.GetSensors();
             //Console.WriteLine(sensor1);
 
+            //SensorContract sensor6 = await devkitConnector.AddSensor(TestData.GetSensor());
+            //Console.WriteLine(sensor6);
+
+            //SensorContract sensor7 = await devkitConnector.GetSensor(7351);
+            //Console.WriteLine(sensor7);
+
+            PatchResponseContract sensor8 = await devkitConnector.UpdateSensor(TestData.GetSensorUpdate());
+            Console.WriteLine(sensor8);
+
             //DeviceContract sensor2 = await devkitConnector.GetDevice(3);
             //Console.WriteLine(sensor2);
 
@@ -202,11 +215,28 @@ namespace Main
 
             //----------USERS
 
-            //AuthenticationResponseContract auth3 = await devkitConnector.Authenticate("sdk-user", "K0H4k0gal2gyqem", false);
-            //Console.WriteLine(auth3);
+            //AuthenticationResponseContract auth6 = await devkitConnector.Authenticate("sdk-user", "K0H4k0gal2gyqem", false);
+            //Console.WriteLine(auth6);
 
             //UserContract user1 = await devkitConnector.GetUserInfo();
             //Console.WriteLine(user1);
+
+            //----------UTILS
+
+            //FileInfoContract[] utils1 = await devkitConnector.GetDemoFilesInfo();
+            //Console.WriteLine(utils1);
+
+            //byte[] utils2 = await devkitConnector.GetFile("00000000-0000-0000-0000-000000000001-android-manifest");
+            //Console.WriteLine(utils2);
+
+            //byte[] utils3 = await devkitConnector.GetDemoFile("showcaseoffice-thumbnail");
+            //Console.WriteLine(utils3);
+
+            //string utils4 = await devkitConnector.GetUnityLastVersion("windows");
+            //Console.WriteLine(utils4);
+
+            //FileInfoContract utils5 = await devkitConnector.GetUnityBundleInfo();
+            //Console.WriteLine(utils5);
         }
 
     }
