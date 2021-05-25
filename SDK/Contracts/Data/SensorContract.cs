@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDK.Contracts.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace SDK.Models
 {
-    public class SensorContract
+    public class SensorContract : AccountContract
     {
         public int Id { get; set; }
-
-        public string Login { get; set; }
 
         public string Title { get; set; }
 
