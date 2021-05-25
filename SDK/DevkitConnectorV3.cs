@@ -467,7 +467,7 @@ namespace tDevkit
         }
         #endregion
 
-        #region SENSORS (4/5)
+        #region SENSORS (7/8)
         public async Task<SensorContract[]> GetSensors()
         {
             string subUrl = Address.Sensors;
