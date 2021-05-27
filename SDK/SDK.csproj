@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>tDevKit</PackageId>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
