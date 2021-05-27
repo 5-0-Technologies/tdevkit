@@ -3,6 +3,7 @@
   <PropertyGroup>
     <PackageId>tDevKit</PackageId>
     <OutputType>Exe</OutputType>
+    <NetStandardImplicitPackageVersion>1.1.0</NetStandardImplicitPackageVersion>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
