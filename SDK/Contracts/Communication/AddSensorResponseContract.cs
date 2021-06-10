@@ -32,21 +32,21 @@ namespace SDK.Contracts.Communication
 
         public int AreaId { get; set; }
 
-        public static explicit operator SensorContract(AddSensorResponseContract addBeaconResponseContract)
+        public static explicit operator SensorContract(AddSensorResponseContract addSensorResponseContract)
         {
             return new SensorContract
             {
-                Id = addBeaconResponseContract.Id,
-                Login = addBeaconResponseContract.Login,
-                Password = addBeaconResponseContract.Password,
-                Salt = addBeaconResponseContract.Salt,
-                Title = addBeaconResponseContract.Title,
-                Mac = addBeaconResponseContract.Mac,
-                X = addBeaconResponseContract.X,
-                Y = addBeaconResponseContract.Y,
-                SectorId = addBeaconResponseContract.SectorId,
-                SensorData = addBeaconResponseContract.SensorData,
-                AreaId = addBeaconResponseContract.AreaId
+                Id = addSensorResponseContract.Id,
+                Login = addSensorResponseContract.Login,
+                //Password = addSensorResponseContract.Password,
+                //Salt = addSensorResponseContract.Salt,
+                Title = addSensorResponseContract.Title,
+                Mac = addSensorResponseContract.Mac,
+                X = addSensorResponseContract.X,
+                Y = addSensorResponseContract.Y,
+                SectorId = addSensorResponseContract.SectorId,
+                SensorData = addSensorResponseContract.SensorData,
+                AreaId = addSensorResponseContract.AreaId
             };
         }
     }
