@@ -41,33 +41,33 @@ namespace Test
         [TestMethod]
         public async Task Sectors3()
         {
-            await A_Authenticate();
-            SectorContract sector = await devkitConnector.AddSector(TestData.GetSector());
-            Assert.IsNotNull(sector);
-            await A_DeleteToken();
+            //await A_Authenticate();
+            //SectorContract sector = await devkitConnector.AddSector(TestData.GetSector());
+            //Assert.IsNotNull(sector);
+            //await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sectors4()
         {
-            await A_Authenticate();
+            //await A_Authenticate();
 
-            SectorContract sectorData = TestData.GetSector();
+            //SectorContract sectorData = TestData.GetSector();
 
-            SectorContract sector = await devkitConnector.AddSector(sectorData);
-            sector.Title = "aaa";
-            sector.BarrierWidth = 20;
-            try
-            {
-                var message = await devkitConnector.UpdateSector(sector);
-                var f = 0;
-            }
-            catch (BadRequestException b)
-            {
-                Assert.IsNotNull(null);
-            }
-            Assert.IsNotNull(sector);
-            await A_DeleteToken();
+            //SectorContract sector = await devkitConnector.AddSector(sectorData);
+            //sector.Title = "aaa";
+            //sector.BarrierWidth = 20;
+            //try
+            //{
+            //    var message = await devkitConnector.UpdateSector(sector);
+            //    var f = 0;
+            //}
+            //catch (BadRequestException b)
+            //{
+            //    Assert.IsNotNull(null);
+            //}
+            //Assert.IsNotNull(sector);
+            //await A_DeleteToken();
         }
     }
 }
