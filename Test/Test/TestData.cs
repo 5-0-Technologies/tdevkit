@@ -20,7 +20,7 @@ namespace Main
                 X = 0,
                 Y = 0,
                 Z = 0,
-                Title = "sdk-test",
+                Title = "sdk-beacon",
                 Active = true,
                 TypeId = 23,
                 Position = true,
@@ -50,6 +50,28 @@ namespace Main
                 Cluster = "c1",
                 UseGps = false,
             };
+        }
+
+        public static DeviceContract GetDevice()
+        {
+            DeviceContract device = new DeviceContract
+            {
+                Mac = "00:00:00:00:00:00",
+                BranchId = 1,
+                SectorId = 1,
+                Login = "sdk-device",
+                Title = "sdk-device",
+                X = 10.0,
+                Y = 10.0,
+                //AppVersion = "1.0",
+                IsMoving = false,
+                //FallStatus = 0,
+                //Battery = 46f,
+                DeviceTypeId = 8,
+                Position = false,
+                Geofence = false
+            };
+            return device;
         }
 
         public static DeviceLocationContract[] GetLocalizationDataBatch()
@@ -97,6 +119,19 @@ namespace Main
             };
         }
 
+        public static SectorContract GetSector()
+        {
+            return new()
+            {
+                BranchId = 1,
+                Title = "sector-sdk",
+                BarrierWidth = 10,
+                BarrierHeight = 10,
+                SectorWidth = 10000,
+                SectorHeight = 10000
+            };
+        }
+
         public static SensorContract GetSensor()
         {
             SensorDataContract data1 = new SensorDataContract
@@ -118,9 +153,9 @@ namespace Main
             SensorContract sensor = new SensorContract
             {
                 Id = 7351,
-                Login = "sdk-sensor2",
+                Login = "sdk-sensor",
                 //Password = "sdk",
-                Title = "testtt",
+                Title = "sdk-sensor",
                 SectorId = 2,
                 SensorData = sensorDataContracts,
                 AreaId = 19
