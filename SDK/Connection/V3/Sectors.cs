@@ -4,18 +4,26 @@ using SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
 {
-    //(4/4)
+    //(4/5)
     public partial class DevkitConnectorV3
     {
         public async Task<SectorContract[]> GetSectors()
         {
             string subUrl = Address.Sectors;
             var response = await GetRequest<SectorContract[]>(subUrl);
+
+            return response;
+        }
+        public async Task<SectorContract> GetSector(int id)
+        {
+            string subUrl = Address.Sectors + id;
+            var response = await GetRequest<SectorContract>(subUrl);
 
             return response;
         }
@@ -29,13 +37,6 @@ namespace tDevkit
 
             return (SectorContract)response;
         }
-        public async Task<SectorContract> GetSector(int id)
-        {
-            string subUrl = Address.Sectors + id;
-            var response = await GetRequest<SectorContract>(subUrl);
-
-            return response;
-        }
         public async Task<PatchResponseContract> UpdateSector(SectorContract sectorContract)
         {
             if (sectorContract.Id == 0)
@@ -47,6 +48,13 @@ namespace tDevkit
 
             if (response.ErrorMessage != null)
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return response;
+        }
+        public async Task<HttpResponseMessage> DeleteSector(int id)
+        {
+            string subUrl = Address.Sectors + id;
+            var response = await DeleteRequest(subUrl);
 
             return response;
         }

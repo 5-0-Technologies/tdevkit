@@ -10,17 +10,17 @@ namespace SDK.Models
     {
         public int Id { get; set; }
 
-        public int SectorId { get; set; }
+        public int? SectorId { get; set; }
 
         public int BranchId { get; set; }
 
         public string Mac { get; set; }
 
-        public double X { get; set; }
+        public double? X { get; set; }
 
-        public double Y { get; set; }
+        public double? Y { get; set; }
 
-        public double Z { get; set; }
+        public double? Z { get; set; }
 
         public string Title { get; set; }
 
@@ -28,15 +28,15 @@ namespace SDK.Models
 
         public bool Position { get; set; }
 
-        public int TypeId { get; set; }
+        public int? TypeId { get; set; }
 
         public bool Geofence { get; set; }
 
-        public double GeofenceRange { get; set; }
+        public double? GeofenceRange { get; set; }
 
         public string Cluster { get; set; }
 
-        public long LastTimeOnline { get; set; }
+        public long? LastTimeOnline { get; set; }
 
         public bool UseGps { get; set; }
 

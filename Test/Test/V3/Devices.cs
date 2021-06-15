@@ -7,12 +7,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tDevkit;
 
 namespace Test
 {
-    //(7/8)
+    //(8/9)
     public partial class TestClass
     {
+        //[TestMethod]
+        public async Task Devices0()
+        {
+            DevkitConnectorV3 temp = Helper.GetConnector2();
+            await devkitConnector.AddDevice(
+                new DeviceContract()
+                {
+                    Title = "testt",
+                    Login = "testt",
+                    DeviceTypeId = 4
+                }
+            );
+        }
+
         [TestMethod]
         public async Task Devices1()
         {
@@ -75,40 +90,65 @@ namespace Test
         [TestMethod]
         public async Task Devices6()
         {
-            //await A_Authenticate();
-            //DeviceContract device = await devkitConnector.AddDevice(TestData.GetDevice());
-            //Assert.IsNotNull(device);
-            //await A_DeleteToken();
+            await A_Authenticate();
+            DeviceContract device = await devkitConnector.AddDevice(TestData.GetDevice());
+            DeviceContract device2 = null;
+            try
+            {
+                device2 = await devkitConnector.AddDevice(TestData.GetDevice());
+            }
+            catch (BadRequestException)
+            {
+                Assert.IsNull(null);
+            }
+            Assert.IsNotNull(device);
+            Assert.IsNull(device2);
+            await devkitConnector.DeleteDevice(device.Id);
+
+            try
+            {
+                device2 = await devkitConnector.GetDevice(device.Id);
+            }
+            catch { }
+            Assert.IsNull(device2);
+            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices7()
         {
-            //await A_Authenticate();
+            await A_Authenticate();
 
-            //DeviceContract deviceData = TestData.GetDevice();
+            DeviceContract deviceData = TestData.GetDevice();
 
-            //DeviceContract device = await devkitConnector.AddDevice(deviceData);
-            //device.X = 20;
-            //device.Position = true;
-            //device.Note = "aaa";
-            //try
-            //{
-            //    var message = await devkitConnector.UpdateDevice(device);
-            //    var f = 0;
-            //}
-            //catch (BadRequestException b)
-            //{
-            //    Assert.IsNotNull(null);
-            //}
-            //Assert.IsNotNull(device);
-            //await A_DeleteToken();
+            DeviceContract device = await devkitConnector.AddDevice(deviceData);
+            device.X = 20;
+            device.Position = true;
+            device.Note = "aaa";
+            try
+            {
+                var message = await devkitConnector.UpdateDevice(device);
+                var temp = 0;
+            }
+            catch (BadRequestException b)
+            {
+                Assert.IsNotNull(null);
+            }
+            Assert.IsNotNull(device);
+            await devkitConnector.DeleteDevice(device.Id);
+            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices8()
         {
+            //Delete je otestovany v add a update
+        }
 
+        [TestMethod]
+        public async Task Devices9()
+        {
+            //Register
         }
     }
 }

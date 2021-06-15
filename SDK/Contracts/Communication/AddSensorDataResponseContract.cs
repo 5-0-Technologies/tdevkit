@@ -10,6 +10,6 @@ namespace SDK.Communication
     {
         public string Login { get; set; }
 
-        public List<SensorDataResponseContract> SensorData { get; set; }
+        public SensorDataResponseContract[] SensorData { get; set; }
     }
 }

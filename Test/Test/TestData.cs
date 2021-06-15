@@ -95,7 +95,7 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
             };
 
-            return new DeviceLocationContract[] { new DeviceLocationContract { Login = "sdk-device", Locations = locationContract } };
+            return new DeviceLocationContract[] { new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract } };
         }
         public static LocationContract[] GetLocalizationData()
         {
@@ -204,10 +204,10 @@ namespace Main
 
             SensorContract sensor = new SensorContract
             {
-                Login = "sdk-sensor",
-                SectorId = 2,
-                SensorData = sensorDataContracts,
-                AreaId = 24
+                Login = "enviro-sdk",
+                //SectorId = 2,
+                //SensorData = sensorDataContracts,
+                //AreaId = 24
             };
             SensorContract[] sensorContracts = new SensorContract[] { sensor };
 

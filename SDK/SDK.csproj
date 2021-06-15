@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Contracts\Data\Aos\" />
     <Folder Include="Managers\" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ namespace SDK.Models
     {
         public int Id { get; set; }
 
-        public string Guid { get; set; }
+        public Guid Guid { get; set; }
 
         public int BranchId { get; set; }
 

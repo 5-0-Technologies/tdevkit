@@ -20,6 +20,13 @@ namespace tDevkit
 
             return response;
         }
+        public async Task<BeaconContract> GetBeacon(int id)
+        {
+            string subUrl = Address.Beacons + id;
+            var response = await GetRequest<BeaconContract>(subUrl);
+
+            return response;
+        }
         public async Task<BeaconContract> AddBeacon(BeaconContract beaconContract)
         {
             string subUrl = Address.Beacons;
@@ -29,20 +36,6 @@ namespace tDevkit
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
 
             return (BeaconContract)response;
-        }
-        public async Task<HttpResponseMessage> DeleteBeacon(int id)
-        {
-            string subUrl = Address.Beacons + id;
-            var response = await DeleteRequest(subUrl);
-
-            return response;
-        }
-        public async Task<BeaconContract> GetBeacon(int id)
-        {
-            string subUrl = Address.Beacons + id;
-            var response = await GetRequest<BeaconContract>(subUrl);
-
-            return response;
         }
         public async Task<PatchResponseContract> UpdateBeacon(BeaconContract beaconContract)
         {
@@ -55,6 +48,13 @@ namespace tDevkit
 
             if (response.ErrorMessage != null)
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+
+            return response;
+        }
+        public async Task<HttpResponseMessage> DeleteBeacon(int id)
+        {
+            string subUrl = Address.Beacons + id;
+            var response = await DeleteRequest(subUrl);
 
             return response;
         }

@@ -15,9 +15,13 @@ namespace SDK.Models
 
         public string Mac { get; set; }
 
-        public double X { get; set; }
+        public string Note { get; set; }
 
-        public double Y { get; set; }
+        public double? X { get; set; }
+
+        public double? Y { get; set; }
+
+        public float? Battery { get; set; }
 
         public int SectorId { get; set; }
 

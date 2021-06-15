@@ -12,7 +12,7 @@ namespace SDK.Models
     {
         public int Id { get; set; }
 
-        public string Guid { get; set; }
+        public Guid Guid { get; set; }
 
         public string Title { get; set; }
 
@@ -24,10 +24,16 @@ namespace SDK.Models
 
         public string Color { get; set; }
 
-        public CoordinatesContract[] Coordinates { get; set; }
+        public PointContract[] Coordinates { get; set; }
+
+        public string Description { get; set; }
+
+        public long Created { get; set; }
+
+        public long Updated { get; set; }
     }
 
-    public class CoordinatesContract
+    public class PointContract
     {
         public double X { get; set; }
 
