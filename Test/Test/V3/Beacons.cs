@@ -55,6 +55,13 @@ namespace Test
             Assert.IsNotNull(beacon);
             Assert.IsNull(beacon2);
             await devkitConnector.DeleteBeacon(beacon.Id);
+
+            try
+            {
+                beacon2 = await devkitConnector.GetBeacon(beacon.Id);
+            }
+            catch { }
+            Assert.IsNull(beacon2);
             await A_DeleteToken();
         }
 
@@ -72,7 +79,7 @@ namespace Test
             try
             {
                 var message = await devkitConnector.UpdateBeacon(beacon);
-                var f = 0;
+                var temp = 0;
             }
             catch (BadRequestException)
             {

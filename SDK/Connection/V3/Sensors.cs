@@ -5,18 +5,26 @@ using SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
 {
-    //(7/8)
+    //(7/9)
     public partial class DevkitConnectorV3
     {
         public async Task<SensorContract[]> GetSensors()
         {
             string subUrl = Address.Sensors;
             var response = await GetRequest<SensorContract[]>(subUrl);
+
+            return response;
+        }
+        public async Task<SensorContract> GetSensor(int id)
+        {
+            string subUrl = Address.Sensors + id;
+            var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
@@ -29,13 +37,6 @@ namespace tDevkit
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
 
             return (SensorContract)response;
-        }
-        public async Task<SensorContract> GetSensor(int id)
-        {
-            string subUrl = Address.Sensors + id;
-            var response = await GetRequest<SensorContract>(subUrl);
-
-            return response;
         }
         public async Task<PatchResponseContract> UpdateSensor(SensorContract sensorContract)
         {
@@ -51,17 +52,10 @@ namespace tDevkit
 
             return response;
         }
-        public async void GetSensorAppFile()
+        public async Task<HttpResponseMessage> DeleteSensor(int id)
         {
-            //string subUrl = Address.SensorsAppFile;
-            //var response = await GetRequest<SensorAppInfoContract>(subUrl);
-
-            //return response;
-        }
-        public async Task<SensorAppInfoContract> GetSensorAppInfo()
-        {
-            string subUrl = Address.SensorsAppInfo;
-            var response = await GetRequest<SensorAppInfoContract>(subUrl);
+            string subUrl = Address.Sensors + id;
+            var response = await DeleteRequest(subUrl);
 
             return response;
         }
@@ -74,7 +68,7 @@ namespace tDevkit
             for (int i = 0; i < response.Length; i++)
             {
                 if (response[i].SensorData != null)
-                    for (int j = 0; j < response[i].SensorData.Count; j++)
+                    for (int j = 0; j < response[i].SensorData.Length; j++)
                     {
                         var sensorDataResult = response[i].SensorData[j];
                         if (sensorDataResult.ErrorMessage != null)
@@ -92,12 +86,12 @@ namespace tDevkit
         public async Task<PostResponseContract> AddSensorData(SensorDataContract[] sensorData)
         {
             string subUrl = Address.SensorsAddData;
-            var response = await PostRequest<AddSensorDataResponseContract>(subUrl, sensorData);
+            var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract
 
-            if (response.SensorData != null)
-                for (int i = 0; i < response.SensorData.Count; i++)
+            if (response != null)
+                for (int i = 0; i < response.Length; i++)
                 {
-                    var sensorDataResult = response.SensorData[i];
+                    var sensorDataResult = response[i];
                     if (sensorDataResult.ErrorMessage != null)
                     {
                         throw new ServerResponseException(ServerResponseException.message +
@@ -105,10 +99,23 @@ namespace tDevkit
                     }
                 }
 
-            if (response.ErrorMessage != null)
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            return new AddSensorDataResponseContract {
+                SensorData = response
+            };
+        }
+        public async Task<SensorAppInfoContract> GetSensorAppInfo()
+        {
+            string subUrl = Address.SensorsAppInfo;
+            var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             return response;
+        }
+        public async void GetSensorAppFile()
+        {
+            //string subUrl = Address.SensorsAppFile;
+            //var response = await GetRequest<SensorAppInfoContract>(subUrl);
+
+            //return response;
         }
     }
 }

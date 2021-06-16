@@ -40,9 +40,9 @@ namespace tDevkit
         public async Task<string> GetUnityLastVersion(string platform)
         {
             string subUrl = Address.UtilsUnityLastVersion + platform;
-            var response = await GetRequest<UserContract>(subUrl);
+            var response = await GetRequest<string>(subUrl);
 
-            return null;
+            return response;
         }
         public async Task<FileInfoContract> GetUnityBundleInfo(string bundleName)
         {

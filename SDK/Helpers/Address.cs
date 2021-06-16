@@ -8,6 +8,22 @@ namespace SDK.Models
 {
     public class Address
     {
+        public const string AosOrders = "aos/orders/";
+        public const string AosNodeInfo = "aos/node-info/";
+        public const string AosWorkGroups = "aos/work-groups/";
+        public const string AosTargets = "aos/targets/";
+        public const string AosAbort = "aos/abort/";
+        public const string AosAccept = "aos/accept/";
+        public const string AosCreate = "aos/create/";
+        public const string AosConnect = "aos/connect/";
+        public const string AosDiscard = "aos/discard/";
+        public const string AosSendTo = "aos/send-to/";
+        public const string AosComplete = "aos/complete/";
+        public const string AosSendBack = "aos/send-back/";
+        public const string AosDisconnect = "aos/disconnect/";
+        public const string AosCreateSplit = "aos/create-split/";
+        public const string AosSendToBatch = "aos/send-to/batch/";
+
         public const string Areas = "areas/";
 
         public const string AuthorizationAuthenticate = "Authorization/Authenticate/";
