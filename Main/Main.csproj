@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyVersion>2021.6.16.1</AssemblyVersion>
-    <FileVersion>2021.6.16.1</FileVersion>
+    <AssemblyVersion>2021.6.16.2</AssemblyVersion>
+    <FileVersion>2021.6.16.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
