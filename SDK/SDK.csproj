@@ -3,9 +3,9 @@
   <PropertyGroup>
     <PackageId>tDevKit</PackageId>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyVersion>2021.6.16.2</AssemblyVersion>
-    <FileVersion>2021.6.16.2</FileVersion>
-    <Version>2021.6.0</Version>
+    <AssemblyVersion>2021.6.17.8</AssemblyVersion>
+    <FileVersion>2021.6.17.8</FileVersion>
+    <Version>2021.6.6</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

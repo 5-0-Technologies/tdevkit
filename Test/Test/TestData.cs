@@ -152,13 +152,13 @@ namespace Main
 
             SensorContract sensor = new SensorContract
             {
-                Id = 7351,
+                //Id = 7351,
                 Login = "sdk-sensor",
                 //Password = "sdk",
                 Title = "sdk-sensor",
                 SectorId = 2,
                 SensorData = sensorDataContracts,
-                AreaId = 19
+                //AreaId = 19
             };
 
             return sensor;

@@ -17,15 +17,15 @@ namespace Test
         //[TestMethod]
         public async Task Devices0()
         {
-            DevkitConnectorV3 temp = Helper.GetConnector2();
-            await devkitConnector.AddDevice(
-                new DeviceContract()
-                {
-                    Title = "testt",
-                    Login = "testt",
-                    DeviceTypeId = 4
-                }
-            );
+            //DevkitConnectorV3 temp = Helper.GetConnectorWhirpool();
+            //await devkitConnector.AddDevice(
+            //    new DeviceContract()
+            //    {
+            //        Title = "testt",
+            //        Login = "testt",
+            //        DeviceTypeId = 4
+            //    }
+            //);
         }
 
         [TestMethod]
