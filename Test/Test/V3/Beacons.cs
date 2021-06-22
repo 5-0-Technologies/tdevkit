@@ -32,7 +32,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.GetBeacon(1);
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(beacon1);
             Assert.IsNull(beacon2);
             await A_DeleteToken();
@@ -48,7 +48,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.AddBeacon(TestData.GetBeacon());
             }
-            catch (BadRequestException)
+            catch (BadRequestException exception)
             {
                 Assert.IsNull(null);
             }
@@ -60,7 +60,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.GetBeacon(beacon.Id);
             }
-            catch { }
+            catch (NotFoundException exception) { }
             Assert.IsNull(beacon2);
             await A_DeleteToken();
         }
@@ -81,7 +81,7 @@ namespace Test
                 var message = await devkitConnector.UpdateBeacon(beacon);
                 var temp = 0;
             }
-            catch (BadRequestException)
+            catch (BadRequestException exception)
             {
                 Assert.IsNotNull(null);
             }

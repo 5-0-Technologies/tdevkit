@@ -30,7 +30,7 @@ namespace Test
             {
                 area2 = await devkitConnector.GetArea(3);
             }
-            catch (NotFoundException) {}
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(area1);
             Assert.IsNull(area2);
             await A_DeleteToken();

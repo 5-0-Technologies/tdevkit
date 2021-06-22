@@ -27,13 +27,13 @@ namespace Test
         public async Task Sensors2()
         {
             await A_Authenticate();
-            SensorContract sensor1 = await devkitConnector.GetSensor(37);
+            SensorContract sensor1 = await devkitConnector.GetSensor(5271);
             SensorContract sensor2 = null;
             try
             {
                 sensor2 = await devkitConnector.GetSensor(1);
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(sensor1);
             Assert.IsNull(sensor2);
             await A_DeleteToken();
@@ -49,7 +49,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.AddSensor(TestData.GetSensor());
             }
-            catch (BadRequestException)
+            catch (BadRequestException exception)
             {
                 Assert.IsNull(null);
             }
@@ -61,7 +61,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.GetSensor(sensor.Id);
             }
-            catch { }
+            catch  (NotFoundException exception) { }
             Assert.IsNull(sensor2);
             await A_DeleteToken();
         }
@@ -81,7 +81,7 @@ namespace Test
                 var message = await devkitConnector.UpdateSensor(sensor);
                 var temp = 0;
             }
-            catch (BadRequestException b)
+            catch (BadRequestException exception)
             {
                 Assert.IsNotNull(null);
             }

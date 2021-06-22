@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace SDK.Contracts.Data
 {
-    [DataContract]
     public class DeviceLocationContract
     {
         [Required]
@@ -17,7 +16,6 @@ namespace SDK.Contracts.Data
         public LocationContract[] Locations { get; set; }
     }
 
-    [DataContract]
     public class LocationContract
     {
         [Required]
@@ -40,7 +38,6 @@ namespace SDK.Contracts.Data
         public DistanceContract[] Distances { get; set; }
     }
 
-    [DataContract]
     public class DistanceContract
     {
         public int BeaconId { get; set; }

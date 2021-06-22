@@ -26,19 +26,5 @@ namespace Test
 
             return (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
         }
-        public static DevkitConnectorV3 GetConnector2()
-        {
-            ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
-            ConnectionOptions connectionOptions = optionsBuilder
-                .Url("http://twin.develop.rtls.solutions:8080/api/")
-                .Client("whirlpool")
-                .ClientGuid("a4b82880-9dca-41f1-971a-73690dd8b222")
-                .BranchGuid("87bdd503-fd94-46b7-ad0a-9e33fdd0c598")
-                .ApiKey("cmtOlrZbFUiEFjnXHpeMMjXkXOU2X6BYpcbICJBK")
-                .Version(ConnectionOptions.VERSION_3)
-                .Build();
-
-            return (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
-        }
     }
 }

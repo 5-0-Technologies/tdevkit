@@ -28,15 +28,15 @@ namespace SDK.Contracts.Communication
 
         public long Modified { get; set; }
 
-        public GpsItemContract[] GpsItems { get; set; }
+        public GpsItemContract[]? GpsItems { get; set; }
 
-        public AreaContract[] Areas { get; set; }
+        public AreaContract[]? Areas { get; set; }
 
-        public BarrierContract[] Barriers { get; set; }
+        public BarrierContract[]? Barriers { get; set; }
 
-        public BeaconContract[] Beacons { get; set; }
+        public BeaconContract[]? Beacons { get; set; }
 
-        public SensorContract[] Sensors { get; set; }
+        public SensorContract[]? Sensors { get; set; }
 
         public static explicit operator SectorContract(AddSectorResponseContract addSectorResponseContract)
         {
