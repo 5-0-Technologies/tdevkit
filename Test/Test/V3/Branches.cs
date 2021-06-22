@@ -31,7 +31,7 @@ namespace Test
             {
                 branch2 = await devkitConnector.GetBranch(3);
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(branch1);
             Assert.IsNull(branch2);
             await A_DeleteToken();

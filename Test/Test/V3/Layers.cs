@@ -31,7 +31,7 @@ namespace Test
             {
                 layer2 = await devkitConnector.GetLayer(14);
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(layer1);
             Assert.IsNull(layer2);
             await A_DeleteToken();

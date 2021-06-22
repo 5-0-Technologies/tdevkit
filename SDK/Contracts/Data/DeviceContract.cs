@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Data;
+﻿using Core.Enum;
+using SDK.Contracts.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace SDK.Models
 
         public bool IsMoving { get; set; }
 
-        public int FallStatus { get; set; }
+        public FallType FallStatus { get; set; }
 
         public float? Battery { get; set; }
 

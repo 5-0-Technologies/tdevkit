@@ -47,7 +47,7 @@ namespace Test
             {
                 device2 = await devkitConnector.GetDevice(1);
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(device1);
             Assert.IsNull(device2);
             await A_DeleteToken();
@@ -63,7 +63,7 @@ namespace Test
             {
                 device2 = await devkitConnector.GetDevice("sdk-device2");
             }
-            catch (NotFoundException) { }
+            catch (NotFoundException exception) { }
             Assert.IsNotNull(device1);
             Assert.IsNull(device2);
             await A_DeleteToken();
@@ -97,7 +97,7 @@ namespace Test
             {
                 device2 = await devkitConnector.AddDevice(TestData.GetDevice());
             }
-            catch (BadRequestException)
+            catch (BadRequestException exception)
             {
                 Assert.IsNull(null);
             }
@@ -109,7 +109,7 @@ namespace Test
             {
                 device2 = await devkitConnector.GetDevice(device.Id);
             }
-            catch { }
+            catch (NotFoundException exception) { }
             Assert.IsNull(device2);
             await A_DeleteToken();
         }
@@ -130,7 +130,7 @@ namespace Test
                 var message = await devkitConnector.UpdateDevice(device);
                 var temp = 0;
             }
-            catch (BadRequestException b)
+            catch (BadRequestException exception)
             {
                 Assert.IsNotNull(null);
             }

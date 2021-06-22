@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Data;
+﻿using Core.Enum;
+using SDK.Contracts.Data;
 using SDK.Models;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace Main
                 Y = 10.0,
                 //AppVersion = "1.0",
                 IsMoving = false,
-                //FallStatus = 0,
+                FallStatus = FallType.OK,
                 //Battery = 46f,
                 DeviceTypeId = 8,
                 Position = false,
