@@ -57,6 +57,7 @@ namespace SDK.Models
         public const string SensorsAppInfo = "sensors/app-info/";
         public const string SensorsAddDataBatch = "sensors/batch/";
         public const string SensorsAddData = "sensors/sensor-data/";
+        public const string SensorsLogin = "sensors/login/";
 
         public const string Users = "users/detail";
 

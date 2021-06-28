@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace tDevkit
 {
-    //(7/9)
+    //(9/10)
     public partial class DevkitConnectorV3
     {
         public async Task<SensorContract[]> GetSensors()
@@ -24,6 +24,13 @@ namespace tDevkit
         public async Task<SensorContract> GetSensor(int id)
         {
             string subUrl = Address.Sensors + id;
+            var response = await GetRequest<SensorContract>(subUrl);
+
+            return response;
+        }
+        public async Task<SensorContract> GetSensor(string login)
+        {
+            string subUrl = Address.SensorsLogin + login;
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
