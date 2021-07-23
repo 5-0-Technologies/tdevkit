@@ -28,6 +28,8 @@ namespace SDK.Contracts.Communication
 
         public long Modified { get; set; }
 
+        public string Configuration { get; set; }
+
         public GpsItemContract[]? GpsItems { get; set; }
 
         public AreaContract[]? Areas { get; set; }
@@ -51,6 +53,7 @@ namespace SDK.Contracts.Communication
                 SectorWidth = addSectorResponseContract.SectorWidth,
                 SectorHeight = addSectorResponseContract.SectorHeight,
                 Modified = addSectorResponseContract.Modified,
+                Configuration = addSectorResponseContract.Configuration,
                 GpsItems = addSectorResponseContract.GpsItems,
                 Areas = addSectorResponseContract.Areas,
                 Barriers = addSectorResponseContract.Barriers,

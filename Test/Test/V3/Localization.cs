@@ -25,8 +25,8 @@ namespace Test
         public async Task Localization2()
         {
             await devkitConnector.Authenticate("rtu-sdk", "RONsM9KzoiRW2vO", false);
-            PostResponseContract[] local = await devkitConnector.AddLocalizationData(TestData.GetLocalizationData());
-            Assert.IsTrue(local[0].Success);
+            PostResponseContract local = await devkitConnector.AddLocalizationData(TestData.GetLocalizationData());
+            Assert.IsTrue(local.Success);
         }
     }
 }

@@ -26,6 +26,8 @@ namespace SDK.Models
 
         public long Modified { get; set; }
 
+        public string Configuration { get; set; }
+
         public GpsItemContract[]? GpsItems { get; set; }
 
         public AreaContract[]? Areas { get; set; }
