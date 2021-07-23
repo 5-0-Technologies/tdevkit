@@ -36,25 +36,23 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<PostResponseContract[]> AddLocalizationData(LocationContract[] locationContract)
+        public async Task<PostResponseContract> AddLocalizationData(LocationContract[] locationContract)
         {
             string subUrl = Address.LocalizationAddData;
-            var response = await PostRequest<AddLocatizationDataResponseContract[]>(subUrl, locationContract);
+            var response = await PostRequest<AddLocatizationDataResponseContract>(subUrl, locationContract);
 
-            for (int i = 0; i < response.Length; i++)
-            {
-                if (response[i].Locations != null)
-                    for (int j = 0; j < response[i].Locations.Count; j++)
+
+                if (response.Locations != null)
+                    for (int i = 0; i < response.Locations.Count; i++)
                     {
-                        var dataResult = response[i].Locations[j];
+                        var dataResult = response.Locations[i];
                         if (dataResult.ErrorMessage != null)
                         {
                             throw new ServerResponseException(ServerResponseException.message + dataResult.ErrorMessage);
                         }
                     }
-                if (response[i].ErrorMessage != null)
-                    throw new ServerResponseException(ServerResponseException.message + " " + response[i].ErrorMessage);
-            }
+                if (response.ErrorMessage != null)
+                    throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);           
 
             return response;
         }

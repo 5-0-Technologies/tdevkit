@@ -29,7 +29,7 @@ namespace Test
             LayerContract layer2 = null;
             try
             {
-                layer2 = await devkitConnector.GetLayer(14);
+                layer2 = await devkitConnector.GetLayer(15);
             }
             catch (NotFoundException exception) { }
             Assert.IsNotNull(layer1);
