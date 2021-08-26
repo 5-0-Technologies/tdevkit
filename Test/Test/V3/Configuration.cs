@@ -14,16 +14,13 @@ namespace Test
         [TestMethod]
         public async Task Configuration1()
         {
-            await A_Authenticate();
             ConfigurationContract config = await devkitConnector.GetBranchConfiguration("3D_APP");
             Assert.IsNotNull(config);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Configuration2()
         {
-            await devkitConnector.Authenticate("rtu-sdk", "RONsM9KzoiRW2vO", false);
             ConfigurationContract config = await devkitConnector.GetAccountConfiguration("3D_APP");
             Assert.IsNotNull(config);
         }
@@ -31,10 +28,8 @@ namespace Test
         [TestMethod]
         public async Task Configuration3()
         {
-            await A_Authenticate();
             long config = await devkitConnector.GetConfigurationLastChange("3D_APP");
-            Assert.AreEqual(config, -1);
-            await A_DeleteToken();
+            Assert.AreNotEqual(config, -1);
         }
     }
 }

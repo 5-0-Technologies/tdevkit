@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SDK.Contracts.Data;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
@@ -13,24 +14,24 @@ namespace Test
     public partial class TestClass
     {
         [TestMethod]
-        public async Task Branches1()
+        public async Task Shifts1()
         {
-            BranchContract[] branch = await devkitConnector.GetBranches();
-            Assert.IsNotNull(branch[0]);
+            ShiftContract[] shift = await devkitConnector.GetShifts();
+            Assert.IsNotNull(shift[0]);
         }
 
         [TestMethod]
-        public async Task Branches2()
+        public async Task Shifts2()
         {
-            BranchContract branch1 = await devkitConnector.GetBranch(1);
-            BranchContract branch2 = null;
+            ShiftContract shift1 = await devkitConnector.GetShift(1);
+            ShiftContract shift2 = null;
             try
             {
-                branch2 = await devkitConnector.GetBranch(3);
+                shift2 = await devkitConnector.GetShift(6);
             }
             catch (NotFoundException exception) { }
-            Assert.IsNotNull(branch1);
-            Assert.IsNull(branch2);
+            Assert.IsNotNull(shift1);
+            Assert.IsNull(shift2);
         }
     }
 }

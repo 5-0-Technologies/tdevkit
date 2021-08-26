@@ -25,5 +25,12 @@ namespace tDevkit
 
             return response;
         }
+        public async Task<LayerNoGoContract[]> GetNoGoLayers(string deviceLogin)
+        {
+            string subUrl = Address.LayersNoGo + deviceLogin;
+            var response = await GetRequest<LayerNoGoContract[]>(subUrl);
+
+            return response;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Data;
 using SDK.Exceptions;
+using SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,13 @@ namespace Test
         [TestMethod]
         public async Task Layers1()
         {
-            await A_Authenticate();
             LayerContract[] layer = await devkitConnector.GetLayers();
             Assert.IsNotNull(layer[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Layers2()
         {
-            await A_Authenticate();
             LayerContract layer1 = await devkitConnector.GetLayer(1);
             LayerContract layer2 = null;
             try
@@ -34,7 +32,16 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(layer1);
             Assert.IsNull(layer2);
-            await A_DeleteToken();
+        }
+
+        [TestMethod]
+        public async Task Layers3()
+        {
+            DeviceContract device = await devkitConnector.GetDevice(8391);
+            Assert.IsNotNull(device);
+
+            LayerNoGoContract[] layer = await devkitConnector.GetNoGoLayers(device.Login);
+            Assert.IsNotNull(layer[0]);
         }
     }
 }

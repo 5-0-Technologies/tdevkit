@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace SDK.Models
 {
-    [DataContract]
     public class DeviceContract : AccountContract
     {
         public int Id { get; set; }

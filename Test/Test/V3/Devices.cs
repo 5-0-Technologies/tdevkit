@@ -14,33 +14,16 @@ namespace Test
     //(8/9)
     public partial class TestClass
     {
-        //[TestMethod]
-        public async Task Devices0()
-        {
-            //DevkitConnectorV3 temp = Helper.GetConnectorWhirpool();
-            //await devkitConnector.AddDevice(
-            //    new DeviceContract()
-            //    {
-            //        Title = "testt",
-            //        Login = "testt",
-            //        DeviceTypeId = 4
-            //    }
-            //);
-        }
-
         [TestMethod]
         public async Task Devices1()
         {
-            await A_Authenticate();
             DeviceContract[] device = await devkitConnector.GetDevices();
             Assert.IsNotNull(device[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices2()
         {
-            await A_Authenticate();
             DeviceContract device1 = await devkitConnector.GetDevice(3);
             DeviceContract device2 = null;
             try
@@ -50,13 +33,11 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(device1);
             Assert.IsNull(device2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices3()
         {
-            await A_Authenticate();
             DeviceContract device1 = await devkitConnector.GetDevice("RTU1");
             DeviceContract device2 = null;
             try
@@ -66,31 +47,25 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(device1);
             Assert.IsNull(device2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices4()
         {
-            await A_Authenticate();
             DynamicDeviceContract[] device = await devkitConnector.GetDynamicDevices();
             Assert.IsNotNull(device[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices5()
         {
-            await A_Authenticate();
             DynamicDeviceContract[] device = await devkitConnector.GetDynamicDevicesShort();
             Assert.IsNotNull(device[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices6()
         {
-            await A_Authenticate();
             DeviceContract device = await devkitConnector.AddDevice(TestData.GetDevice());
             DeviceContract device2 = null;
             try
@@ -111,13 +86,11 @@ namespace Test
             }
             catch (NotFoundException exception) { }
             Assert.IsNull(device2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Devices7()
         {
-            await A_Authenticate();
 
             DeviceContract deviceData = TestData.GetDevice();
 
@@ -136,7 +109,6 @@ namespace Test
             }
             Assert.IsNotNull(device);
             await devkitConnector.DeleteDevice(device.Id);
-            await A_DeleteToken();
         }
 
         [TestMethod]

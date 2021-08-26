@@ -16,16 +16,13 @@ namespace Test
         [TestMethod]
         public async Task Sectors1()
         {
-            await A_Authenticate();
             SectorContract[] sector = await devkitConnector.GetSectors();
             Assert.IsNotNull(sector[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sectors2()
         {
-            await A_Authenticate();
             SectorContract sector1 = await devkitConnector.GetSector(1);
             SectorContract sector2 = null;
             try
@@ -35,13 +32,11 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(sector1);
             Assert.IsNull(sector2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sectors3()
         {
-            await A_Authenticate();
             SectorContract sector = await devkitConnector.AddSector(TestData.GetSector());
             Assert.IsNotNull(sector);
             await devkitConnector.DeleteSector(sector.Id);
@@ -53,13 +48,11 @@ namespace Test
             }
             catch (NotFoundException exception) { }
             Assert.IsNull(sector2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sectors4()
         {
-            //await A_Authenticate();
             //SectorContract sectorData = TestData.GetSector();
             //SectorContract sector = await devkitConnector.AddSector(sectorData);
             //sector.BarrierWidth = 20;
@@ -74,7 +67,6 @@ namespace Test
             //}
             //Assert.IsNotNull(sector);
             //await devkitConnector.DeleteSector(sector.Id);
-            //await A_DeleteToken();
         }
 
 

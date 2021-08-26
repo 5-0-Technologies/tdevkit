@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace SDK.Models
 {
-    [DataContract]
     public class AreaContract
     {
         public int Id { get; set; }

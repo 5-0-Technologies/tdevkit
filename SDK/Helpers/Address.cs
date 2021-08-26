@@ -46,6 +46,7 @@ namespace SDK.Models
         public const string DevicesRegister = "devices/register/";
 
         public const string Layers = "layers/";
+        public const string LayersNoGo = "layers/device/";
 
         public const string LocalizationAddData = "localization/";
         public const string LocalizationAddDataBatch = "localization/batch/";
@@ -58,6 +59,8 @@ namespace SDK.Models
         public const string SensorsAddDataBatch = "sensors/batch/";
         public const string SensorsAddData = "sensors/sensor-data/";
         public const string SensorsLogin = "sensors/login/";
+
+        public const string Shifts = "shifts/";
 
         public const string Users = "users/detail";
 

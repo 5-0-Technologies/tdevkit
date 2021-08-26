@@ -17,16 +17,13 @@ namespace Test
         [TestMethod]
         public async Task Sensors1()
         {
-            await A_Authenticate();
             SensorContract[] sensor = await devkitConnector.GetSensors();
             Assert.IsNotNull(sensor[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sensors2()
         {
-            await A_Authenticate();
             SensorContract sensor1 = await devkitConnector.GetSensor(5271);
             SensorContract sensor2 = null;
             try
@@ -36,29 +33,25 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(sensor1);
             Assert.IsNull(sensor2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sensors3()
         {
-            await A_Authenticate();
-            SensorContract device1 = await devkitConnector.GetSensor("enviro-sdk");
-            SensorContract device2 = null;
+            SensorContract sensor1 = await devkitConnector.GetSensor("enviro-sdk");
+            SensorContract sensor2 = null;
             try
             {
-                device2 = await devkitConnector.GetSensor("notfound");
+                sensor2 = await devkitConnector.GetSensor("notexistentlogin");
             }
             catch (NotFoundException exception) { }
-            Assert.IsNotNull(device1);
-            Assert.IsNull(device2);
-            await A_DeleteToken();
+            Assert.IsNotNull(sensor1);
+            Assert.IsNull(sensor2);
         }
 
         [TestMethod]
         public async Task Sensors4()
         {
-            await A_Authenticate();
             SensorContract sensor = await devkitConnector.AddSensor(TestData.GetSensor());
             SensorContract sensor2 = null;
             try
@@ -79,14 +72,11 @@ namespace Test
             }
             catch  (NotFoundException exception) { }
             Assert.IsNull(sensor2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sensors5()
         {
-            await A_Authenticate();
-
             SensorContract sensorData = TestData.GetSensor();
 
             SensorContract sensor = await devkitConnector.AddSensor(sensorData);
@@ -103,7 +93,6 @@ namespace Test
             }
             Assert.IsNotNull(sensor);
             await devkitConnector.DeleteSensor(sensor.Id);
-            await A_DeleteToken();
         }
 
         [TestMethod]
@@ -115,27 +104,25 @@ namespace Test
         [TestMethod]
         public async Task Sensors7()
         {
-            await A_Authenticate();
+            //await A_Authenticate();
             PostResponseContract[] sensor = await devkitConnector.AddSensorData(TestData.GetSensorDataBatch());
             Assert.IsTrue(sensor[0].Success);
-            await A_DeleteToken();
+            //await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Sensors8()
         {
             await devkitConnector.Authenticate("enviro-sdk", "Hh2jCnvU1sd653K", false);
-            PostResponseContract sensor = await devkitConnector.AddSensorData(TestData.GetSensorData());
-            Assert.IsTrue(sensor.Success);
+            AddSensorDataResponseContract sensor = (AddSensorDataResponseContract)await devkitConnector.AddSensorData(TestData.GetSensorData());
+            Assert.IsNotNull(sensor.SensorData);
         }
 
         [TestMethod]
         public async Task Sensors9()
         {
-            await A_Authenticate();
             SensorAppInfoContract sensorAppInfoContract = await devkitConnector.GetSensorAppInfo();
             Assert.IsNotNull(sensorAppInfoContract);
-            await A_DeleteToken();
         }
 
         [TestMethod]

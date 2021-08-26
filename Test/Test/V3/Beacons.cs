@@ -16,16 +16,13 @@ namespace Test
         [TestMethod]
         public async Task Beacons1()
         {
-            await A_Authenticate();
             BeaconContract[] beacon = await devkitConnector.GetBeacons();
             Assert.IsNotNull(beacon[0]);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Beacons2()
         {
-            await A_Authenticate();
             BeaconContract beacon1 = await devkitConnector.GetBeacon(34);
             BeaconContract beacon2 = null;
             try
@@ -35,13 +32,11 @@ namespace Test
             catch (NotFoundException exception) { }
             Assert.IsNotNull(beacon1);
             Assert.IsNull(beacon2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Beacons3()
         {
-            await A_Authenticate();
             BeaconContract beacon = await devkitConnector.AddBeacon(TestData.GetBeacon());
             BeaconContract beacon2 = null;
             try
@@ -62,14 +57,11 @@ namespace Test
             }
             catch (NotFoundException exception) { }
             Assert.IsNull(beacon2);
-            await A_DeleteToken();
         }
 
         [TestMethod]
         public async Task Beacons4()
         {
-            await A_Authenticate();
-
             BeaconContract beaconData = TestData.GetBeacon();
 
             BeaconContract beacon = await devkitConnector.AddBeacon(beaconData);
@@ -87,7 +79,6 @@ namespace Test
             }
             Assert.IsNotNull(beacon);
             await devkitConnector.DeleteBeacon(beacon.Id);
-            await A_DeleteToken();
         }
 
         [TestMethod]
