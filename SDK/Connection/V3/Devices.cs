@@ -1,5 +1,6 @@
 ﻿using Flurl;
 using SDK.Contracts.Communication;
+using SDK.Contracts.Data;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
@@ -42,10 +43,10 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<DynamicDeviceContract[]> GetDynamicDevicesShort(string queryString = "")
+        public async Task<DynamicDeviceShortContract[]> GetDynamicDevicesShort(string queryString = "")
         {
             string subUrl = Url.Combine(Address.DevicesDynamicLocationsShort, queryString);
-            var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
+            var response = await GetRequest<DynamicDeviceShortContract[]>(subUrl);
 
             return response;
         }

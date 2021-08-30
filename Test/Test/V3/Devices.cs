@@ -1,5 +1,6 @@
 ﻿using Main;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SDK.Contracts.Data;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
@@ -59,7 +60,7 @@ namespace Test
         [TestMethod]
         public async Task Devices5()
         {
-            DynamicDeviceContract[] device = await devkitConnector.GetDynamicDevicesShort();
+            DynamicDeviceShortContract[] device = await devkitConnector.GetDynamicDevicesShort();
             Assert.IsNotNull(device[0]);
         }
 
