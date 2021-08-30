@@ -240,4 +240,6 @@ await devkitConnector.AddSensorData(sensorContracts);
 ## Future features
 - **protobuffers** serialization
 - automated order system(AOS) for logistics integration
+- TCS implementation
+- Logs implementation
 - **MQTT** communication protocol implementation
