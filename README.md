@@ -13,6 +13,23 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 
 [API Endpoint](https://twin.rtls.solutions/api/swagger/ui/index#/) for each digital twin module uses same authorization methods to provide all system unification into single instance - twinzo.
 
+## Documentation & Examples (V3)
+
+### Initialization
+
+The first thing you need to do is create the base object by which the functionality is accessible:
+
+ConnectionOptionsBuilder ConnectionOptionsBuilder = new ConnectionOptionsBuilder();
+ConnectionOptions connectionOptions = optionsBuilder
+    .Url("https://twin.rtls.solutions/api")
+    .Client("YourClient")
+    .BranchGuid("YourBranchGuid")
+    .Timeout(1000)
+    .ApiKey("YourApiKey")
+    .Version(ConnectionOptions.VERSION_3)
+    .Build();
+ 
+aw d
 ## Future features
 - **protobuffers** serialization
 - automated order system(AOS) for logistics integration
