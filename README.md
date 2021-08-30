@@ -174,10 +174,10 @@ await devkitConnector.AddSensorData(sensorContracts);
 ```
 
 ### Full list of functions
-* Areas
+* **Areas**
 	* GetAreas() - Get all areas
 	* GetArea(id) - Get area by ID
-* Authorization
+* **Authorization**
 	* Authenticate(login, password) - Authenticate with login and password as user/device/sensor
 * Beacons
 	* GetBeacons() - Get all beacons
