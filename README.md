@@ -16,21 +16,26 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 ## Documentation & Examples (V3)
 
 ### Initialization
+The first thing you need to do is create the base object by which the functionality will be accessible:
 
-The first thing you need to do is create the base object by which the functionality is accessible:
-
+```Java 
 ConnectionOptionsBuilder ConnectionOptionsBuilder = new ConnectionOptionsBuilder();
 ConnectionOptions connectionOptions = optionsBuilder\
-    .Url("https://twin.rtls.solutions/api")\
-    .Client("YourClient")\
-    .BranchGuid("YourBranchGuid")\
-    .Timeout(1000)\
-    .ApiKey("YourApiKey")\
-    .Version(ConnectionOptions.VERSION_3)\
-    .Build();\
- 
+	.Url("https://twin.rtls.solutions/api")\
+	.Client("YourClient")\
+	.BranchGuid("YourBranchGuid")\
+	.Timeout(1000)\
+	.ApiKey("YourApiKey")\
+	.Version(ConnectionOptions.VERSION_3)\
+	.Build();\
+	
+DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevkitConnector(connectionOptions);
+```
 
+Through the `DevkitConnectorV3` object are accessible all the functions implemented in tDevkit.
 
+### List of functions
+TBA
 
 ## Future features
 - **protobuffers** serialization
