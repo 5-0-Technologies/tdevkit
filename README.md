@@ -15,8 +15,6 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 
 ## Documentation & Examples (V3)
 
-  
-
 ### Initialization
 The first thing you need to do is create the base object by which the functionality will be accessible:
 ```c# 
@@ -34,8 +32,10 @@ DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevk
 ```
 Through the `DevkitConnectorV3` object are accessible all the functions implemented in tDevkit. As of **V3**, Most of the functionality is ready to be used after specifying the Api Key in `ConnectionOptions` object. However, there is a small number of functions you need to be authenticated for due to their nature. These functions are mentioned in the 
 [Full list of functions](#full-list-of-functions-v3).
+
 ### Examples
 Below are a few examples with dummy data.
+
 #### Getting objects
 Getting all objects (f.e. Area type):
 ```c#
@@ -61,8 +61,9 @@ Expanding by another related data model:
 ```c#
 SectorContract sector = await devkitConnector.GetSector(1, "?$expand=Beacons");
 ```
+
 #### Adding objects
-Successfully adding an object returns it with its alocated ID (and with freshly generated GUID, if such object is in question).
+Successfully adding an object returns it back with its alocated ID (and with freshly generated GUID, if such object is in question).
 ```c#
 DeviceContract deviceDummy = new DeviceContract
 {
@@ -109,6 +110,7 @@ SensorContract sensorDummy = new SensorContract
 
 SensorContract sensor = await devkitConnector.AddSensor(sensorDummy);
 ```
+
 #### Localization
 ```c#
 DistanceContract[] distanceContract1 = new DistanceContract[] 
@@ -134,6 +136,7 @@ DeviceLocationContract[] deviceLocationContract = new DeviceLocationContract[] {
 
 await devkitConnector.AddLocalizationData(deviceLocationContract);
 ```
+
 #### Sensor Data
 ```c#
 SensorDataContract data1 = new SensorDataContract
@@ -169,70 +172,70 @@ SensorContract[] sensorContracts = new SensorContract[] { sensor };
 
 await devkitConnector.AddSensorData(sensorContracts);
 ```
+
 ### Full list of functions
 * Areas
-	* GetAreas()
-	* GetArea(id)
+	* GetAreas() - Get all areas
+	* GetArea(id) - Get area by ID
 * Authorization
-	* Authenticate(login, password)
+	* Authenticate(login, password) - Authenticate with login and password as user/device/sensor
 * Beacons
-	* GetBeacons()
-	* GetBeacon(id)
-	* AddBeacon(beaconContract)
-	* UpdateBeacon(beaconContract)
-	* DeleteBeacon(id)
+	* GetBeacons() - Get all beacons
+	* GetBeacon(id) - Get beacon by ID
+	* AddBeacon(beaconContract) - Add a beacon with specified properties
+	* UpdateBeacon(beaconContract) - Update an existing beacon with new properties
+	* DeleteBeacon(id) - Delete an existing beacon by ID
 * Branches
-	* GetBranches()
-	* GetBranch(id)
+	* GetBranches() - Get all branches
+	* GetBranch(id) - Get branch by ID
 * Clients
-	* GetClients()
+	* GetClients() - Get all clients
 * Configuration
-	* GetBranchConfiguration(key)
-	* GetAccountConfiguration(key)
-	* GetConfigurationLastChange(key)
+	* GetBranchConfiguration(key) - Get branch configuration with specified key
+	* GetAccountConfiguration(key) - Get account configuration with specified key
+	* GetConfigurationLastChange(key) - Get branch configuration with specified key
 * Devices
-	* GetDevices()
-	* GetDevice(id)
-	* GetDevice(login)
-	* GetDynamicDevices()
-	* GetDynamicDevicesShort()
-	* AddDevice(deviceContract)
-	* UpdateDevice(deviceContract)
-	* DeleteDevice(id)
+	* GetDevices() - Get all devices
+	* GetDevice(id) - Get device by ID
+	* GetDevice(login) - Get device by login
+	* GetDynamicDevices() - Get devices with dynamic position
+	* GetDynamicDevicesShort() - Get shortened form of dynamic devices grouped by sectors
+	* AddDevice(deviceContract) - Add a device with specified properties
+	* UpdateDevice(deviceContract) - Update an existing device with new properties
+	* DeleteDevice(id) - Delete an existing device by ID
 * Layers
-	* GetLayers()
-	* GetLayer(id)
+	* GetLayers() - Get all layers
+	* GetLayer(id) - Get layer by ID
 * Localization
-	* AddLocalizationData(deviceLocationContract)
-	* AddLocalizationData(locationContract)
+	* AddLocalizationData(deviceLocationContract) - Add localization data for multiple devices in batch mode
+	* AddLocalizationData(locationContract) - Add localization data for single device (in order to do this you need to be **authenticated** as said device)
 * Sectors
-	* GetSectors()
-	* GetSector(id)
-	* AddSector(sectorContract)
-	* UpdateSector(sectorContract)
-	* DeleteSector(id)
+	* GetSectors() - Get all sectors
+	* GetSector(id) - Get sector by ID
+	* AddSector(sectorContract) - Add a sector with specified properties
+	* UpdateSector(sectorContract) - Update an existing sector with new properties
+	* DeleteSector(id) - Delete an existing sector by ID
 * Sensors
-	* GetSensors()
-	* GetSensor(id)
-	* GetSensor(login)
-	* AddSensor(sensorContract)
-	* UpdateSensor(sensorContract)
-	* DeleteSensor(id)
-	* AddSensorData(sensors)
-	* AddSensorData(sensorData)
-	* GetSensorAppInfo()
+	* GetSensors() - Get all sensors
+	* GetSensor(id) - Get sensor by ID
+	* GetSensor(login) - Get sensor by login
+	* AddSensor(sensorContract) - Add a sensor with specified properties
+	* UpdateSensor(sensorContract) - Update an existing sensor with new properties
+	* DeleteSensor(id) - Delete an existing sensor by ID
+	* AddSensorData(sensors) - Add sensor data for multiple sensors in batch mode
+	* AddSensorData(sensorData) - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor)
+	* GetSensorAppInfo() - Get information (version, size) about the sensor app
 * Shifts
-	* GetShifts()
-	* GetShift(id)
+	* GetShifts() - Get all shifts
+	* GetShift(id) - Get shift by ID
 * Users
-	* GetUserInfo()
+	* GetUserInfo() - Get information about the current user (in order to do this you need to be **authenticated** as said user)
 * Utils
-	* GetDemoFilesInfo()
-	* GetFile(fileName)
-	* GetDemoFile(fileName)
-	* GetUnityLastVersion(platform)
-	* GetUnityBundleInfo(bundleName)
-
+	* GetDemoFilesInfo() - Get information (version, size, name) about all the demo files
+	* GetFile(fileName) - Get byte representation of the specified file
+	* GetDemoFile(fileName) - Get byte representation of the specified demo file
+	* GetUnityLastVersion(platform) - Get the last version of the Unity app
+	* GetUnityBundleInfo(bundleName) - Get information (version, size, name) about the Unity Bundle
 
 ## Future features
 - **protobuffers** serialization
