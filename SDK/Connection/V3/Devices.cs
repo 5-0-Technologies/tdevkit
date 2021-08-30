@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Communication;
+﻿using Flurl;
+using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
@@ -13,37 +14,37 @@ namespace tDevkit
     //(7/9)
     public partial class DevkitConnectorV3
     {
-        public async Task<DeviceContract[]> GetDevices()
+        public async Task<DeviceContract[]> GetDevices(string queryString = "")
         {
-            string subUrl = Address.Devices;
+            string subUrl = Url.Combine(Address.Devices, queryString);
             var response = await GetRequest<DeviceContract[]>(subUrl);
 
             return response;
         }
-        public async Task<DeviceContract> GetDevice(int id)
+        public async Task<DeviceContract> GetDevice(int id, string queryString = "")
         {
-            string subUrl = Address.Devices + id;
+            string subUrl = Url.Combine(Address.Devices, Convert.ToString(id), queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
         }
-        public async Task<DeviceContract> GetDevice(string login)
+        public async Task<DeviceContract> GetDevice(string login, string queryString = "")
         {
-            string subUrl = Address.DevicesLogin + login;
+            string subUrl = Url.Combine(Address.DevicesLogin, login, queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
         }
-        public async Task<DynamicDeviceContract[]> GetDynamicDevices()
+        public async Task<DynamicDeviceContract[]> GetDynamicDevices(string queryString = "")
         {
-            string subUrl = Address.DevicesDynamicLocations;
+            string subUrl = Url.Combine(Address.DevicesDynamicLocations, queryString);
             var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;
         }
-        public async Task<DynamicDeviceContract[]> GetDynamicDevicesShort()
+        public async Task<DynamicDeviceContract[]> GetDynamicDevicesShort(string queryString = "")
         {
-            string subUrl = Address.DevicesDynamicLocationsShort;
+            string subUrl = Url.Combine(Address.DevicesDynamicLocationsShort, queryString);
             var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;

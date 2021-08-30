@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace SDK.Contracts.Data
 {
-    [DataContract]
     public class FileInfoContract
     {
         [DataMember(Order = 1)]

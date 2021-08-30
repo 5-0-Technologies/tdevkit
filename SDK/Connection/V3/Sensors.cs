@@ -1,4 +1,5 @@
-﻿using SDK.Communication;
+﻿using Flurl;
+using SDK.Communication;
 using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
@@ -14,23 +15,23 @@ namespace tDevkit
     //(9/10)
     public partial class DevkitConnectorV3
     {
-        public async Task<SensorContract[]> GetSensors()
+        public async Task<SensorContract[]> GetSensors(string queryString = "")
         {
-            string subUrl = Address.Sensors;
+            string subUrl = Url.Combine(Address.Sensors, queryString);
             var response = await GetRequest<SensorContract[]>(subUrl);
 
             return response;
         }
-        public async Task<SensorContract> GetSensor(int id)
+        public async Task<SensorContract> GetSensor(int id, string queryString = "")
         {
-            string subUrl = Address.Sensors + id;
+            string subUrl = Url.Combine(Address.Sensors, Convert.ToString(id), queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
-        public async Task<SensorContract> GetSensor(string login)
+        public async Task<SensorContract> GetSensor(string login, string queryString = "")
         {
-            string subUrl = Address.SensorsLogin + login;
+            string subUrl = Url.Combine(Address.SensorsLogin, login, queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;

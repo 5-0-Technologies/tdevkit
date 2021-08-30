@@ -15,10 +15,8 @@ namespace Test
         [TestMethod]
         public async Task Localization1()
         {
-            await A_Authenticate();
             PostResponseContract[] local = await devkitConnector.AddLocalizationData(TestData.GetLocalizationDataBatch());
             Assert.IsTrue(local[0].Success);
-            await A_DeleteToken();
         }
 
         [TestMethod]

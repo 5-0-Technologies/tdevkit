@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Data;
+﻿using Flurl;
+using SDK.Contracts.Data;
 using SDK.Models;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,24 @@ namespace tDevkit
     //(2/2)
     public partial class DevkitConnectorV3
     {
-        public async Task<LayerContract[]> GetLayers()
+        public async Task<LayerContract[]> GetLayers(string queryString = "")
         {
-            string subUrl = Address.Layers;
+            string subUrl = Url.Combine(Address.Layers, queryString);
             var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;
         }
-        public async Task<LayerContract> GetLayer(int id)
+        public async Task<LayerContract> GetLayer(int id, string queryString = "")
         {
-            string subUrl = Address.Layers + id;
+            string subUrl = Url.Combine(Address.Layers, Convert.ToString(id), queryString);
             var response = await GetRequest<LayerContract>(subUrl);
+
+            return response;
+        }
+        public async Task<LayerNoGoContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
+        {
+            string subUrl = Url.Combine(Address.LayersNoGo, deviceLogin, queryString);
+            var response = await GetRequest<LayerNoGoContract[]>(subUrl);
 
             return response;
         }

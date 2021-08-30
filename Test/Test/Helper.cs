@@ -20,8 +20,6 @@ namespace Test
                 .Timeout(1000)
                 .ApiKey("X1fprPtlkvolW1Bl47UQV4SoW8siY3n8QDQkDsGJ")
                 .Version(ConnectionOptions.VERSION_3)
-                .Login("ondrejicka")
-                .Password("zJz1sJRUMNr4b4M")
                 .Build();
 
             return (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);

@@ -14,10 +14,8 @@ namespace Test
         [TestMethod]
         public async Task Clients1()
         {
-            await A_Authenticate();
             ClientContract[] client = await devkitConnector.GetClients();
             Assert.IsNotNull(client[0]);
-            await A_DeleteToken();
         }
     }
 }

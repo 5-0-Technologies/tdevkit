@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Communication;
+﻿using Flurl;
+using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
@@ -13,16 +14,16 @@ namespace tDevkit
     //(5/5)
     public partial class DevkitConnectorV3
     {
-        public async Task<BeaconContract[]> GetBeacons()
+        public async Task<BeaconContract[]> GetBeacons(string queryString = "")
         {
-            string subUrl = Address.Beacons;
+            string subUrl = Url.Combine(Address.Beacons, queryString);
             var response = await GetRequest<BeaconContract[]>(subUrl);
 
             return response;
         }
-        public async Task<BeaconContract> GetBeacon(int id)
+        public async Task<BeaconContract> GetBeacon(int id, string queryString = "")
         {
-            string subUrl = Address.Beacons + id;
+            string subUrl = Url.Combine(Address.Beacons, Convert.ToString(id), queryString);
             var response = await GetRequest<BeaconContract>(subUrl);
 
             return response;
