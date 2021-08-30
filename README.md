@@ -57,7 +57,7 @@ Ordering by property:
 ```c#
 LayerContract[] layers = await devkitConnector.GetLayers("?$orderby=Updated");
 ```
-Expanding by another related data:
+Expanding by another related data model:
 ```c#
 SectorContract sector = await devkitConnector.GetSector(1, "?$expand=Beacons");
 ```
