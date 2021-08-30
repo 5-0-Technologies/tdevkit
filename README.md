@@ -176,66 +176,66 @@ await devkitConnector.AddSensorData(sensorContracts);
 ### Full list of functions
 * **Areas**
 	* `GetAreas()` - Get all areas
-	* GetArea(id) - Get area by ID
+	* `GetArea(id)` - Get area by ID
 * **Authorization**
-	* Authenticate(login, password) - Authenticate with login and password as user/device/sensor
+	* `Authenticate(login, password)` - Authenticate with login and password as user/device/sensor
 * **Beacons**
-	* GetBeacons() - Get all beacons
-	* GetBeacon(id) - Get beacon by ID
-	* AddBeacon(beaconContract) - Add a beacon with specified properties
-	* UpdateBeacon(beaconContract) - Update an existing beacon with new properties
-	* DeleteBeacon(id) - Delete an existing beacon by ID
+	* `GetBeacons()` - Get all beacons
+	* `GetBeacon(id)` - Get beacon by ID
+	* `AddBeacon(beaconContract)` - Add a beacon with specified properties
+	* `UpdateBeacon(beaconContract)` - Update an existing beacon with new properties
+	* `DeleteBeacon(id)` - Delete an existing beacon by ID
 * **Branches**
-	* GetBranches() - Get all branches
-	* GetBranch(id) - Get branch by ID
+	* `GetBranches()` - Get all branches
+	* `GetBranch(id)` - Get branch by ID
 * **Clients**
-	* GetClients() - Get all clients
+	* `GetClients()` - Get all clients
 * **Configuration**
-	* GetBranchConfiguration(key) - Get branch configuration with specified key
-	* GetAccountConfiguration(key) - Get account configuration with specified key
-	* GetConfigurationLastChange(key) - Get branch configuration with specified key
+	* `GetBranchConfiguration(key)` - Get branch configuration with specified key
+	* `GetAccountConfiguration(key)` - Get account configuration with specified key
+	* `GetConfigurationLastChange(key)` - Get branch configuration with specified key
 * **Devices**
-	* GetDevices() - Get all devices
-	* GetDevice(id) - Get device by ID
-	* GetDevice(login) - Get device by login
-	* GetDynamicDevices() - Get devices with dynamic position
-	* GetDynamicDevicesShort() - Get shortened form of dynamic devices grouped by sectors
-	* AddDevice(deviceContract) - Add a device with specified properties
-	* UpdateDevice(deviceContract) - Update an existing device with new properties
-	* DeleteDevice(id) - Delete an existing device by ID
+	* `GetDevices()` - Get all devices
+	* `GetDevice(id)` - Get device by ID
+	* `GetDevice(login)` - Get device by login
+	* `GetDynamicDevices()` - Get devices with dynamic position
+	* `GetDynamicDevicesShort()` - Get shortened form of dynamic devices grouped by sectors
+	* `AddDevice(deviceContract)` - Add a device with specified properties
+	* `UpdateDevice(deviceContract)` - Update an existing device with new properties
+	* `DeleteDevice(id)` - Delete an existing device by ID
 * **Layers**
-	* GetLayers() - Get all layers
-	* GetLayer(id) - Get layer by ID
+	* `GetLayers()` - Get all layers
+	* `GetLayer(id)` - Get layer by ID
 * **Localization**
-	* AddLocalizationData(deviceLocationContract) - Add localization data for multiple devices in batch mode
-	* AddLocalizationData(locationContract) - Add localization data for single device (in order to do this you need to be **authenticated** as said device)
+	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
+	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device)
 * **Sectors**
-	* GetSectors() - Get all sectors
-	* GetSector(id) - Get sector by ID
-	* AddSector(sectorContract) - Add a sector with specified properties
-	* UpdateSector(sectorContract) - Update an existing sector with new properties
-	* DeleteSector(id) - Delete an existing sector by ID
+	* `GetSectors()` - Get all sectors
+	* `GetSector(id)` - Get sector by ID
+	* `AddSector(sectorContract)` - Add a sector with specified properties
+	* `UpdateSector(sectorContract)` - Update an existing sector with new properties
+	* `DeleteSector(id)` - Delete an existing sector by ID
 * **Sensors**
-	* GetSensors() - Get all sensors
-	* GetSensor(id) - Get sensor by ID
-	* GetSensor(login) - Get sensor by login
-	* AddSensor(sensorContract) - Add a sensor with specified properties
-	* UpdateSensor(sensorContract) - Update an existing sensor with new properties
-	* DeleteSensor(id) - Delete an existing sensor by ID
-	* AddSensorData(sensors) - Add sensor data for multiple sensors in batch mode
-	* AddSensorData(sensorData) - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor)
-	* GetSensorAppInfo() - Get information (version, size) about the sensor app
+	* `GetSensors()` - Get all sensors
+	* `GetSensor(id)` - Get sensor by ID
+	* `GetSensor(login)` - Get sensor by login
+	* `AddSensor(sensorContract)` - Add a sensor with specified properties
+	* `UpdateSensor(sensorContract)` - Update an existing sensor with new properties
+	* `DeleteSensor(id)` - Delete an existing sensor by ID
+	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
+	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor)
+	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
 * **Shifts**
-	* GetShifts() - Get all shifts
-	* GetShift(id) - Get shift by ID
+	* `GetShifts()` - Get all shifts
+	* `GetShift(id)` - Get shift by ID
 * **Users**
-	* GetUserInfo() - Get information about the current user (in order to do this you need to be **authenticated** as said user)
+	* `GetUserInfo()` - Get information about the current user (in order to do this you need to be **authenticated** as said user)
 * **Utils**
 	* `GetDemoFilesInfo()` - Get information (version, size, name) about all the demo files
-	* GetFile(fileName) - Get byte representation of the specified file
-	* GetDemoFile(fileName) - Get byte representation of the specified demo file
-	* GetUnityLastVersion(platform) - Get the last version of the Unity app
-	* GetUnityBundleInfo(bundleName) - Get information (version, size, name) about the Unity Bundle
+	* `GetFile(fileName)` - Get byte representation of the specified file
+	* `GetDemoFile(fileName)` - Get byte representation of the specified demo file
+	* `GetUnityLastVersion(platform)` - Get the last version of the Unity app
+	* `GetUnityBundleInfo(bundleName)` - Get information (version, size, name) about the Unity Bundle
 
 ## Future features
 - **protobuffers** serialization
