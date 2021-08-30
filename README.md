@@ -179,22 +179,22 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* GetArea(id) - Get area by ID
 * **Authorization**
 	* Authenticate(login, password) - Authenticate with login and password as user/device/sensor
-* Beacons
+* **Beacons**
 	* GetBeacons() - Get all beacons
 	* GetBeacon(id) - Get beacon by ID
 	* AddBeacon(beaconContract) - Add a beacon with specified properties
 	* UpdateBeacon(beaconContract) - Update an existing beacon with new properties
 	* DeleteBeacon(id) - Delete an existing beacon by ID
-* Branches
+* **Branches**
 	* GetBranches() - Get all branches
 	* GetBranch(id) - Get branch by ID
-* Clients
+* **Clients**
 	* GetClients() - Get all clients
-* Configuration
+* **Configuration**
 	* GetBranchConfiguration(key) - Get branch configuration with specified key
 	* GetAccountConfiguration(key) - Get account configuration with specified key
 	* GetConfigurationLastChange(key) - Get branch configuration with specified key
-* Devices
+* **Devices**
 	* GetDevices() - Get all devices
 	* GetDevice(id) - Get device by ID
 	* GetDevice(login) - Get device by login
@@ -203,19 +203,19 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* AddDevice(deviceContract) - Add a device with specified properties
 	* UpdateDevice(deviceContract) - Update an existing device with new properties
 	* DeleteDevice(id) - Delete an existing device by ID
-* Layers
+* **Layers**
 	* GetLayers() - Get all layers
 	* GetLayer(id) - Get layer by ID
-* Localization
+* **Localization**
 	* AddLocalizationData(deviceLocationContract) - Add localization data for multiple devices in batch mode
 	* AddLocalizationData(locationContract) - Add localization data for single device (in order to do this you need to be **authenticated** as said device)
-* Sectors
+* **Sectors**
 	* GetSectors() - Get all sectors
 	* GetSector(id) - Get sector by ID
 	* AddSector(sectorContract) - Add a sector with specified properties
 	* UpdateSector(sectorContract) - Update an existing sector with new properties
 	* DeleteSector(id) - Delete an existing sector by ID
-* Sensors
+* **Sensors**
 	* GetSensors() - Get all sensors
 	* GetSensor(id) - Get sensor by ID
 	* GetSensor(login) - Get sensor by login
@@ -225,12 +225,12 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* AddSensorData(sensors) - Add sensor data for multiple sensors in batch mode
 	* AddSensorData(sensorData) - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor)
 	* GetSensorAppInfo() - Get information (version, size) about the sensor app
-* Shifts
+* **Shifts**
 	* GetShifts() - Get all shifts
 	* GetShift(id) - Get shift by ID
-* Users
+* **Users**
 	* GetUserInfo() - Get information about the current user (in order to do this you need to be **authenticated** as said user)
-* Utils
+* **Utils**
 	* GetDemoFilesInfo() - Get information (version, size, name) about all the demo files
 	* GetFile(fileName) - Get byte representation of the specified file
 	* GetDemoFile(fileName) - Get byte representation of the specified demo file
