@@ -20,16 +20,18 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 The first thing you need to do is create the base object by which the functionality is accessible:
 
 ConnectionOptionsBuilder ConnectionOptionsBuilder = new ConnectionOptionsBuilder();
-ConnectionOptions connectionOptions = optionsBuilder
-    .Url("https://twin.rtls.solutions/api")
-    .Client("YourClient")
-    .BranchGuid("YourBranchGuid")
-    .Timeout(1000)
-    .ApiKey("YourApiKey")
-    .Version(ConnectionOptions.VERSION_3)
-    .Build();
+ConnectionOptions connectionOptions = optionsBuilder\
+    .Url("https://twin.rtls.solutions/api")\
+    .Client("YourClient")\
+    .BranchGuid("YourBranchGuid")\
+    .Timeout(1000)\
+    .ApiKey("YourApiKey")\
+    .Version(ConnectionOptions.VERSION_3)\
+    .Build();\
  
-aw d
+
+
+
 ## Future features
 - **protobuffers** serialization
 - automated order system(AOS) for logistics integration
