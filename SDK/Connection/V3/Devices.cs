@@ -80,7 +80,7 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<HttpResponseMessage> RegisterDevice()
+        private async Task<HttpResponseMessage> RegisterDevice()
         {
             return null;
         }

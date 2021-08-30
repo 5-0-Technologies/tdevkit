@@ -1,4 +1,5 @@
-﻿using SDK.Models;
+﻿using Flurl;
+using SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace tDevkit
     {
         public async Task<ConfigurationContract> GetBranchConfiguration(string key)
         {
-            string subUrl = Address.ConfigurationBranch + key;
+            string subUrl = Url.Combine(Address.ConfigurationBranch, key);
 
             var task = await SendGetRequest(subUrl);
 
@@ -26,7 +27,7 @@ namespace tDevkit
         }
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
-            string subUrl = Address.ConfigurationAccount + key;
+            string subUrl = Url.Combine(Address.ConfigurationAccount, key);
 
             var task = await SendGetRequest(subUrl);
 
@@ -40,7 +41,7 @@ namespace tDevkit
         }
         public async Task<long> GetConfigurationLastChange(string key)
         {
-            string subUrl = Address.Configuration + key + "/last-change/";
+            string subUrl = Url.Combine(Address.Configuration, key, "last-change/");
 
             var task = await SendGetRequest(subUrl);
 

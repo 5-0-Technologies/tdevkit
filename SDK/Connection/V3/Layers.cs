@@ -26,7 +26,7 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<LayerNoGoContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
+        private async Task<LayerNoGoContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
         {
             string subUrl = Url.Combine(Address.LayersNoGo, deviceLogin, queryString);
             var response = await GetRequest<LayerNoGoContract[]>(subUrl);

@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Communication;
+﻿using Flurl;
+using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -63,27 +64,31 @@ namespace tDevkit
         #region SEND REQUESTS
         private async Task<HttpResponseMessage> SendGetRequest(string subUrl)
         {
-            var task = await httpClient.GetAsync(baseAddress + subUrl);
+            var path = Url.Combine(baseAddress, subUrl);
+            var task = await httpClient.GetAsync(path);
 
             return task;
         }
         private async Task<HttpResponseMessage> SendPostRequest(string subUrl, string bodyContent)
         {
+            var path = Url.Combine(baseAddress, subUrl);
             HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
-            var task = await httpClient.PostAsync(baseAddress + subUrl, httpContent);
+            var task = await httpClient.PostAsync(path, httpContent);
 
             return task;
         }
         private async Task<HttpResponseMessage> SendPatchRequest(string subUrl, string bodyContent)
         {
+            var path = Url.Combine(baseAddress, subUrl);
             HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
-            var task = await httpClient.PatchAsync(baseAddress + subUrl, httpContent);
+            var task = await httpClient.PatchAsync(path, httpContent);
 
             return task;
         }
         private async Task<HttpResponseMessage> SendDeleteRequest(string subUrl)
         {
-            var task = await httpClient.DeleteAsync(baseAddress + subUrl);
+            var path = Url.Combine(baseAddress, subUrl);
+            var task = await httpClient.DeleteAsync(path);
 
             return task;
         }

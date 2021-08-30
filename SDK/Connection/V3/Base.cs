@@ -13,6 +13,7 @@ using SDK.Exceptions;
 using SDK.Contracts.Data;
 using SDK.Contracts.Communication;
 using System.IO;
+using Flurl;
 
 namespace tDevkit
 {
@@ -29,15 +30,9 @@ namespace tDevkit
         {
             this.connectionOptions = connectionOptions;
             this.httpClient = httpClient;
-            baseAddress = connectionOptions.Url + "/" + connectionOptions.Version + "/";
+            baseAddress = Url.Combine(connectionOptions.Url, connectionOptions.Version);
 
             resetHttpClientHeaders();
         }
     }
-
-    #region AOS (0/13)
-    public partial class Base
-    {
-    }
-    #endregion
 }
