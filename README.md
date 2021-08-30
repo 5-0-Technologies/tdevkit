@@ -175,7 +175,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 
 ### Full list of functions
 * **Areas**
-	* GetAreas() - Get all areas
+	* `GetAreas()` - Get all areas
 	* GetArea(id) - Get area by ID
 * **Authorization**
 	* Authenticate(login, password) - Authenticate with login and password as user/device/sensor
@@ -231,7 +231,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 * **Users**
 	* GetUserInfo() - Get information about the current user (in order to do this you need to be **authenticated** as said user)
 * **Utils**
-	* GetDemoFilesInfo() - Get information (version, size, name) about all the demo files
+	* `GetDemoFilesInfo()` - Get information (version, size, name) about all the demo files
 	* GetFile(fileName) - Get byte representation of the specified file
 	* GetDemoFile(fileName) - Get byte representation of the specified demo file
 	* GetUnityLastVersion(platform) - Get the last version of the Unity app
