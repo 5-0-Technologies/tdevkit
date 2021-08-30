@@ -21,14 +21,14 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 The first thing you need to do is create the base object by which the functionality will be accessible:
 ```c# 
 ConnectionOptionsBuilder ConnectionOptionsBuilder = new ConnectionOptionsBuilder();
-ConnectionOptions connectionOptions = optionsBuilder\
-	.Url("https://twin.rtls.solutions/api")\
-	.Client("YourClient")\
-	.BranchGuid("YourBranchGuid")\
-	.Timeout(1000)\
-	.ApiKey("YourApiKey")\
-	.Version(ConnectionOptions.VERSION_3)\
-	.Build();\
+ConnectionOptions connectionOptions = optionsBuilder
+	.Url("https://twin.rtls.solutions/api")
+	.Client("YourClient")
+	.BranchGuid("YourBranchGuid")
+	.Timeout(1000)
+	.ApiKey("YourApiKey")
+	.Version(ConnectionOptions.VERSION_3)
+	.Build();
 	
 DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevkitConnector(connectionOptions);
 ```
@@ -52,7 +52,7 @@ Getting an object by login (if said object's class has `login` property):
 SensorContract sensor = await devkitConnector.GetSensor("login");
 ```
 \
-Most of the `GET` functions are able to be further customized to your needs by taking in `queryString` parameter. With this parameter you can specify additional query options (order, limit, expand etc.) according to the [OData standard](https://www.odata.org/documentation/odata-version-3-0/url-conventions/)
+Most of the `GET` functions are able to be further customized to your needs by taking in `queryString` parameter. With this parameter you can specify additional query options (order, limit, expand etc.) according to the [OData standard](https://www.odata.org/documentation/odata-version-3-0/url-conventions/).\
 Ordering by property:
 ```c#
 LayerContract[] layers = await devkitConnector.GetLayers("?$orderby=Updated");
