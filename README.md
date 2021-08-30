@@ -18,7 +18,7 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 ### Initialization
 The first thing you need to do is create the base object by which the functionality will be accessible:
 
-```C# 
+```c# 
 ConnectionOptionsBuilder ConnectionOptionsBuilder = new ConnectionOptionsBuilder();
 ConnectionOptions connectionOptions = optionsBuilder\
 	.Url("https://twin.rtls.solutions/api")\
