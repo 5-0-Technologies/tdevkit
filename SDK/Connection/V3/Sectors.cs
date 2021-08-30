@@ -1,8 +1,10 @@
-﻿using SDK.Contracts.Communication;
+﻿using Flurl;
+using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,16 +15,16 @@ namespace tDevkit
     //(4/5)
     public partial class DevkitConnectorV3
     {
-        public async Task<SectorContract[]> GetSectors()
+        public async Task<SectorContract[]> GetSectors(string queryString = "")
         {
-            string subUrl = Address.Sectors;
+            string subUrl = Url.Combine(Address.Sectors, queryString);
             var response = await GetRequest<SectorContract[]>(subUrl);
 
             return response;
         }
-        public async Task<SectorContract> GetSector(int id)
+        public async Task<SectorContract> GetSector(int id, string queryString = "")
         {
-            string subUrl = Address.Sectors + id;
+            string subUrl = Url.Combine(Address.Sectors, Convert.ToString(id), queryString);
             var response = await GetRequest<SectorContract>(subUrl);
 
             return response;

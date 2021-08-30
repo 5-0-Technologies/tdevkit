@@ -23,7 +23,7 @@ namespace Test
         [TestMethod]
         public async Task Sectors2()
         {
-            SectorContract sector1 = await devkitConnector.GetSector(1);
+            SectorContract sector1 = await devkitConnector.GetSector(1, "?$expand=Beacons");
             SectorContract sector2 = null;
             try
             {
