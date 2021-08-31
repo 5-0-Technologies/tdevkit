@@ -61,6 +61,7 @@ Expanding by another related data model:
 ```c#
 SectorContract sector = await devkitConnector.GetSector(1, "?$expand=Beacons");
 ```
+And more...
 
 #### Adding objects
 Successfully adding an object returns it back with its alocated ID (and with freshly generated GUID, if such object is in question).
@@ -122,14 +123,10 @@ DistanceContract[] distanceContract1 = new DistanceContract[]
 
 LocationContract[] locationContract = new LocationContract[]
 {
-	new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-        X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-    new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-        X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-    new LocationContract {SectorId = 3, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-        X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-    new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-        X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
+	new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
+	new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
+	new LocationContract {SectorId = 3, Battery = 100, IsMoving = true, Timestamp = 1599644652178,X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
+	new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
 };
 
 DeviceLocationContract[] deviceLocationContract = new DeviceLocationContract[] { new DeviceLocationContract { Login = "login", Locations = locationContract } };
@@ -208,7 +205,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetLayer(id)` - Get layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
-	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device)
+	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above: [Localization](#localization-v3))
 * **Sectors**
 	* `GetSectors()` - Get all sectors
 	* `GetSector(id)` - Get sector by ID
@@ -223,7 +220,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `UpdateSensor(sensorContract)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
-	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor)
+	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above: [Sensor Data](#sensor-data-v3))
 	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
 * **Shifts**
 	* `GetShifts()` - Get all shifts
