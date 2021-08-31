@@ -205,7 +205,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetLayer(id)` - Get layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
-	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode [above](#localization))
+	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above - [Example](#localization))
 * **Sectors**
 	* `GetSectors()` - Get all sectors
 	* `GetSector(id)` - Get sector by ID
@@ -220,7 +220,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `UpdateSensor(sensorContract)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
-	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode [above](#sensor-data))
+	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above - [Example](#sensor-data))
 	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
 * **Shifts**
 	* `GetShifts()` - Get all shifts
