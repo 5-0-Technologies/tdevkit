@@ -31,7 +31,7 @@ ConnectionOptions connectionOptions = optionsBuilder
 DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevkitConnector(connectionOptions);
 ```
 Through the `DevkitConnectorV3` object are accessible all the functions implemented in tDevkit. As of **V3**, Most of the functionality is ready to be used after specifying the Api Key in `ConnectionOptions` object. However, there is a small number of functions you need to be authenticated for due to their nature. These functions are mentioned in the 
-[Full list of functions](#full-list-of-functions-v3).
+[Full list of functions](#full-list-of-functions) section.
 
 ### Examples
 Below are a few examples with dummy data.
@@ -205,7 +205,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetLayer(id)` - Get layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
-	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above: [Localization](#localization-v3))
+	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode [above](#localization))
 * **Sectors**
 	* `GetSectors()` - Get all sectors
 	* `GetSector(id)` - Get sector by ID
@@ -220,7 +220,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `UpdateSensor(sensorContract)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
-	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above: [Sensor Data](#sensor-data-v3))
+	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode [above](#sensor-data))
 	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
 * **Shifts**
 	* `GetShifts()` - Get all shifts
