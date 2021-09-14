@@ -1,6 +1,4 @@
 ﻿using SDK.Communication;
-using SDK.Filters.Input;
-using SDK.Filters.Output;
 using SDK.Models;
 using System;
 using System.Linq;
@@ -17,7 +15,7 @@ namespace Main
     {
         static async Task Main(string[] args)
         {
-            TestUdpFilter();
+
         }
 
         public static async Task TestSensor()
@@ -96,25 +94,6 @@ namespace Main
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
-        }
-
-        public static void TestUdpFilter()
-        {
-            var udpChannel = Channel.CreateUnbounded<byte[]>();
-            UdpClient udpClient = new UdpClient(10000);
-
-            var udpFilter = new UdpListenerFilter(udpChannel.Writer, udpClient);
-            var consoleFilter = new ConsoleFilter<byte[]>(udpChannel.Reader, (data) => {
-                Console.WriteLine(Encoding.ASCII.GetString(data));
-            });
-
-            consoleFilter.Start();
-            udpFilter.Start();
-
-            Console.ReadKey();
-
-            udpFilter.Stop();
-            consoleFilter.Stop();
         }
     }
 }
