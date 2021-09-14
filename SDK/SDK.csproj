@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>tDevKit</PackageId>
@@ -33,12 +33,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Managers\**" />
+    <EmbeddedResource Remove="Managers\**" />
+    <None Remove="Managers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Contracts\Data\Aos\" />
-    <Folder Include="Managers\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Flurl" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
