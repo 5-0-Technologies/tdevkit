@@ -9,6 +9,8 @@ using SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using tDevkit;
@@ -24,6 +26,7 @@ namespace Test
     public class DeviceTest
     {
         private const string URL = "http://localhost:8000";
+        private const string PATH_BASE = "/api/v3/devices/";
         private static DevkitConnectorV3 devkitConnector;
         private static WireMockServer server;
 
@@ -32,7 +35,7 @@ namespace Test
         {
             ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
             ConnectionOptions connectionOptions = optionsBuilder
-                .Url(URL)
+                .Url(URL + "/api")
                 .Client("Infotech")
                 .ClientGuid("00000000-0000-0000-0000-000000000001")
                 .BranchGuid("00000000-0000-0000-0000-000000000003")
@@ -40,8 +43,8 @@ namespace Test
                 .ApiKey("X1fprPtlkvolW1Bl47UQV4SoW8siY3n8QDQkDsGJ")
                 .Version(ConnectionOptions.VERSION_3)
                 .Build();
-
             devkitConnector = (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
+
             server = WireMockServer.Start(new WireMockServerSettings()
             {
                 Urls = new[] { URL }
@@ -55,38 +58,52 @@ namespace Test
         }
 
         [TestMethod]
-        public async Task Devices1()
+        public async Task GetDevice_GetAllDevices_ShouldReturn200()
         {
-            DeviceContract[] device = await devkitConnector.GetDevices();
-            Assert.IsNotNull(device[0]);
+            var bodyContent = new DeviceContract[] {
+                new DeviceContract(){}
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            DeviceContract[] response = await devkitConnector.GetDevices();
+
+            Assert.IsInstanceOfType(response, typeof(DeviceContract[]));
         }
 
         [TestMethod]
-        public async Task Devices2()
+        public async Task GetDevice_GetDeviceById_ShouldReturn200()
         {
-            DeviceContract device1 = await devkitConnector.GetDevice(3);
-            DeviceContract device2 = null;
-            try
+            const int Id = 3;
+            var bodyContent = new DeviceContract()
             {
-                device2 = await devkitConnector.GetDevice(1);
-            }
-            catch (NotFoundException exception) { }
-            Assert.IsNotNull(device1);
-            Assert.IsNull(device2);
+                Id = Id
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + Id).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            DeviceContract response = await devkitConnector.GetDevice(Id);
+
+            Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
         [TestMethod]
-        public async Task Devices3()
+        public async Task GetDevice_GetDeviceByLogin_ShouldReturn200()
         {
-            DeviceContract device1 = await devkitConnector.GetDevice("RTU1");
-            DeviceContract device2 = null;
-            try
+            const string Login = "login";
+            var bodyContent = new DeviceContract()
             {
-                device2 = await devkitConnector.GetDevice("sdk-device2");
-            }
-            catch (NotFoundException exception) { }
-            Assert.IsNotNull(device1);
-            Assert.IsNull(device2);
+                Login = Login
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + "login/" + Login).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            DeviceContract response = await devkitConnector.GetDevice(Login);
+
+            Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
         //[TestMethod]
@@ -104,51 +121,39 @@ namespace Test
         //}
 
         [TestMethod]
-        public async Task Devices6()
+        public async Task AddDevice_AddDevice_ShouldReturn200()
         {
-            DeviceContract device = await devkitConnector.AddDevice(TestData.GetDevice());
-            DeviceContract device2 = null;
-            try
+            const string Login = "login";
+            var bodyContent = new DeviceContract()
             {
-                device2 = await devkitConnector.AddDevice(TestData.GetDevice());
-            }
-            catch (BadRequestException exception)
-            {
-                Assert.IsNull(null);
-            }
-            Assert.IsNotNull(device);
-            Assert.IsNull(device2);
-            await devkitConnector.DeleteDevice(device.Id);
+                Login = Login
+            };
 
-            try
-            {
-                device2 = await devkitConnector.GetDevice(device.Id);
-            }
-            catch (NotFoundException exception) { }
-            Assert.IsNull(device2);
+            server.Given(Request.Create().WithPath(PATH_BASE).UsingPost())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            DeviceContract response = await devkitConnector.AddDevice(bodyContent);
+
+            Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
         [TestMethod]
-        public async Task Devices7()
+        public async Task DeleteDevice_DeleteDevice_ShouldReturn200()
         {
 
-            DeviceContract deviceData = TestData.GetDevice();
+            const int Id = 1;
+            var bodyContent = new DeviceContract()
+            {
+                Id = Id
+            };
 
-            DeviceContract device = await devkitConnector.AddDevice(deviceData);
-            device.X = 20;
-            device.Position = true;
-            device.Note = "aaa";
-            try
-            {
-                var message = await devkitConnector.UpdateDevice(device);
-                var temp = 0;
-            }
-            catch (BadRequestException exception)
-            {
-                Assert.IsNotNull(null);
-            }
-            Assert.IsNotNull(device);
-            await devkitConnector.DeleteDevice(device.Id);
+            server.Given(Request.Create().WithPath(PATH_BASE + Id).UsingDelete())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            var response = await devkitConnector.DeleteDevice(Id);
+
+            Assert.IsInstanceOfType(response, typeof(HttpResponseMessage));
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -166,9 +171,10 @@ namespace Test
         [TestMethod]
         public async Task ManDownBatch()
         {
+            const string PATH = PATH_BASE + "man-down/batch";
             const string device = "Device1";
             const long ts = 1000;
-            var bodyContent = new ManDownBatchResponseContract[] {  
+            var bodyContent = new ManDownBatchResponseContract[] {
                 new ManDownBatchResponseContract()
                 {
                     Login = device,
@@ -178,7 +184,7 @@ namespace Test
                 }
             };
 
-            server.Given(Request.Create().WithPath("/v3/devices/man-down/batch").UsingPost())
+            server.Given(Request.Create().WithPath(PATH).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             var response = await devkitConnector.ManDownBatch(new ManDownBatchContract[] {
