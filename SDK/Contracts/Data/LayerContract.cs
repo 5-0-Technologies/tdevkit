@@ -26,5 +26,7 @@ namespace SDK.Contracts.Data
         public long Updated { get; set; }
 
         public AreaContract[] Areas { get; set; }
+
+        public DeviceContract[] Devices { get; set; }
     }
 }
