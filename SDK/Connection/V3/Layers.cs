@@ -19,6 +19,7 @@ namespace tDevkit
 
             return response;
         }
+
         public async Task<LayerContract> GetLayer(int id, string queryString = "")
         {
             string subUrl = Url.Combine(Address.Layers, Convert.ToString(id), queryString);
@@ -26,10 +27,11 @@ namespace tDevkit
 
             return response;
         }
-        public async Task<LayerNoGoContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
+
+        public async Task<LayerContract[]> GetLocalizationLayers(string deviceLogin, string queryString = "")
         {
             string subUrl = Url.Combine(Address.LayersNoGo, deviceLogin, queryString);
-            var response = await GetRequest<LayerNoGoContract[]>(subUrl);
+            var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;
         }

@@ -36,6 +36,10 @@ namespace SDK.Contracts.Data
         public bool IsMoving { get; set; }
 
         public DistanceContract[] Distances { get; set; }
+
+        public int[] LocalizationAreas { get; set; }
+
+        public int[] NoGoAreas { get; set; }
     }
 
     public class DistanceContract

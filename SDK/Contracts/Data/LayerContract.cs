@@ -28,5 +28,7 @@ namespace SDK.Contracts.Data
         public AreaContract[] Areas { get; set; }
 
         public DeviceContract[] Devices { get; set; }
+
+        public bool IsNoGO { get; set; }
     }
 }
