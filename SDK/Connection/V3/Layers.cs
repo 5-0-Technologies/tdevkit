@@ -28,9 +28,17 @@ namespace tDevkit
             return response;
         }
 
-        public async Task<LayerContract[]> GetLocalizationLayers(string deviceLogin, string queryString = "")
+        public async Task<LayerContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
         {
             string subUrl = Url.Combine(Address.LayersNoGo, deviceLogin, queryString);
+            var response = await GetRequest<LayerContract[]>(subUrl);
+
+            return response;
+        }
+
+        public async Task<LayerContract[]> GetLocalizationLayers(string deviceLogin, string queryString = "")
+        {
+            string subUrl = Url.Combine(Address.Layerslocalization, deviceLogin, queryString);
             var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;

@@ -47,6 +47,7 @@ namespace SDK.Models
 
         public const string Layers = "layers/";
         public const string LayersNoGo = "layers/device/";
+        public const string Layerslocalization = "layers/localization/";
 
         public const string LocalizationAddData = "localization/";
         public const string LocalizationAddDataBatch = "localization/batch/";

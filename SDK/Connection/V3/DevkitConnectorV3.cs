@@ -24,7 +24,9 @@ namespace tDevkit
 
         public DevkitConnectorV3(ConnectionOptions connectionOptions) : this(connectionOptions, new HttpClient())
         {
+
         }
+
         public DevkitConnectorV3(ConnectionOptions connectionOptions, HttpClient httpClient)
         {
             this.connectionOptions = connectionOptions;
@@ -36,7 +38,7 @@ namespace tDevkit
     }
 
     #region AOS (0/13)
-    public partial class Base
+    public partial class DevkitConnectorV3
     {
     }
     #endregion
