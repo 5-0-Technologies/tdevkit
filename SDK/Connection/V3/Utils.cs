@@ -10,21 +10,20 @@ namespace tDevkit
     {
         public async Task<FileInfoContract[]> GetDemoFilesInfo()
         {
-            string subUrl = Address.UtilsDemoFilesInfo;
+            string subUrl = UrlCombine(Address.UtilsDemoFilesInfo);
             var response = await GetRequest<FileInfoContract[]>(subUrl);
 
             return response;
         }
         public async Task<byte[]> GetFile(string fileName)
         {
-            string subUrl = Address.UtilsFile + fileName;
+            string subUrl = UrlCombine(Address.UtilsFile, fileName);
 
             return await GetFile(fileName, subUrl);
         }
         public async Task<byte[]> GetDemoFile(string fileName)
         {
-            string subUrl = Address.UtilsDemoFile + fileName;
-            //File.WriteAllBytes("C:\\Users\\mondr\\source\\repos\\twinzo-sdk\\bytes.jpg", bytes);
+            string subUrl = UrlCombine(Address.UtilsDemoFile, fileName);
             return await GetFile(fileName, subUrl);
         }
         private async Task<byte[]> GetFile(string fileName, string subUrl)
@@ -36,14 +35,14 @@ namespace tDevkit
         }
         public async Task<string> GetUnityLastVersion(string platform)
         {
-            string subUrl = Address.UtilsUnityLastVersion + platform;
+            string subUrl = UrlCombine(Address.UtilsUnityLastVersion, platform);
             var response = await GetRequest<string>(subUrl);
 
             return response;
         }
         public async Task<FileInfoContract> GetUnityBundleInfo(string bundleName)
         {
-            string subUrl = Address.UtilsUnityBundleInfo + bundleName;
+            string subUrl = UrlCombine(Address.UtilsUnityBundleInfo, bundleName);
             var response = await GetRequest<FileInfoContract>(subUrl);
 
             return response;

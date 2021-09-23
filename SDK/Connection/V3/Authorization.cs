@@ -12,7 +12,7 @@ namespace tDevkit
     {
         public async Task<HttpResponseMessage> DeleteCurrentToken()
         {
-            string subUrl = Address.AuthorizationToken;
+            string subUrl = UrlCombine(Address.AuthorizationToken);
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
@@ -27,7 +27,7 @@ namespace tDevkit
         }
         public async Task<AuthenticationResponseContract> GetToken()
         {
-            string subUrl = Address.AuthorizationToken;
+            string subUrl = UrlCombine(Address.AuthorizationToken);
 
             var response = await GetRequest<AuthenticationResponseContract>(subUrl);
 
@@ -57,7 +57,7 @@ namespace tDevkit
         }
         public async Task<AuthenticationResponseContract> Authenticate(string login, string password, bool superUser)
         {
-            string subUrl = Address.AuthorizationAuthenticate;
+            string subUrl = UrlCombine(Address.AuthorizationAuthenticate);
 
             CredentialContract credentialContract = new CredentialContract
             {

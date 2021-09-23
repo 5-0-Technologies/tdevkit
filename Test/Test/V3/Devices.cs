@@ -75,7 +75,7 @@ namespace Test
                 Id = Id
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + Id).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + "/" + Id).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract response = await devkitConnector.GetDevice(Id);
@@ -92,7 +92,7 @@ namespace Test
                 Login = Login
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + "login/" + Login).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + "/login/" + Login).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract response = await devkitConnector.GetDevice(Login);
@@ -141,7 +141,7 @@ namespace Test
                 Id = Id
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + Id).UsingDelete())
+            server.Given(Request.Create().WithPath(PATH_BASE + "/" + Id).UsingDelete())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             var response = await devkitConnector.DeleteDevice(Id);
@@ -165,7 +165,7 @@ namespace Test
         [TestMethod]
         public async Task ManDownBatch()
         {
-            const string PATH = PATH_BASE + "man-down/batch";
+            const string PATH = PATH_BASE + "/man-down/batch";
             const string device = "Device1";
             const long ts = 1000;
             var bodyContent = new ManDownBatchResponseContract[] {

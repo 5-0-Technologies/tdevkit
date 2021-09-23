@@ -9,7 +9,7 @@ namespace tDevkit
     {
         public async Task<UserContract> GetUserInfo()
         {
-            string subUrl = Address.Users;
+            string subUrl = UrlCombine(Address.Users);
             var response = await GetRequest<UserContract>(subUrl);
 
             return response;

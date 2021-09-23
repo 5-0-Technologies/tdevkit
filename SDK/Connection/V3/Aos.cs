@@ -9,7 +9,7 @@ namespace tDevkit
     {
         public async Task<OrderInfoContract[]> GetOrders()
         {
-            string subUrl = Address.AosOrders;
+            string subUrl = UrlCombine(Address.AosOrders);
             var response = await GetRequest<OrderInfoContract[]>(subUrl);
 
             return response;

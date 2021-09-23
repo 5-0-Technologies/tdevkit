@@ -9,7 +9,7 @@ namespace tDevkit
     {
         public async Task<ConfigurationContract> GetBranchConfiguration(string key)
         {
-            string subUrl = Address.ConfigurationBranch + key;
+            string subUrl = UrlCombine(Address.ConfigurationBranch, key);
 
             var task = await SendGetRequest(subUrl);
 
@@ -23,7 +23,7 @@ namespace tDevkit
         }
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
-            string subUrl = Address.ConfigurationAccount + key;
+            string subUrl = UrlCombine(Address.ConfigurationAccount, key);
 
             var task = await SendGetRequest(subUrl);
 
@@ -37,7 +37,7 @@ namespace tDevkit
         }
         public async Task<long> GetConfigurationLastChange(string key)
         {
-            string subUrl = Address.Configuration + key + "/last-change/";
+            string subUrl = UrlCombine(Address.Configuration, key, "/last-change");
 
             var task = await SendGetRequest(subUrl);
 

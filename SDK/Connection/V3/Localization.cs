@@ -12,7 +12,7 @@ namespace tDevkit
     {
         public async Task<PostResponseContract[]> AddLocalizationData(DeviceLocationContract[] deviceLocationContract)
         {
-            string subUrl = Address.LocalizationAddDataBatch;
+            string subUrl = UrlCombine(Address.LocalizationAddDataBatch);
             var response = await PostRequest<AddLocatizationDataResponseContract[]>(subUrl, deviceLocationContract);
 
             for (int i = 0; i < response.Length; i++)
@@ -39,7 +39,7 @@ namespace tDevkit
         }
         public async Task<PostResponseContract> AddLocalizationData(LocationContract[] locationContract)
         {
-            string subUrl = Address.LocalizationAddData;
+            string subUrl = UrlCombine(Address.LocalizationAddData);
             var response = await PostRequest<AddLocatizationDataResponseContract>(subUrl, locationContract);
 
 

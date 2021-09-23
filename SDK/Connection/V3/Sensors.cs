@@ -34,7 +34,7 @@ namespace tDevkit
         }
         public async Task<SensorContract> AddSensor(SensorContract sensorContract)
         {
-            string subUrl = Address.Sensors;
+            string subUrl = UrlCombine(Address.Sensors);
             var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
@@ -50,7 +50,7 @@ namespace tDevkit
             {
                 throw new BadRequestException(NotFoundException.message + " Sensor object has no Id.");
             }
-            string subUrl = Address.Sensors + sensorContract.Id;
+            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(sensorContract.Id));
             var response = await PatchRequest(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
@@ -62,14 +62,14 @@ namespace tDevkit
         }
         public async Task<HttpResponseMessage> DeleteSensor(int id)
         {
-            string subUrl = Address.Sensors + id;
+            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(id));
             var response = await DeleteRequest(subUrl);
 
             return response;
         }
         public async Task<PostResponseContract[]> AddSensorData(SensorContract[] sensors)
         {
-            string subUrl = Address.SensorsAddDataBatch;
+            string subUrl = UrlCombine(Address.SensorsAddDataBatch);
             var response = await PostRequest<AddSensorDataResponseContract[]>(subUrl, sensors);
 
 
@@ -98,7 +98,7 @@ namespace tDevkit
         }
         public async Task<PostResponseContract> AddSensorData(SensorDataContract[] sensorData)
         {
-            string subUrl = Address.SensorsAddData;
+            string subUrl = UrlCombine(Address.SensorsAddData);
             var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract
 
             if (response != null)
@@ -120,7 +120,7 @@ namespace tDevkit
         }
         public async Task<SensorAppInfoContract> GetSensorAppInfo()
         {
-            string subUrl = Address.SensorsAppInfo;
+            string subUrl = UrlCombine(Address.SensorsAppInfo);
             var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             return response;

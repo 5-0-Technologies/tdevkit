@@ -26,7 +26,7 @@ namespace tDevkit
         }
         public async Task<BeaconContract> AddBeacon(BeaconContract beaconContract)
         {
-            string subUrl = Address.Beacons;
+            string subUrl = UrlCombine(Address.Beacons);
             var response = await PostRequest<AddBeaconResponseContract>(subUrl, beaconContract);
 
             if (response.ErrorMessage != null)
@@ -42,7 +42,7 @@ namespace tDevkit
             {
                 throw new BadRequestException(NotFoundException.message + " Beacon object has no Id.");
             }
-            string subUrl = Address.Beacons + beaconContract.Id;
+            string subUrl = UrlCombine(Address.Beacons, Convert.ToString(beaconContract.Id));
             var response = await PatchRequest(subUrl, beaconContract);
 
             if (response.ErrorMessage != null)
@@ -54,7 +54,7 @@ namespace tDevkit
         }
         public async Task<HttpResponseMessage> DeleteBeacon(int id)
         {
-            string subUrl = Address.Beacons + id;
+            string subUrl = UrlCombine(Address.Beacons, Convert.ToString(id));
             var response = await DeleteRequest(subUrl);
 
             return response;

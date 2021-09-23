@@ -26,7 +26,7 @@ namespace tDevkit
         }
         public async Task<SectorContract> AddSector(SectorContract sectorContract)
         {
-            string subUrl = Address.Sectors;
+            string subUrl = UrlCombine(Address.Sectors);
             var response = await PostRequest<AddSectorResponseContract>(subUrl, sectorContract);
 
             if (response.ErrorMessage != null)
@@ -42,7 +42,7 @@ namespace tDevkit
             {
                 throw new BadRequestException(NotFoundException.message + " Sector object has no Id.");
             }
-            string subUrl = Address.Sectors + sectorContract.Id;
+            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(sectorContract.Id));
             var response = await PatchRequest(subUrl, sectorContract);
 
             if (response.ErrorMessage != null)
@@ -54,7 +54,7 @@ namespace tDevkit
         }
         public async Task<HttpResponseMessage> DeleteSector(int id)
         {
-            string subUrl = Address.Sectors + id;
+            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(id));
             var response = await DeleteRequest(subUrl);
 
             return response;

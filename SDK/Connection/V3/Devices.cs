@@ -53,7 +53,7 @@ namespace tDevkit
 
         public async Task<DeviceContract> AddDevice(DeviceContract deviceContract)
         {
-            string subUrl = Address.Devices;
+            string subUrl = UrlCombine(Address.Devices);
             var response = await PostRequest<AddDeviceResponseContract>(subUrl, deviceContract);
 
             if (response.ErrorMessage != null)
@@ -83,7 +83,7 @@ namespace tDevkit
 
         public async Task<HttpResponseMessage> DeleteDevice(int id)
         {
-            string subUrl = Address.Devices + id;
+            string subUrl = UrlCombine(Address.Devices, Convert.ToString(id));
             var response = await DeleteRequest(subUrl);
 
             return response;
@@ -91,7 +91,7 @@ namespace tDevkit
 
         public async Task<ManDownBatchContract[]> ManDownBatch(ManDownBatchContract[] manDownBatchContracts)
         {
-            string subUrl = Address.Devices + "man-down/batch";
+            string subUrl = UrlCombine(Address.Devices, "man-down/batch");
             var response = await PostRequest<ManDownBatchContract[]>(subUrl, manDownBatchContracts);
 
             return response;
