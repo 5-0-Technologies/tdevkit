@@ -1,13 +1,8 @@
-﻿using Flurl;
-using SDK.Contracts.Communication;
+﻿using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
@@ -17,14 +12,14 @@ namespace tDevkit
     {
         public async Task<SectorContract[]> GetSectors(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sectors, queryString);
+            string subUrl = UrlCombine(Address.Sectors, queryString);
             var response = await GetRequest<SectorContract[]>(subUrl);
 
             return response;
         }
         public async Task<SectorContract> GetSector(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sectors, Convert.ToString(id), queryString);
+            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(id), queryString);
             var response = await GetRequest<SectorContract>(subUrl);
 
             return response;
@@ -35,7 +30,9 @@ namespace tDevkit
             var response = await PostRequest<AddSectorResponseContract>(subUrl, sectorContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return (SectorContract)response;
         }
@@ -49,7 +46,9 @@ namespace tDevkit
             var response = await PatchRequest(subUrl, sectorContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return response;
         }

@@ -2,10 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -29,7 +25,7 @@ namespace Test
             {
                 sector2 = await devkitConnector.GetSector(5);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(sector1);
             Assert.IsNull(sector2);
         }
@@ -46,7 +42,7 @@ namespace Test
             {
                 sector2 = await devkitConnector.GetSector(sector.Id);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNull(sector2);
         }
 

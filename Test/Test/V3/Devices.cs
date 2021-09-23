@@ -1,17 +1,11 @@
 ﻿using Core.Enum;
-using Main;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Communication;
 using SDK.Contracts.Data;
 using SDK.Enum;
-using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using tDevkit;
 using WireMock.RequestBuilders;
@@ -26,7 +20,7 @@ namespace Test
     public class DeviceTest
     {
         private const string URL = "http://localhost:8000";
-        private const string PATH_BASE = "/api/v3/devices/";
+        private const string PATH_BASE = "/api/v3/devices";
         private static DevkitConnectorV3 devkitConnector;
         private static WireMockServer server;
 

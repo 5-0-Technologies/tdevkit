@@ -2,10 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -29,7 +25,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.GetBeacon(1);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(beacon1);
             Assert.IsNull(beacon2);
         }
@@ -43,7 +39,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.AddBeacon(TestData.GetBeacon());
             }
-            catch (BadRequestException exception)
+            catch (BadRequestException)
             {
                 Assert.IsNull(null);
             }
@@ -55,7 +51,7 @@ namespace Test
             {
                 beacon2 = await devkitConnector.GetBeacon(beacon.Id);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNull(beacon2);
         }
 
@@ -71,9 +67,8 @@ namespace Test
             try
             {
                 var message = await devkitConnector.UpdateBeacon(beacon);
-                var temp = 0;
             }
-            catch (BadRequestException exception)
+            catch (BadRequestException)
             {
                 Assert.IsNotNull(null);
             }

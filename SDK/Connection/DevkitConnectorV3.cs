@@ -1,26 +1,13 @@
 ﻿using SDK;
-using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using SDK.Communication;
-using SDK.Exceptions;
-using SDK.Contracts.Data;
-using SDK.Contracts.Communication;
-using System.IO;
 
 namespace tDevkit
 {
     public partial class DevkitConnectorV3 : DevkitConnector
     {
-        private ConnectionOptions connectionOptions;
+        private readonly ConnectionOptions connectionOptions;
         protected HttpClient httpClient;
-        private string baseAddress;
+        private readonly string baseAddress;
 
         public DevkitConnectorV3(ConnectionOptions connectionOptions) : this(connectionOptions, new HttpClient())
         {
@@ -36,10 +23,4 @@ namespace tDevkit
             resetHttpClientHeaders();
         }
     }
-
-    #region AOS (0/13)
-    public partial class DevkitConnectorV3
-    {
-    }
-    #endregion
 }

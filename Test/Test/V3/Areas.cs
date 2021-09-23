@@ -1,10 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using tDevkit;
 
 namespace Test
 {
@@ -27,7 +24,7 @@ namespace Test
             {
                 area2 = await devkitConnector.GetArea(3);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(area1);
             Assert.IsNull(area2);
         }

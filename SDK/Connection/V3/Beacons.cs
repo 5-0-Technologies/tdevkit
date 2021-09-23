@@ -1,12 +1,8 @@
-﻿using Flurl;
-using SDK.Contracts.Communication;
+﻿using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
@@ -16,14 +12,14 @@ namespace tDevkit
     {
         public async Task<BeaconContract[]> GetBeacons(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Beacons, queryString);
+            string subUrl = UrlCombine(Address.Beacons, queryString);
             var response = await GetRequest<BeaconContract[]>(subUrl);
 
             return response;
         }
         public async Task<BeaconContract> GetBeacon(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Beacons, Convert.ToString(id), queryString);
+            string subUrl = UrlCombine(Address.Beacons, Convert.ToString(id), queryString);
             var response = await GetRequest<BeaconContract>(subUrl);
 
             return response;
@@ -34,7 +30,9 @@ namespace tDevkit
             var response = await PostRequest<AddBeaconResponseContract>(subUrl, beaconContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return (BeaconContract)response;
         }
@@ -48,7 +46,9 @@ namespace tDevkit
             var response = await PatchRequest(subUrl, beaconContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return response;
         }

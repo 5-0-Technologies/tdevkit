@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace SDK
 {
     public abstract class DevkitConnector
     {
-        //public abstract Task SendGetRequest(string subUrl);
+        protected string UrlCombine(params string[] items)
+        {
+            if (items?.Any() != true)
+            {
+                return string.Empty;
+            }
 
-        //public abstract Task GetDevices();
+            return string.Join("/", items.Where(u => !string.IsNullOrWhiteSpace(u)).Select(u => u.Trim('/', '\\')));
+        }
     }
 }

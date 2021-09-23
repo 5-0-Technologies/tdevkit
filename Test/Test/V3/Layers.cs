@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Data;
 using SDK.Exceptions;
-using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -29,7 +24,7 @@ namespace Test
             {
                 layer2 = await devkitConnector.GetLayer(15);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(layer1);
             Assert.IsNull(layer2);
         }

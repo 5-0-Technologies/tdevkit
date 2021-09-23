@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -28,7 +24,7 @@ namespace Test
             {
                 branch2 = await devkitConnector.GetBranch(3);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(branch1);
             Assert.IsNull(branch2);
         }

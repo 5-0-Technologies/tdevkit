@@ -5,7 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -41,11 +41,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Data\Aos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Flurl" Version="3.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

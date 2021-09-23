@@ -1,10 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SDK.Communication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SDK.Communication;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test

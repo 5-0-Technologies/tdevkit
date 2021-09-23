@@ -1,10 +1,6 @@
-﻿using Flurl;
-using SDK.Contracts.Data;
+﻿using SDK.Contracts.Data;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
@@ -14,7 +10,7 @@ namespace tDevkit
     {
         public async Task<LayerContract[]> GetLayers(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Layers, queryString);
+            string subUrl = UrlCombine(Address.Layers, queryString);
             var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;
@@ -22,7 +18,7 @@ namespace tDevkit
 
         public async Task<LayerContract> GetLayer(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Layers, Convert.ToString(id), queryString);
+            string subUrl = UrlCombine(Address.Layers, Convert.ToString(id), queryString);
             var response = await GetRequest<LayerContract>(subUrl);
 
             return response;
@@ -30,7 +26,7 @@ namespace tDevkit
 
         public async Task<LayerContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.LayersNoGo, deviceLogin, queryString);
+            string subUrl = UrlCombine(Address.LayersNoGo, deviceLogin, queryString);
             var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;
@@ -38,7 +34,7 @@ namespace tDevkit
 
         public async Task<LayerContract[]> GetLocalizationLayers(string deviceLogin, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Layerslocalization, deviceLogin, queryString);
+            string subUrl = UrlCombine(Address.Layerslocalization, deviceLogin, queryString);
             var response = await GetRequest<LayerContract[]>(subUrl);
 
             return response;

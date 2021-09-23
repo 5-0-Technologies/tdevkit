@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Data;
 using SDK.Exceptions;
-using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -29,7 +24,7 @@ namespace Test
             {
                 shift2 = await devkitConnector.GetShift(6);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(shift1);
             Assert.IsNull(shift2);
         }

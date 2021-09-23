@@ -1,13 +1,9 @@
-﻿using Flurl;
-using SDK.Communication;
+﻿using SDK.Communication;
 using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
@@ -17,21 +13,21 @@ namespace tDevkit
     {
         public async Task<SensorContract[]> GetSensors(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sensors, queryString);
+            string subUrl = UrlCombine(Address.Sensors, queryString);
             var response = await GetRequest<SensorContract[]>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sensors, Convert.ToString(id), queryString);
+            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(id), queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(string login, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.SensorsLogin, login, queryString);
+            string subUrl = UrlCombine(Address.SensorsLogin, login, queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
@@ -42,7 +38,9 @@ namespace tDevkit
             var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return (SensorContract)response;
         }
@@ -56,7 +54,9 @@ namespace tDevkit
             var response = await PatchRequest(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return response;
         }
@@ -76,6 +76,7 @@ namespace tDevkit
             for (int i = 0; i < response.Length; i++)
             {
                 if (response[i].SensorData != null)
+                {
                     for (int j = 0; j < response[i].SensorData.Length; j++)
                     {
                         var sensorDataResult = response[i].SensorData[j];
@@ -85,8 +86,12 @@ namespace tDevkit
                                 " Quantity: " + sensorDataResult.Quantity + " - " + sensorDataResult.ErrorMessage);
                         }
                     }
+                }
+
                 if (response[i].ErrorMessage != null)
+                {
                     throw new ServerResponseException(ServerResponseException.message + " " + response[i].ErrorMessage);
+                }
             }
 
             return response;
@@ -97,6 +102,7 @@ namespace tDevkit
             var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract
 
             if (response != null)
+            {
                 for (int i = 0; i < response.Length; i++)
                 {
                     var sensorDataResult = response[i];
@@ -106,6 +112,7 @@ namespace tDevkit
                             " Quantity: " + sensorDataResult.Quantity + " - " + sensorDataResult.ErrorMessage);
                     }
                 }
+            }
 
             return new AddSensorDataResponseContract {
                 SensorData = response

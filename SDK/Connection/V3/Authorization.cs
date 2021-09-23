@@ -2,11 +2,7 @@
 using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace tDevkit
@@ -36,13 +32,20 @@ namespace tDevkit
             var response = await GetRequest<AuthenticationResponseContract>(subUrl);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             connectionOptions.Token = response.Token;
             if (response.Client != null)
+            {
                 connectionOptions.ClientGuid = response.Client;
+            }
+
             if (response.Branch != null)
+            {
                 connectionOptions.BranchGuid = response.Branch;
+            }
 
             resetHttpClientHeaders();
 
@@ -64,18 +67,27 @@ namespace tDevkit
 
 
             if (!superUser)
+            {
                 credentialContract.Client = connectionOptions.Client;
+            }
 
             var response = await PostRequest<AuthenticationResponseContract>(subUrl, credentialContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             connectionOptions.Token = response.Token;
             if (response.Client != null)
+            {
                 connectionOptions.ClientGuid = response.Client;
+            }
+
             if (response.Branch != null)
+            {
                 connectionOptions.BranchGuid = response.Branch;
+            }
 
             resetHttpClientHeaders();
 

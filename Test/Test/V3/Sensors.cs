@@ -3,10 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test
@@ -30,7 +26,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.GetSensor(1);
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(sensor1);
             Assert.IsNull(sensor2);
         }
@@ -44,7 +40,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.GetSensor("notexistentlogin");
             }
-            catch (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNotNull(sensor1);
             Assert.IsNull(sensor2);
         }
@@ -58,7 +54,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.AddSensor(TestData.GetSensor());
             }
-            catch (BadRequestException exception)
+            catch (BadRequestException)
             {
                 Assert.IsNull(null);
             }
@@ -70,7 +66,7 @@ namespace Test
             {
                 sensor2 = await devkitConnector.GetSensor(sensor.Id);
             }
-            catch  (NotFoundException exception) { }
+            catch (NotFoundException) { }
             Assert.IsNull(sensor2);
         }
 
@@ -85,9 +81,8 @@ namespace Test
             try
             {
                 var message = await devkitConnector.UpdateSensor(sensor);
-                var temp = 0;
             }
-            catch (BadRequestException exception)
+            catch (BadRequestException)
             {
                 Assert.IsNotNull(null);
             }
