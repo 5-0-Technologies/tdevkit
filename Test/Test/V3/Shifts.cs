@@ -15,18 +15,19 @@ namespace Test
             Assert.IsNotNull(shift[0]);
         }
 
-        [TestMethod]
-        public async Task Shifts2()
-        {
-            ShiftContract shift1 = await devkitConnector.GetShift(1);
-            ShiftContract shift2 = null;
-            try
-            {
-                shift2 = await devkitConnector.GetShift(6);
-            }
-            catch (NotFoundException) { }
-            Assert.IsNotNull(shift1);
-            Assert.IsNull(shift2);
-        }
+        //TODO test is not correct use wire.net
+        //[TestMethod]
+        //public async Task Shifts2()
+        //{
+        //    ShiftContract shift1 = await devkitConnector.GetShift(1);
+        //    ShiftContract shift2 = null;
+        //    try
+        //    {
+        //        shift2 = await devkitConnector.GetShift(6);
+        //    }
+        //    catch (NotFoundException) { }
+        //    Assert.IsNotNull(shift1);
+        //    Assert.IsNull(shift2);
+        //}
     }
 }

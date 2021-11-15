@@ -8,7 +8,7 @@ namespace Test
         {
             ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
             ConnectionOptions connectionOptions = optionsBuilder
-                .Url("http://twin.develop.rtls.solutions:8080/api/")
+                .Url("http://192.168.30.95/twin.develop.rtls.solutions/api/")
                 .Client("Infotech")
                 .ClientGuid("00000000-0000-0000-0000-000000000001")
                 .BranchGuid("00000000-0000-0000-0000-000000000003")
