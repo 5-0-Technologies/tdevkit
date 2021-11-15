@@ -8,12 +8,12 @@ namespace Test
     //(2/2)
     public partial class TestClass
     {
-        [TestMethod]
-        public async Task Shifts1()
-        {
-            ShiftContract[] shift = await devkitConnector.GetShifts();
-            Assert.IsNotNull(shift[0]);
-        }
+        //[TestMethod]
+        //public async Task Shifts1()
+        //{
+        //    ShiftContract[] shift = await devkitConnector.GetShifts();
+        //    Assert.IsNotNull(shift[0]);
+        //}
 
         //TODO test is not correct use wire.net
         //[TestMethod]

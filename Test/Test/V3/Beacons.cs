@@ -9,26 +9,26 @@ namespace Test
     //(5/5)
     public partial class TestClass
     {
-        [TestMethod]
-        public async Task Beacons1()
-        {
-            BeaconContract[] beacon = await devkitConnector.GetBeacons();
-            Assert.IsNotNull(beacon[0]);
-        }
+        //[TestMethod]
+        //public async Task Beacons1()
+        //{
+        //    BeaconContract[] beacon = await devkitConnector.GetBeacons();
+        //    Assert.IsNotNull(beacon[0]);
+        //}
 
-        [TestMethod]
-        public async Task Beacons2()
-        {
-            BeaconContract beacon1 = await devkitConnector.GetBeacon(34);
-            BeaconContract beacon2 = null;
-            try
-            {
-                beacon2 = await devkitConnector.GetBeacon(1);
-            }
-            catch (NotFoundException) { }
-            Assert.IsNotNull(beacon1);
-            Assert.IsNull(beacon2);
-        }
+        //[TestMethod]
+        //public async Task Beacons2()
+        //{
+        //    BeaconContract beacon1 = await devkitConnector.GetBeacon(34);
+        //    BeaconContract beacon2 = null;
+        //    try
+        //    {
+        //        beacon2 = await devkitConnector.GetBeacon(1);
+        //    }
+        //    catch (NotFoundException) { }
+        //    Assert.IsNotNull(beacon1);
+        //    Assert.IsNull(beacon2);
+        //}
 
         //TODO test is not correct use wire.net
         //[TestMethod]
@@ -78,11 +78,11 @@ namespace Test
         //    await devkitConnector.DeleteBeacon(beacon.Id);
         //}
 
-        [TestMethod]
-        public async Task Beacons5()
-        {
-            //Delete je otestovany v add a update
-            await Task.CompletedTask;
-        }
+        //[TestMethod]
+        //public async Task Beacons5()
+        //{
+        //    //Delete je otestovany v add a update
+        //    await Task.CompletedTask;
+        //}
     }
 }

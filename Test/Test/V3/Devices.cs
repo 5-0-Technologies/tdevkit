@@ -100,20 +100,6 @@ namespace Test
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
-        //[TestMethod]
-        //public async Task Devices4()
-        //{
-        //    DynamicDeviceContract[] device = await devkitConnector.GetDynamicDevices();
-        //    Assert.IsNotNull(device[0]);
-        //}
-
-        //[TestMethod]
-        //public async Task Devices5()
-        //{
-        //    DynamicDeviceContract[] device = await devkitConnector.GetDynamicDevicesShort();
-        //    Assert.IsNotNull(device[0]);
-        //}
-
         [TestMethod]
         public async Task AddDevice_AddDevice_ShouldReturn200()
         {
@@ -148,20 +134,6 @@ namespace Test
 
             Assert.IsInstanceOfType(response, typeof(HttpResponseMessage));
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-        }
-
-        [TestMethod]
-        public async Task Devices8()
-        {
-            //Delete je otestovany v add a update
-            await Task.CompletedTask;
-        }
-
-        [TestMethod]
-        public async Task Devices9()
-        {
-            //Register
-            await Task.CompletedTask;
         }
 
         [TestMethod]
