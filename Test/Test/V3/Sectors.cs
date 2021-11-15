@@ -63,6 +63,7 @@ namespace Test
             //}
             //Assert.IsNotNull(sector);
             //await devkitConnector.DeleteSector(sector.Id);
+            await Task.CompletedTask;
         }
 
 
@@ -70,6 +71,7 @@ namespace Test
         public async Task Sectors5()
         {
             //Delete je otestovany v add a update
+            await Task.CompletedTask;
         }
     }
 }

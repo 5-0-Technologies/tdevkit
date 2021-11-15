@@ -94,6 +94,7 @@ namespace Test
         public async Task Sensors6()
         {
             //Delete je otestovany v add a update
+            await Task.CompletedTask;
         }
 
         [TestMethod]
@@ -123,7 +124,7 @@ namespace Test
         [TestMethod]
         public async Task Sensors10()
         {
-
+            await Task.CompletedTask;
         }
     }
 }

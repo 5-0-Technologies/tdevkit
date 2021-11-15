@@ -1,6 +1,6 @@
 ﻿using SDK;
 
-namespace tDevkit
+namespace SDK
 {
     public static class DevkitFactory
     {

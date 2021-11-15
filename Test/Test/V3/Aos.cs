@@ -13,6 +13,7 @@ namespace Test
             //OrderInfoContract[] aos = await devkitConnector.GetOrders();
             //Assert.IsNotNull(aos[0]);
             //await A_DeleteToken();
+            await Task.CompletedTask;
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿using System.Net.Http;
-using tDevkit;
+using SDK;
 
 namespace SDK
 {

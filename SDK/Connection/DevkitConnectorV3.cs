@@ -1,7 +1,7 @@
 ﻿using SDK;
 using System.Net.Http;
 
-namespace tDevkit
+namespace SDK
 {
     public partial class DevkitConnectorV3 : DevkitConnector
     {

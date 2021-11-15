@@ -3,7 +3,7 @@ using SDK.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using tDevkit;
+using SDK;
 
 namespace Main
 {
@@ -11,7 +11,7 @@ namespace Main
     {
         static async Task Main(string[] args)
         {
-
+            await Task.CompletedTask;
         }
 
         public static async Task TestSensor()

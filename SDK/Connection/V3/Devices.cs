@@ -6,7 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(7/9)
     public partial class DevkitConnectorV3
@@ -99,7 +99,7 @@ namespace tDevkit
 
         public async Task<HttpResponseMessage> RegisterDevice()
         {
-            return null;
+            return await Task.FromResult(new HttpResponseMessage());
         }
     }
 }

@@ -2,7 +2,7 @@
 using SDK.Models;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(0/15)
     public partial class DevkitConnectorV3

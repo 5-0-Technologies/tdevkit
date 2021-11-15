@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using tDevkit;
+using SDK;
 
 namespace Test
 {

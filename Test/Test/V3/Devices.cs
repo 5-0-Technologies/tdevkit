@@ -7,7 +7,7 @@ using SDK.Models;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using tDevkit;
+using SDK;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
@@ -154,12 +154,14 @@ namespace Test
         public async Task Devices8()
         {
             //Delete je otestovany v add a update
+            await Task.CompletedTask;
         }
 
         [TestMethod]
         public async Task Devices9()
         {
             //Register
+            await Task.CompletedTask;
         }
 
         [TestMethod]

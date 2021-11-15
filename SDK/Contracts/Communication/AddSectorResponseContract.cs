@@ -14,27 +14,27 @@ namespace SDK.Contracts.Communication
 
         public string Title { get; set; }
 
-        public double BarrierWidth { get; set; }
+        public float BarrierWidth { get; set; }
 
-        public double BarrierHeight { get; set; }
+        public float BarrierHeight { get; set; }
 
-        public double SectorWidth { get; set; }
+        public float SectorWidth { get; set; }
 
-        public double SectorHeight { get; set; }
+        public float SectorHeight { get; set; }
 
         public long Modified { get; set; }
 
         public string Configuration { get; set; }
 
-        public GpsItemContract[]? GpsItems { get; set; }
+        public GpsItemContract[] GpsItems { get; set; }
 
-        public AreaContract[]? Areas { get; set; }
+        public AreaContract[] Areas { get; set; }
 
-        public BarrierContract[]? Barriers { get; set; }
+        public BarrierContract[] Barriers { get; set; }
 
-        public BeaconContract[]? Beacons { get; set; }
+        public BeaconContract[] Beacons { get; set; }
 
-        public SensorContract[]? Sensors { get; set; }
+        public SensorContract[] Sensors { get; set; }
 
         public static explicit operator SectorContract(AddSectorResponseContract addSectorResponseContract)
         {

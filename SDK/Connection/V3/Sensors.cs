@@ -6,7 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(9/10)
     public partial class DevkitConnectorV3
@@ -125,12 +125,13 @@ namespace tDevkit
 
             return response;
         }
-        public async void GetSensorAppFile()
+        public async Task GetSensorAppFile()
         {
             //string subUrl = Address.SensorsAppFile;
             //var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             //return response;
+            await Task.CompletedTask;
         }
     }
 }

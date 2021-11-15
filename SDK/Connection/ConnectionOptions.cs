@@ -1,4 +1,4 @@
-﻿namespace tDevkit
+﻿namespace SDK
 {
 
     public class ConnectionOptions

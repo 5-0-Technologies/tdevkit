@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(2/2)
     public partial class DevkitConnectorV3

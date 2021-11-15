@@ -5,7 +5,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(4/5)
     public partial class DevkitConnectorV3

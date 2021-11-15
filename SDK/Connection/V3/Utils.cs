@@ -3,7 +3,7 @@ using SDK.Models;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(5/5)
     public partial class DevkitConnectorV3

@@ -80,6 +80,7 @@ namespace Test
         public async Task Beacons5()
         {
             //Delete je otestovany v add a update
+            await Task.CompletedTask;
         }
     }
 }

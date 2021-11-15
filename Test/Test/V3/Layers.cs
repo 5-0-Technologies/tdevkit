@@ -37,6 +37,7 @@ namespace Test
 
             //LayerNoGoContract[] layer = await devkitConnector.GetNoGoLayers(device.Login);
             //Assert.IsNotNull(layer[0]);
+            await Task.CompletedTask;
         }
     }
 }
