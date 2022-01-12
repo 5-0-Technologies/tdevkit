@@ -9,12 +9,12 @@ namespace Test
     //(5/5)
     public partial class TestClass
     {
-        //[TestMethod]
-        //public async Task Sectors1()
-        //{
-        //    SectorContract[] sector = await devkitConnector.GetSectors();
-        //    Assert.IsNotNull(sector[0]);
-        //}
+        [TestMethod]
+        public async Task Sectors1()
+        {
+            SectorContract[] sector = await devkitConnector.GetSectors();
+            Assert.IsNotNull(sector[0]);
+        }
 
         //[TestMethod]
         //public async Task Sectors2()

@@ -8,12 +8,12 @@ namespace Test
         {
             ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
             ConnectionOptions connectionOptions = optionsBuilder
-                .Url("http://192.168.30.95/twin.develop.rtls.solutions/api/")
+                .Url("https://twin.rtls.solutions/api/")
                 .Client("Infotech")
-                .ClientGuid("00000000-0000-0000-0000-000000000001")
-                .BranchGuid("00000000-0000-0000-0000-000000000003")
+                .ClientGuid("a4b82880-9dca-41f1-971a-73690dd8b222")
+                .BranchGuid("87bdd503-fd94-46b7-ad0a-9e33fdd0c598")
                 .Timeout(1000)
-                .ApiKey("X1fprPtlkvolW1Bl47UQV4SoW8siY3n8QDQkDsGJ")
+                .ApiKey("vzauHrBvLUcyJK0cLcnTQwd0fX4Cpp1MQ9DInQqW")
                 .Version(ConnectionOptions.VERSION_3)
                 .Build();
 
