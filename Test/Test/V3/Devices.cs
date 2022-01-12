@@ -15,14 +15,13 @@ using WireMock.Settings;
 
 namespace Test
 {
-    //(8/9)
     [TestClass]
-    public class DeviceTest
+    public class AreaTest
     {
-        private const string URL = "http://localhost:8000";
+        protected const string URL = "http://localhost:8000";
         private const string PATH_BASE = "/api/v3/devices";
-        private static DevkitConnectorV3 devkitConnector;
-        private static WireMockServer server;
+        protected static WireMockServer server;
+        protected static DevkitConnectorV3 devkitConnector;
 
         [ClassInitialize]
         public static void Init(TestContext context)
@@ -130,10 +129,34 @@ namespace Test
             server.Given(Request.Create().WithPath(PATH_BASE + "/" + Id).UsingDelete())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            var response = await devkitConnector.DeleteDevice(Id);
+            await devkitConnector.DeleteDevice(Id);
+        }
 
-            Assert.IsInstanceOfType(response, typeof(HttpResponseMessage));
-            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+        [TestMethod]
+        public async Task ManDown()
+        {
+            const string PATH = PATH_BASE + "/man-down";
+            const string device = "Device1";
+            const long ts = 1000;
+            var bodyContent = new ManDownResponseContract()
+            {
+                Login = device,
+                Timestamp = ts,
+                Action = ActionType.Create,
+                Success = true
+            };
+
+            server.Given(Request.Create().WithPath(PATH).UsingPost())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            var response = await devkitConnector.ManDown(new ManDownContract
+            {
+                Login = device,
+                Timestamp = ts,
+                FallType = FallType.ManDown
+            });
+
+            Assert.IsInstanceOfType(response, typeof(ManDownResponseContract));
         }
 
         [TestMethod]
@@ -142,8 +165,8 @@ namespace Test
             const string PATH = PATH_BASE + "/man-down/batch";
             const string device = "Device1";
             const long ts = 1000;
-            var bodyContent = new ManDownBatchResponseContract[] {
-                new ManDownBatchResponseContract()
+            var bodyContent = new ManDownResponseContract[] {
+                new ManDownResponseContract()
                 {
                     Login = device,
                     Timestamp = ts,
@@ -155,8 +178,8 @@ namespace Test
             server.Given(Request.Create().WithPath(PATH).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            var response = await devkitConnector.ManDownBatch(new ManDownBatchContract[] {
-                new ManDownBatchContract()
+            var response = await devkitConnector.ManDownBatch(new ManDownContract[] {
+                new ManDownContract()
                 {
                     Login = device,
                     Timestamp = ts,
@@ -164,7 +187,7 @@ namespace Test
                 }
             });
 
-            Assert.IsInstanceOfType(response, typeof(ManDownBatchContract[]));
+            Assert.IsInstanceOfType(response, typeof(ManDownResponseContract[]));
         }
     }
 }

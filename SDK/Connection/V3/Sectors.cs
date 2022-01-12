@@ -24,6 +24,7 @@ namespace SDK
 
             return response;
         }
+
         public async Task<SectorContract> AddSector(SectorContract sectorContract)
         {
             string subUrl = UrlCombine(Address.Sectors);
@@ -36,28 +37,21 @@ namespace SDK
 
             return (SectorContract)response;
         }
-        public async Task<PatchResponseContract> UpdateSector(SectorContract sectorContract)
+
+        public async Task UpdateSector(SectorContract sectorContract)
         {
             if (sectorContract.Id == 0)
             {
                 throw new BadRequestException(NotFoundException.message + " Sector object has no Id.");
             }
             string subUrl = UrlCombine(Address.Sectors, Convert.ToString(sectorContract.Id));
-            var response = await PatchRequest(subUrl, sectorContract);
-
-            if (response.ErrorMessage != null)
-            {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-            }
-
-            return response;
+            await PatchRequest<string>(subUrl, sectorContract);
         }
-        public async Task<HttpResponseMessage> DeleteSector(int id)
+
+        public async Task DeleteSector(int id)
         {
             string subUrl = UrlCombine(Address.Sectors, Convert.ToString(id));
-            var response = await DeleteRequest(subUrl);
-
-            return response;
+            await DeleteRequest<string>(subUrl);
         }
     }
 }

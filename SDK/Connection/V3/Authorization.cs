@@ -10,21 +10,20 @@ namespace SDK
     //(3/3)
     public partial class DevkitConnectorV3
     {
-        public async Task<HttpResponseMessage> DeleteCurrentToken()
+        public async Task DeleteCurrentToken()
         {
             string subUrl = UrlCombine(Address.AuthorizationToken);
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
 
-            var response = await DeleteRequest(subUrl);
+            await DeleteRequest(subUrl);
 
             connectionOptions.Token = null;
 
-            resetHttpClientHeaders();
-
-            return response;
+            ResetHttpClientHeaders();
         }
+
         public async Task<AuthenticationResponseContract> GetToken()
         {
             string subUrl = UrlCombine(Address.AuthorizationToken);
@@ -47,7 +46,7 @@ namespace SDK
                 connectionOptions.BranchGuid = response.Branch;
             }
 
-            resetHttpClientHeaders();
+            ResetHttpClientHeaders();
 
             return response;
         }
@@ -89,7 +88,7 @@ namespace SDK
                 connectionOptions.BranchGuid = response.Branch;
             }
 
-            resetHttpClientHeaders();
+            ResetHttpClientHeaders();
 
             return response;
         }

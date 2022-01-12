@@ -11,37 +11,36 @@ namespace SDK
         {
             string subUrl = UrlCombine(Address.ConfigurationBranch, key);
 
-            var task = await SendGetRequest(subUrl);
+            var task = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
-            ConfigurationContract response = new ConfigurationContract
+            var responseString = await JsonResponse<dynamic>(task);
+            return new ConfigurationContract
             {
                 Value = responseString
             };
-
-            return response;
         }
+
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
             string subUrl = UrlCombine(Address.ConfigurationAccount, key);
 
-            var task = await SendGetRequest(subUrl);
+            var response = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
-            ConfigurationContract response = new ConfigurationContract
+            var responseString = await JsonResponse<dynamic>(response);
+
+            return new ConfigurationContract
             {
                 Value = responseString
             };
-
-            return response;
         }
+
         public async Task<long> GetConfigurationLastChange(string key)
         {
             string subUrl = UrlCombine(Address.Configuration, key, "/last-change");
 
-            var task = await SendGetRequest(subUrl);
+            var response = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
+            var responseString = response.Content.ReadAsStringAsync();
 
             return Convert.ToInt64(responseString);
         }

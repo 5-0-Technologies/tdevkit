@@ -3,29 +3,14 @@ using SDK;
 
 namespace SDK
 {
-    public class DevkitConnectorV2
+    public class DevkitConnectorV2 : DevkitConnector
     {
-        private readonly ConnectionOptions connectionOptions;
-        protected HttpClient httpClient;
-
-        public DevkitConnectorV2(ConnectionOptions connectionOptions) : this(connectionOptions, new HttpClient())
+        public DevkitConnectorV2(ConnectionOptions connectionOptions) : base(connectionOptions)
         {
         }
 
-        public DevkitConnectorV2(ConnectionOptions connectionOptions, HttpClient httpClient)
+        public DevkitConnectorV2(ConnectionOptions connectionOptions, HttpClient httpClient) : base(connectionOptions, httpClient)
         {
-            this.connectionOptions = connectionOptions;
-            this.httpClient = httpClient;
         }
-
-        //public override Task SendRequest()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override Task GetDevices()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

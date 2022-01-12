@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace SDK.Contracts.Data
 {
     [DataContract]
-    public class ManDownBatchContract
+    public class ManDownContract
     {
         [Required]
         [StringLength(255)]

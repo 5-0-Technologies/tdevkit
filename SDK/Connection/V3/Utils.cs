@@ -15,24 +15,26 @@ namespace SDK
 
             return response;
         }
+
         public async Task<byte[]> GetFile(string fileName)
         {
             string subUrl = UrlCombine(Address.UtilsFile, fileName);
 
             return await GetFile(fileName, subUrl);
         }
+
         public async Task<byte[]> GetDemoFile(string fileName)
         {
             string subUrl = UrlCombine(Address.UtilsDemoFile, fileName);
             return await GetFile(fileName, subUrl);
         }
+
         private async Task<byte[]> GetFile(string fileName, string subUrl)
         {
-            var task = await SendGetRequest(subUrl);
-
-            string responseString = await ProcessResponse(task);
-            return Encoding.UTF8.GetBytes(responseString);
+            var response = await httpClient.GetAsync(subUrl);
+            return await response.Content.ReadAsByteArrayAsync();
         }
+
         public async Task<string> GetUnityLastVersion(string platform)
         {
             string subUrl = UrlCombine(Address.UtilsUnityLastVersion, platform);
@@ -40,6 +42,7 @@ namespace SDK
 
             return response;
         }
+
         public async Task<FileInfoContract> GetUnityBundleInfo(string bundleName)
         {
             string subUrl = UrlCombine(Address.UtilsUnityBundleInfo, bundleName);

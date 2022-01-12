@@ -2,7 +2,7 @@
 
 namespace SDK.Contracts.Communication
 {
-    public class ManDownBatchResponseContract
+    public class ManDownResponseContract
     {
         public string Login { get; set; }
 

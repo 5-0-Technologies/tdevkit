@@ -36,28 +36,21 @@ namespace SDK
 
             return (BeaconContract)response;
         }
-        public async Task<PatchResponseContract> UpdateBeacon(BeaconContract beaconContract)
+
+        public async Task UpdateBeacon(BeaconContract beaconContract)
         {
             if (beaconContract.Id == 0)
             {
                 throw new BadRequestException(NotFoundException.message + " Beacon object has no Id.");
             }
             string subUrl = UrlCombine(Address.Beacons, Convert.ToString(beaconContract.Id));
-            var response = await PatchRequest(subUrl, beaconContract);
-
-            if (response.ErrorMessage != null)
-            {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-            }
-
-            return response;
+            var response = await PatchRequest<string>(subUrl, beaconContract);
         }
-        public async Task<HttpResponseMessage> DeleteBeacon(int id)
+
+        public async Task DeleteBeacon(int id)
         {
             string subUrl = UrlCombine(Address.Beacons, Convert.ToString(id));
-            var response = await DeleteRequest(subUrl);
-
-            return response;
+            await DeleteRequest(subUrl);
         }
     }
 }
