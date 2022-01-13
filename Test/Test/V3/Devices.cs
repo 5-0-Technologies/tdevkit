@@ -73,6 +73,7 @@ namespace Test
                 new DeviceContract(){}
             };
 
+            server.Reset();
             server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
