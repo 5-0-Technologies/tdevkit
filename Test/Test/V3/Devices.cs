@@ -12,6 +12,7 @@ using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 using WireMock.Settings;
+using SDK.Exceptions;
 
 namespace Test
 {
@@ -48,6 +49,21 @@ namespace Test
         public static void Cleanup()
         {
             server.Stop();
+        }
+
+        [TestMethod]
+        public async Task GetDevices_ErrorHandling_ShouldThrowsException()
+        {
+            var bodyContent = new ExceptionContent
+            {
+                Code = "10",
+                Message = "Error"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(400).WithBodyAsJson(bodyContent));
+
+            await Assert.ThrowsExceptionAsync<ServerResponseException>(async () => await devkitConnector.GetDevices());
         }
 
         [TestMethod]
