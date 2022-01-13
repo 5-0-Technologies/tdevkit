@@ -19,10 +19,12 @@ namespace Test
     [TestClass]
     public class DeviceTest
     {
-        protected const string URL = "http://localhost:8000";
-        private const string PATH_BASE = "/api/v3/devices";
-        protected static WireMockServer server;
-        protected static DevkitConnectorV3 devkitConnector;
+        const string URL = "http://localhost:8000";
+        const string PATH_BASE = "/api/v3/devices";
+        static WireMockServer server;
+        static DevkitConnectorV3 devkitConnector;
+
+        protected static WireMockServer Server { get => server; set => server = value; }
 
         [ClassInitialize]
         public static void Init(TestContext context)

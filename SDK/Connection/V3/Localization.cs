@@ -12,7 +12,7 @@ namespace SDK
     {
         public async Task<PostResponseContract[]> AddLocalizationData(DeviceLocationContract[] deviceLocationContract)
         {
-            string subUrl = UrlCombine(Address.LocalizationAddDataBatch);
+            string subUrl = Address.UrlCombine(Address.LocalizationAddDataBatch);
             var response = await PostRequest<AddLocatizationDataResponseContract[]>(subUrl, deviceLocationContract);
 
             for (int i = 0; i < response.Length; i++)
@@ -39,7 +39,7 @@ namespace SDK
         }
         public async Task<PostResponseContract> AddLocalizationData(LocationContract[] locationContract)
         {
-            string subUrl = UrlCombine(Address.LocalizationAddData);
+            string subUrl = Address.UrlCombine(Address.LocalizationAddData);
             var response = await PostRequest<AddLocatizationDataResponseContract>(subUrl, locationContract);
 
 

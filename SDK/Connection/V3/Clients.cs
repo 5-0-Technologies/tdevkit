@@ -8,7 +8,7 @@ namespace SDK
     {
         public async Task<ClientContract[]> GetClients(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Clients, queryString);
+            string subUrl = Address.UrlCombine(Address.Clients, queryString);
             var response = await GetRequest<ClientContract[]>(subUrl);
 
             return response;

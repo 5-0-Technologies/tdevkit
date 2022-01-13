@@ -12,14 +12,14 @@ namespace SDK
     {
         public async Task<SectorContract[]> GetSectors(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Sectors, queryString);
+            string subUrl = Address.UrlCombine(Address.Sectors, queryString);
             var response = await GetRequest<SectorContract[]>(subUrl);
 
             return response;
         }
         public async Task<SectorContract> GetSector(int id, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Sectors, Convert.ToString(id), queryString);
             var response = await GetRequest<SectorContract>(subUrl);
 
             return response;
@@ -27,7 +27,7 @@ namespace SDK
 
         public async Task<SectorContract> AddSector(SectorContract sectorContract)
         {
-            string subUrl = UrlCombine(Address.Sectors);
+            string subUrl = Address.UrlCombine(Address.Sectors);
             var response = await PostRequest<AddSectorResponseContract>(subUrl, sectorContract);
 
             if (response.ErrorMessage != null)
@@ -44,13 +44,13 @@ namespace SDK
             {
                 throw new BadRequestException(NotFoundException.message + " Sector object has no Id.");
             }
-            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(sectorContract.Id));
+            string subUrl = Address.UrlCombine(Address.Sectors, Convert.ToString(sectorContract.Id));
             await PatchRequest<string>(subUrl, sectorContract);
         }
 
         public async Task DeleteSector(int id)
         {
-            string subUrl = UrlCombine(Address.Sectors, Convert.ToString(id));
+            string subUrl = Address.UrlCombine(Address.Sectors, Convert.ToString(id));
             await DeleteRequest<string>(subUrl);
         }
     }

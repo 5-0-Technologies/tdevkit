@@ -12,7 +12,7 @@ namespace SDK
     {
         public async Task DeleteCurrentToken()
         {
-            string subUrl = UrlCombine(Address.AuthorizationToken);
+            string subUrl = Address.UrlCombine(Address.AuthorizationToken);
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
@@ -26,7 +26,7 @@ namespace SDK
 
         public async Task<AuthenticationResponseContract> GetToken()
         {
-            string subUrl = UrlCombine(Address.AuthorizationToken);
+            string subUrl = Address.UrlCombine(Address.AuthorizationToken);
 
             var response = await GetRequest<AuthenticationResponseContract>(subUrl);
 
@@ -56,7 +56,7 @@ namespace SDK
         }
         public async Task<AuthenticationResponseContract> Authenticate(string login, string password, bool superUser)
         {
-            string subUrl = UrlCombine(Address.AuthorizationAuthenticate);
+            string subUrl = Address.UrlCombine(Address.AuthorizationAuthenticate);
 
             CredentialContract credentialContract = new CredentialContract
             {

@@ -1,6 +1,8 @@
-﻿namespace SDK.Models
+﻿using System.Linq;
+
+namespace SDK.Models
 {
-    public class Address
+    public static class Address
     {
         public const string AosOrders = "aos/orders/";
         public const string AosNodeInfo = "aos/node-info/";
@@ -64,5 +66,15 @@
         public const string UtilsDemoFile = "utils/demo-file/";
         public const string UtilsUnityLastVersion = "utils/unity-last-version/";
         public const string UtilsUnityBundleInfo = "utils/unity-bundle-info/";
+
+        public static string UrlCombine(params string[] items)
+        {
+            if (items?.Any() != true)
+            {
+                return string.Empty;
+            }
+
+            return string.Join("/", items.Where(u => !string.IsNullOrWhiteSpace(u)).Select(u => u.Trim('/', '\\')));
+        }
     }
 }

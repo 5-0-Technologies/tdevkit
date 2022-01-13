@@ -9,14 +9,14 @@ namespace SDK
     {
         public async Task<AreaContract[]> GetAreas(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Areas, queryString);
+            string subUrl = Address.UrlCombine(Address.Areas, queryString);
             var response = await GetRequest<AreaContract[]>(subUrl);
 
             return response;
         }
         public async Task<AreaContract> GetArea(int id, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Areas, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(id), queryString);
             var response = await GetRequest<AreaContract>(subUrl);
 
             return response;

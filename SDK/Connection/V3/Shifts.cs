@@ -10,14 +10,14 @@ namespace SDK
     {
         public async Task<ShiftContract[]> GetShifts(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Shifts, queryString);
+            string subUrl = Address.UrlCombine(Address.Shifts, queryString);
             var response = await GetRequest<ShiftContract[]>(subUrl);
 
             return response;
         }
         public async Task<ShiftContract> GetShift(int id, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Shifts, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Shifts, Convert.ToString(id), queryString);
             var response = await GetRequest<ShiftContract>(subUrl);
 
             return response;

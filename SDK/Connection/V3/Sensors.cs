@@ -13,28 +13,28 @@ namespace SDK
     {
         public async Task<SensorContract[]> GetSensors(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Sensors, queryString);
+            string subUrl = Address.UrlCombine(Address.Sensors, queryString);
             var response = await GetRequest<SensorContract[]>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(int id, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(id), queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(string login, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.SensorsLogin, login, queryString);
+            string subUrl = Address.UrlCombine(Address.SensorsLogin, login, queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> AddSensor(SensorContract sensorContract)
         {
-            string subUrl = UrlCombine(Address.Sensors);
+            string subUrl = Address.UrlCombine(Address.Sensors);
             var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
@@ -50,17 +50,17 @@ namespace SDK
             {
                 throw new BadRequestException(NotFoundException.message + " Sensor object has no Id.");
             }
-            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(sensorContract.Id));
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(sensorContract.Id));
             await PatchRequest(subUrl, sensorContract);
         }
         public async Task DeleteSensor(int id)
         {
-            string subUrl = UrlCombine(Address.Sensors, Convert.ToString(id));
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(id));
             await DeleteRequest(subUrl);
         }
         public async Task<PostResponseContract[]> AddSensorData(SensorContract[] sensors)
         {
-            string subUrl = UrlCombine(Address.SensorsAddDataBatch);
+            string subUrl = Address.UrlCombine(Address.SensorsAddDataBatch);
             var response = await PostRequest<AddSensorDataResponseContract[]>(subUrl, sensors);
 
 
@@ -89,7 +89,7 @@ namespace SDK
         }
         public async Task<PostResponseContract> AddSensorData(SensorDataContract[] sensorData)
         {
-            string subUrl = UrlCombine(Address.SensorsAddData);
+            string subUrl = Address.UrlCombine(Address.SensorsAddData);
             var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract
 
             if (response != null)
@@ -111,7 +111,7 @@ namespace SDK
         }
         public async Task<SensorAppInfoContract> GetSensorAppInfo()
         {
-            string subUrl = UrlCombine(Address.SensorsAppInfo);
+            string subUrl = Address.UrlCombine(Address.SensorsAppInfo);
             var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             return response;

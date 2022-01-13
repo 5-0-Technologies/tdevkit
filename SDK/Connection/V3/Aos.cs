@@ -9,7 +9,7 @@ namespace SDK
     {
         public async Task<OrderInfoContract[]> GetOrders()
         {
-            string subUrl = UrlCombine(Address.AosOrders);
+            string subUrl = Address.UrlCombine(Address.AosOrders);
             var response = await GetRequest<OrderInfoContract[]>(subUrl);
 
             return response;

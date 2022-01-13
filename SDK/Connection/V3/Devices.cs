@@ -13,13 +13,13 @@ namespace SDK
     {
         public async Task<DeviceContract[]> GetDevices(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Devices, queryString);
+            string subUrl = Address.UrlCombine(Address.Devices, queryString);
             return await GetRequest<DeviceContract[]>(subUrl);
         }
 
         public async Task<DeviceContract> GetDevice(int id, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.Devices, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Devices, Convert.ToString(id), queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
@@ -27,7 +27,7 @@ namespace SDK
 
         public async Task<DeviceContract> GetDevice(string login, string queryString = "")
         {
-            string subUrl = UrlCombine(Address.DevicesLogin, login, queryString);
+            string subUrl = Address.UrlCombine(Address.DevicesLogin, login, queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
@@ -35,7 +35,7 @@ namespace SDK
 
         public async Task<DynamicDeviceContract[]> GetDynamicDevices(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.DevicesDynamicLocations, queryString);
+            string subUrl = Address.UrlCombine(Address.DevicesDynamicLocations, queryString);
             var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;
@@ -43,7 +43,7 @@ namespace SDK
 
         public async Task<DynamicDeviceContract[]> GetDynamicDevicesShort(string queryString = "")
         {
-            string subUrl = UrlCombine(Address.DevicesDynamicLocationsShort, queryString);
+            string subUrl = Address.UrlCombine(Address.DevicesDynamicLocationsShort, queryString);
             var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;
@@ -51,7 +51,7 @@ namespace SDK
 
         public async Task<DeviceContract> AddDevice(DeviceContract deviceContract)
         {
-            string subUrl = UrlCombine(Address.Devices);
+            string subUrl = Address.UrlCombine(Address.Devices);
             return await PostRequest<DeviceContract>(subUrl, deviceContract);
         }
 
@@ -67,13 +67,13 @@ namespace SDK
 
         public async Task DeleteDevice(int id)
         {
-            string subUrl = UrlCombine(Address.Devices, Convert.ToString(id));
+            string subUrl = Address.UrlCombine(Address.Devices, Convert.ToString(id));
             await DeleteRequest(subUrl);
         }
 
         public async Task<ManDownResponseContract> ManDown(ManDownContract manDownContract)
         {
-            string subUrl = UrlCombine(Address.Devices, "man-down");
+            string subUrl = Address.UrlCombine(Address.Devices, "man-down");
             var response = await PostRequest<ManDownResponseContract>(subUrl, manDownContract);
 
             return response;
@@ -81,7 +81,7 @@ namespace SDK
 
         public async Task<ManDownResponseContract[]> ManDownBatch(ManDownContract[] manDownBatchContracts)
         {
-            string subUrl = UrlCombine(Address.Devices, "man-down/batch");
+            string subUrl = Address.UrlCombine(Address.Devices, "man-down/batch");
             var response = await PostRequest<ManDownResponseContract[]>(subUrl, manDownBatchContracts);
 
             return response;

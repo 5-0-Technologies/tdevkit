@@ -9,7 +9,7 @@ namespace SDK
     {
         public async Task<ConfigurationContract> GetBranchConfiguration(string key)
         {
-            string subUrl = UrlCombine(Address.ConfigurationBranch, key);
+            string subUrl = Address.UrlCombine(Address.ConfigurationBranch, key);
 
             var task = await httpClient.GetAsync(subUrl);
 
@@ -22,7 +22,7 @@ namespace SDK
 
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
-            string subUrl = UrlCombine(Address.ConfigurationAccount, key);
+            string subUrl = Address.UrlCombine(Address.ConfigurationAccount, key);
 
             var response = await httpClient.GetAsync(subUrl);
 
@@ -36,7 +36,7 @@ namespace SDK
 
         public async Task<long> GetConfigurationLastChange(string key)
         {
-            string subUrl = UrlCombine(Address.Configuration, key, "/last-change");
+            string subUrl = Address.UrlCombine(Address.Configuration, key, "/last-change");
 
             var response = await httpClient.GetAsync(subUrl);
 

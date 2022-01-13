@@ -29,16 +29,6 @@ namespace SDK
             ResetHttpClientHeaders();
         }
 
-        protected string UrlCombine(params string[] items)
-        {
-            if (items?.Any() != true)
-            {
-                return string.Empty;
-            }
-
-            return string.Join("/", items.Where(u => !string.IsNullOrWhiteSpace(u)).Select(u => u.Trim('/', '\\')));
-        }
-
         protected void ResetHttpClientHeaders()
         {
             httpClient.DefaultRequestHeaders.Clear();
@@ -76,7 +66,7 @@ namespace SDK
             string bodyContent = JsonSerializer.Serialize(body);
             HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
             var response = await httpClient.PatchAsync(subUrl, httpContent);
-            EmptyResponse(response);
+            await EmptyResponse(response);
         }
 
         protected async Task<Type> DeleteRequest<Type>(string subUrl)
@@ -88,7 +78,7 @@ namespace SDK
         protected async Task DeleteRequest(string subUrl)
         {
             var response = await httpClient.DeleteAsync(subUrl);
-            EmptyResponse(response);
+            await EmptyResponse(response);
         }
         #endregion
 
@@ -102,7 +92,7 @@ namespace SDK
             else
             {
                 if (!response.IsSuccessStatusCode)
-                    return default(Type);
+                    return default;
             }
 
             var jsonString = await response.Content.ReadAsStringAsync();
@@ -120,23 +110,10 @@ namespace SDK
         {
             var stringContent = await response.Content.ReadAsStringAsync();
 
-            switch (response.StatusCode)
+            throw response.StatusCode switch
             {
-                case System.Net.HttpStatusCode.BadRequest:
-                case System.Net.HttpStatusCode.Unauthorized:
-                case System.Net.HttpStatusCode.PaymentRequired:
-                case System.Net.HttpStatusCode.Forbidden:
-                case System.Net.HttpStatusCode.NotFound:
-                case System.Net.HttpStatusCode.MethodNotAllowed:
-                case System.Net.HttpStatusCode.InternalServerError:
-                    var prettyJson = JsonSerializer.Serialize(stringContent, new JsonSerializerOptions()
-                    {
-                        WriteIndented = true
-                    });
-                    throw new ServerResponseException(prettyJson);
-                default:
-                    throw new ServerResponseException(stringContent);
-            }
+                _ => throw new ServerResponseException(stringContent),
+            };
         }
     }
 }

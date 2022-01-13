@@ -9,7 +9,7 @@ namespace SDK
     {
         public async Task<UserContract> GetUserInfo()
         {
-            string subUrl = UrlCombine(Address.Users);
+            string subUrl = Address.UrlCombine(Address.Users);
             var response = await GetRequest<UserContract>(subUrl);
 
             return response;
