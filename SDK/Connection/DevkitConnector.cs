@@ -119,29 +119,23 @@ namespace SDK
         protected async Task HandleError(HttpResponseMessage response)
         {
             var stringContent = await response.Content.ReadAsStringAsync();
-            try
+
+            switch (response.StatusCode)
             {
-                switch (response.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.BadRequest:
-                    case System.Net.HttpStatusCode.Unauthorized:
-                    case System.Net.HttpStatusCode.PaymentRequired:
-                    case System.Net.HttpStatusCode.Forbidden:
-                    case System.Net.HttpStatusCode.NotFound:
-                    case System.Net.HttpStatusCode.MethodNotAllowed:
-                    case System.Net.HttpStatusCode.InternalServerError:
-                        var prettyJson = JsonSerializer.Serialize(stringContent, new JsonSerializerOptions()
-                        {
-                            WriteIndented = true
-                        });
-                        throw new ServerResponseException(prettyJson);
-                    default:
-                        throw new ServerResponseException(stringContent);
-                }
-            }
-            catch (Exception)
-            {
-                throw new ServerResponseException(stringContent);
+                case System.Net.HttpStatusCode.BadRequest:
+                case System.Net.HttpStatusCode.Unauthorized:
+                case System.Net.HttpStatusCode.PaymentRequired:
+                case System.Net.HttpStatusCode.Forbidden:
+                case System.Net.HttpStatusCode.NotFound:
+                case System.Net.HttpStatusCode.MethodNotAllowed:
+                case System.Net.HttpStatusCode.InternalServerError:
+                    var prettyJson = JsonSerializer.Serialize(stringContent, new JsonSerializerOptions()
+                    {
+                        WriteIndented = true
+                    });
+                    throw new ServerResponseException(prettyJson);
+                default:
+                    throw new ServerResponseException(stringContent);
             }
         }
     }

@@ -17,7 +17,7 @@ using SDK.Exceptions;
 namespace Test
 {
     [TestClass]
-    public class AreaTest
+    public class DeviceTest
     {
         protected const string URL = "http://localhost:8000";
         private const string PATH_BASE = "/api/v3/devices";
@@ -60,9 +60,9 @@ namespace Test
                 Message = "Error"
             };
 
+            server.Reset();
             server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(400).WithBodyAsJson(bodyContent));
-
             await Assert.ThrowsExceptionAsync<ServerResponseException>(async () => await devkitConnector.GetDevices());
         }
 
