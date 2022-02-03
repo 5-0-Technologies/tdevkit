@@ -43,7 +43,7 @@ namespace SDK.Contracts.Communication
 
         public long Update { get; set; }
 
-        public static explicit operator BeaconContract (AddBeaconResponseContract addBeaconResponseContract)
+        public static explicit operator BeaconContract(AddBeaconResponseContract addBeaconResponseContract)
         {
             return new BeaconContract
             {

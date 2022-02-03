@@ -25,7 +25,7 @@ namespace SDK.Contracts.Communication
         public long? ValidLastTimeOnline { get; set; }
 
         public float? X { get; set; }
-        
+
         public float? Y { get; set; }
 
         public float? ValidX { get; set; }

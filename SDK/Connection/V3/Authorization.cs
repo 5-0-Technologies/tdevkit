@@ -1,8 +1,6 @@
-﻿using SDK;
-using SDK.Communication;
+﻿using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Models;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SDK

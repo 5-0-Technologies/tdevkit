@@ -39,5 +39,13 @@ namespace SDK
 
             return response;
         }
+
+        public async Task<LayerContract[]> GetLocalizationLayers(LoginContract loginContract, string queryString = "")
+        {
+            string subUrl = Address.UrlCombine(Address.Layerslocalization, queryString);
+            var response = await PostRequest<LayerContract[]>(subUrl, loginContract);
+
+            return response;
+        }
     }
 }

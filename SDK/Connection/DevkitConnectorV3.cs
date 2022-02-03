@@ -1,5 +1,4 @@
-﻿using SDK;
-using System.Net.Http;
+﻿using System.Net.Http;
 
 namespace SDK
 {

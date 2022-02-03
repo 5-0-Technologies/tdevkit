@@ -1,9 +1,9 @@
-﻿using SDK.Communication;
+﻿using SDK;
+using SDK.Communication;
 using SDK.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using SDK;
 
 namespace Main
 {

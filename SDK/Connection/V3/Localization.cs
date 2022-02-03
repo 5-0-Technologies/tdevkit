@@ -43,16 +43,16 @@ namespace SDK
             var response = await PostRequest<AddLocatizationDataResponseContract>(subUrl, locationContract);
 
 
-                if (response.Locations != null)
+            if (response.Locations != null)
             {
                 for (int i = 0; i < response.Locations.Count; i++)
+                {
+                    var dataResult = response.Locations[i];
+                    if (dataResult.ErrorMessage != null)
                     {
-                        var dataResult = response.Locations[i];
-                        if (dataResult.ErrorMessage != null)
-                        {
-                            throw new ServerResponseException(ServerResponseException.message + dataResult.ErrorMessage);
-                        }
+                        throw new ServerResponseException(ServerResponseException.message + dataResult.ErrorMessage);
                     }
+                }
             }
 
             if (response.ErrorMessage != null)

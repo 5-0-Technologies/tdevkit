@@ -1,20 +1,18 @@
 ﻿using Core.Enum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SDK;
 using SDK.Contracts.Communication;
 using SDK.Contracts.Data;
 using SDK.Enum;
+using SDK.Exceptions;
 using SDK.Models;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using SDK;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 using WireMock.Settings;
-using SDK.Exceptions;
 
-namespace Test
+namespace Test.V3
 {
     [TestClass]
     public class DeviceTest

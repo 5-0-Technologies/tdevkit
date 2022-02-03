@@ -1,7 +1,5 @@
-﻿using Main;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK;
-using SDK.Exceptions;
 using SDK.Models;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +8,7 @@ using WireMock.ResponseBuilders;
 using WireMock.Server;
 using WireMock.Settings;
 
-namespace Test
+namespace Test.V3
 {
     public class SectorTest
     {
@@ -51,7 +49,7 @@ namespace Test
         {
             var bodyContent = new SectorContract()
             {
-                Id =  1,
+                Id = 1,
                 Guid = Guid.NewGuid(),
             };
 

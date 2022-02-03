@@ -1,6 +1,4 @@
-﻿using SDK;
-
-namespace SDK
+﻿namespace SDK
 {
     public static class DevkitFactory
     {

@@ -38,12 +38,12 @@ namespace SDK.Models
     public class BarrierContract
     {
         public int X { get; set; }
-        
+
         public int Y { get; set; }
-        
-        public int SectorId { get; set; }      
-        
-        public int BranchId { get; set; }        
+
+        public int SectorId { get; set; }
+
+        public int BranchId { get; set; }
     }
 
     public class GpsItemContract
