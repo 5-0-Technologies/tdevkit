@@ -10,7 +10,7 @@ using WireMock.Settings;
 namespace Test.V3
 {
     [TestClass]
-    public class Layer
+    public class LayersTest
     {
         const string URL = "http://localhost:8000";
         const string PATH_BASE = "/api/v3/layers";
@@ -38,6 +38,12 @@ namespace Test.V3
             {
                 Urls = new[] { URL }
             });
+        }
+
+        [ClassCleanup]
+        public static void Cleanup()
+        {
+            server.Stop();
         }
 
         [TestMethod]

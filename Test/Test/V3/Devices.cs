@@ -15,7 +15,7 @@ using WireMock.Settings;
 namespace Test.V3
 {
     [TestClass]
-    public class DeviceTest
+    public class DevicesTest
     {
         const string URL = "http://localhost:8000";
         const string PATH_BASE = "/api/v3/devices";

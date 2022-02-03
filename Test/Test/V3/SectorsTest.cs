@@ -10,7 +10,7 @@ using WireMock.Settings;
 
 namespace Test.V3
 {
-    public class SectorTest
+    public class SectorsTest
     {
         protected const string URL = "http://localhost:8000";
         private const string PATH_BASE = "/api/v3/sectors";
