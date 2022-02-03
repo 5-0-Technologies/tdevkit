@@ -6,6 +6,10 @@ using SDK.Contracts.Data;
 using SDK.Enum;
 using SDK.Exceptions;
 using SDK.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -15,10 +19,14 @@ using WireMock.Settings;
 namespace Test.V3
 {
     [TestClass]
-    public class DevicesTest
+    public class Requests
     {
         const string URL = "http://localhost:8000";
-        const string PATH_BASE = "/api/v3/devices";
+        const string PATH_BASE = "/api/v3/";
+        const string DEVICES = "devices";
+        const string LAYERS = "layers";
+        const string SECTORS = "sectors";
+
         static WireMockServer server;
         static DevkitConnectorV3 devkitConnector;
 
@@ -49,6 +57,7 @@ namespace Test.V3
         public static void Cleanup()
         {
             server.Stop();
+            server.Dispose();
         }
 
         [TestMethod]
@@ -61,11 +70,12 @@ namespace Test.V3
             };
 
             server.Reset();
-            server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(400).WithBodyAsJson(bodyContent));
             await Assert.ThrowsExceptionAsync<ServerResponseException>(async () => await devkitConnector.GetDevices());
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task GetDevice_GetAllDevices_ShouldReturn200()
         {
@@ -74,7 +84,7 @@ namespace Test.V3
             };
 
             server.Reset();
-            server.Given(Request.Create().WithPath(PATH_BASE).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract[] response = await devkitConnector.GetDevices();
@@ -82,6 +92,7 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(DeviceContract[]));
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task GetDevice_GetDeviceById_ShouldReturn200()
         {
@@ -91,7 +102,7 @@ namespace Test.V3
                 Id = Id
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + "/" + Id).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/" + Id).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract response = await devkitConnector.GetDevice(Id);
@@ -99,6 +110,7 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task GetDevice_GetDeviceByLogin_ShouldReturn200()
         {
@@ -108,7 +120,7 @@ namespace Test.V3
                 Login = Login
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + "/login/" + Login).UsingGet())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/login/" + Login).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract response = await devkitConnector.GetDevice(Login);
@@ -116,6 +128,7 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task AddDevice_AddDevice_ShouldReturn200()
         {
@@ -125,7 +138,7 @@ namespace Test.V3
                 Login = Login
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE).UsingPost())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             DeviceContract response = await devkitConnector.AddDevice(bodyContent);
@@ -133,6 +146,7 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task DeleteDevice_DeleteDevice_ShouldReturn200()
         {
@@ -143,16 +157,16 @@ namespace Test.V3
                 Id = Id
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + "/" + Id).UsingDelete())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/" + Id).UsingDelete())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             await devkitConnector.DeleteDevice(Id);
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task ManDown()
         {
-            const string PATH = PATH_BASE + "/man-down";
             const string device = "Device1";
             const long ts = 1000;
             var bodyContent = new ManDownResponseContract()
@@ -163,7 +177,7 @@ namespace Test.V3
                 Success = true
             };
 
-            server.Given(Request.Create().WithPath(PATH).UsingPost())
+            server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/man-down").UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
             var response = await devkitConnector.ManDown(new ManDownContract
@@ -176,10 +190,11 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(ManDownResponseContract));
         }
 
+        [TestCategory("Device")]
         [TestMethod]
         public async Task ManDownBatch()
         {
-            const string PATH = PATH_BASE + "/man-down/batch";
+            const string PATH = PATH_BASE + DEVICES + "/man-down/batch";
             const string device = "Device1";
             const long ts = 1000;
             var bodyContent = new ManDownResponseContract[] {
@@ -205,6 +220,49 @@ namespace Test.V3
             });
 
             Assert.IsInstanceOfType(response, typeof(ManDownResponseContract[]));
+        }
+
+        [TestCategory("Layer")]
+        [TestMethod]
+        public async Task GetLocalizationLayers_ShouldReturnLayers()
+        {
+            var bodyContent = new LoginContract()
+            {
+                Login = "login"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/localization").UsingPost())
+                .RespondWith(
+                    Response.Create()
+                    .WithStatusCode(200)
+                    .WithBodyAsJson(new LayerContract[] {
+                        new LayerContract(){
+                            Id = 1,
+                        }
+                    })
+            );
+
+            var response = await devkitConnector.GetLocalizationLayers(bodyContent);
+
+            Assert.IsInstanceOfType(response, typeof(LayerContract[]));
+        }
+
+        [TestCategory("Sector")]
+        [TestMethod]
+        public async Task GetSector_GetDeviceByLogin_ShouldReturn200()
+        {
+            var bodyContent = new SectorContract()
+            {
+                Id = 1,
+                Guid = Guid.NewGuid(),
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SECTORS).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new SectorContract[] { bodyContent }));
+
+            SectorContract[] response = await devkitConnector.GetSectors();
+
+            Assert.IsInstanceOfType(response, typeof(SectorContract[]));
         }
     }
 }
