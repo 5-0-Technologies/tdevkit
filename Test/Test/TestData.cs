@@ -201,7 +201,7 @@ namespace Main
             {
                 Login = "enviro-sdk",
                 //SectorId = 2,
-                //SensorData = sensorDataContracts,
+                SensorData = sensorDataContracts,
                 //AreaId = 24
             };
             SensorContract[] sensorContracts = new SensorContract[] { sensor };

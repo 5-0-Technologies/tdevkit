@@ -1,4 +1,5 @@
-﻿using SDK.Models;
+﻿using Flurl;
+using SDK.Models;
 using System;
 using System.Threading.Tasks;
 

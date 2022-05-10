@@ -1,4 +1,5 @@
-﻿using SDK.Contracts.Data;
+﻿using Flurl;
+using SDK.Contracts.Data;
 using SDK.Models;
 using System.Threading.Tasks;
 
@@ -25,6 +26,7 @@ namespace SDK
         public async Task<byte[]> GetDemoFile(string fileName)
         {
             string subUrl = Address.UrlCombine(Address.UtilsDemoFile, fileName);
+            //File.WriteAllBytes("C:\\Users\\mondr\\source\\repos\\twinzo-sdk\\bytes.jpg", bytes);
             return await GetFile(fileName, subUrl);
         }
 
@@ -35,16 +37,16 @@ namespace SDK
         }
 
         public async Task<string> GetUnityLastVersion(string platform)
-        {
             string subUrl = Address.UrlCombine(Address.UtilsUnityLastVersion, platform);
+            string subUrl = Address.UtilsUnityLastVersion + platform;
             var response = await GetRequest<string>(subUrl);
 
             return response;
         }
 
         public async Task<FileInfoContract> GetUnityBundleInfo(string bundleName)
-        {
             string subUrl = Address.UrlCombine(Address.UtilsUnityBundleInfo, bundleName);
+            string subUrl = Address.UtilsUnityBundleInfo + bundleName;
             var response = await GetRequest<FileInfoContract>(subUrl);
 
             return response;
