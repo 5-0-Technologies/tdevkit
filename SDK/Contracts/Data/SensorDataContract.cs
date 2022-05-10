@@ -14,6 +14,6 @@
 
         public long Timestamp { get; set; }
 
-        //public object Range { get; set; }
+        public int Index { get; set; }
     }
 }
