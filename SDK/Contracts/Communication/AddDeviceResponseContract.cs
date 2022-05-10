@@ -1,11 +1,6 @@
 ﻿using Core.Enum;
 using SDK.Communication;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDK.Contracts.Communication
 {
@@ -30,7 +25,7 @@ namespace SDK.Contracts.Communication
         public long? ValidLastTimeOnline { get; set; }
 
         public float? X { get; set; }
-        
+
         public float? Y { get; set; }
 
         public float? ValidX { get; set; }

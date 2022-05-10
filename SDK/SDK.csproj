@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>tDevKit</PackageId>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
-    <Version>2021.6.68</Version>
+    <Version>4.3.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -33,12 +34,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Data\Aos\" />
-    <Folder Include="Managers\" />
+    <Compile Remove="Managers\**" />
+    <EmbeddedResource Remove="Managers\**" />
+    <None Remove="Managers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flurl" Version="3.0.2" />
+    <Folder Include="Contracts\Data\Aos\" />
   </ItemGroup>
 
 </Project>

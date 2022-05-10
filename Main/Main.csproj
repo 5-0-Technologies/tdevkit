@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flurl" Version="3.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SDK\SDK.csproj" />
   </ItemGroup>
 

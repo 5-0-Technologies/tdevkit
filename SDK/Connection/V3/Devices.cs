@@ -1,89 +1,95 @@
-﻿using Flurl;
-using SDK.Contracts.Communication;
+﻿using SDK.Contracts.Communication;
 using SDK.Contracts.Data;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(7/9)
     public partial class DevkitConnectorV3
     {
         public async Task<DeviceContract[]> GetDevices(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Devices, queryString);
-            var response = await GetRequest<DeviceContract[]>(subUrl);
-
-            return response;
+            string subUrl = Address.UrlCombine(Address.Devices, queryString);
+            return await GetRequest<DeviceContract[]>(subUrl);
         }
+
         public async Task<DeviceContract> GetDevice(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Devices, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Devices, Convert.ToString(id), queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
         }
+
         public async Task<DeviceContract> GetDevice(string login, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.DevicesLogin, login, queryString);
+            string subUrl = Address.UrlCombine(Address.DevicesLogin, login, queryString);
             var response = await GetRequest<DeviceContract>(subUrl);
 
             return response;
         }
+
         public async Task<DynamicDeviceContract[]> GetDynamicDevices(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.DevicesDynamicLocations, queryString);
+            string subUrl = Address.UrlCombine(Address.DevicesDynamicLocations, queryString);
             var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;
         }
-        public async Task<DynamicDeviceShortContract[]> GetDynamicDevicesShort(string queryString = "")
+
+        public async Task<DynamicDeviceContract[]> GetDynamicDevicesShort(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.DevicesDynamicLocationsShort, queryString);
-            var response = await GetRequest<DynamicDeviceShortContract[]>(subUrl);
+            string subUrl = Address.UrlCombine(Address.DevicesDynamicLocationsShort, queryString);
+            var response = await GetRequest<DynamicDeviceContract[]>(subUrl);
 
             return response;
         }
+
         public async Task<DeviceContract> AddDevice(DeviceContract deviceContract)
         {
-            string subUrl = Address.Devices;
-            var response = await PostRequest<AddDeviceResponseContract>(subUrl, deviceContract);
-
-            if (response.ErrorMessage != null)
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-
-            return (DeviceContract)response;
+            string subUrl = Address.UrlCombine(Address.Devices);
+            return await PostRequest<DeviceContract>(subUrl, deviceContract);
         }
-        public async Task<PatchResponseContract> UpdateDevice(DeviceContract deviceContract)
+
+        public async Task UpdateDevice(DeviceContract deviceContract)
         {
             if (deviceContract.Id == 0)
             {
                 throw new BadRequestException(NotFoundException.message + " Device object has no Id.");
             }
             string subUrl = Address.Devices + deviceContract.Id;
-            var response = await PatchRequest(subUrl, deviceContract);
+            await PatchRequest(subUrl, deviceContract);
+        }
 
-            if (response.ErrorMessage != null)
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+        public async Task DeleteDevice(int id)
+        {
+            string subUrl = Address.UrlCombine(Address.Devices, Convert.ToString(id));
+            await DeleteRequest(subUrl);
+        }
+
+        public async Task<ManDownResponseContract> ManDown(ManDownContract manDownContract)
+        {
+            string subUrl = Address.UrlCombine(Address.Devices, "man-down");
+            var response = await PostRequest<ManDownResponseContract>(subUrl, manDownContract);
 
             return response;
         }
-        public async Task<HttpResponseMessage> DeleteDevice(int id)
+
+        public async Task<ManDownResponseContract[]> ManDownBatch(ManDownContract[] manDownBatchContracts)
         {
-            string subUrl = Address.Devices + id;
-            var response = await DeleteRequest(subUrl);
+            string subUrl = Address.UrlCombine(Address.Devices, "man-down/batch");
+            var response = await PostRequest<ManDownResponseContract[]>(subUrl, manDownBatchContracts);
 
             return response;
         }
-        private async Task<HttpResponseMessage> RegisterDevice()
+
+        public async Task<HttpResponseMessage> RegisterDevice()
         {
-            return null;
+            return await Task.FromResult(new HttpResponseMessage());
         }
     }
 }

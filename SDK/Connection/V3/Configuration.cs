@@ -1,51 +1,47 @@
 ﻿using Flurl;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(3/3)
     public partial class DevkitConnectorV3
     {
         public async Task<ConfigurationContract> GetBranchConfiguration(string key)
         {
-            string subUrl = Url.Combine(Address.ConfigurationBranch, key);
+            string subUrl = Address.UrlCombine(Address.ConfigurationBranch, key);
 
-            var task = await SendGetRequest(subUrl);
+            var task = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
-            ConfigurationContract response = new ConfigurationContract
+            var responseString = await JsonResponse<dynamic>(task);
+            return new ConfigurationContract
             {
                 Value = responseString
             };
-
-            return response;
         }
+
         public async Task<ConfigurationContract> GetAccountConfiguration(string key)
         {
-            string subUrl = Url.Combine(Address.ConfigurationAccount, key);
+            string subUrl = Address.UrlCombine(Address.ConfigurationAccount, key);
 
-            var task = await SendGetRequest(subUrl);
+            var response = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
-            ConfigurationContract response = new ConfigurationContract
+            var responseString = await JsonResponse<dynamic>(response);
+
+            return new ConfigurationContract
             {
                 Value = responseString
             };
-
-            return response;
         }
+
         public async Task<long> GetConfigurationLastChange(string key)
         {
-            string subUrl = Url.Combine(Address.Configuration, key, "last-change/");
+            string subUrl = Address.UrlCombine(Address.Configuration, key, "/last-change");
 
-            var task = await SendGetRequest(subUrl);
+            var response = await httpClient.GetAsync(subUrl);
 
-            var responseString = await ProcessResponse(task);
+            var responseString = response.Content.ReadAsStringAsync();
 
             return Convert.ToInt64(responseString);
         }

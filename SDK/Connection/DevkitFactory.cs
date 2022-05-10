@@ -1,11 +1,4 @@
-﻿using SDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tDevkit
+﻿namespace SDK
 {
     public static class DevkitFactory
     {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace SDK.Models
 {
-    public class Address
+    public static class Address
     {
         public const string AosOrders = "aos/orders/";
         public const string AosNodeInfo = "aos/node-info/";
@@ -47,6 +43,7 @@ namespace SDK.Models
 
         public const string Layers = "layers/";
         public const string LayersNoGo = "layers/device/";
+        public const string Layerslocalization = "layers/localization/";
 
         public const string LocalizationAddData = "localization/";
         public const string LocalizationAddDataBatch = "localization/batch/";
@@ -69,5 +66,15 @@ namespace SDK.Models
         public const string UtilsDemoFile = "utils/demo-file/";
         public const string UtilsUnityLastVersion = "utils/unity-last-version/";
         public const string UtilsUnityBundleInfo = "utils/unity-bundle-info/";
+
+        public static string UrlCombine(params string[] items)
+        {
+            if (items?.Any() != true)
+            {
+                return string.Empty;
+            }
+
+            return string.Join("/", items.Where(u => !string.IsNullOrWhiteSpace(u)).Select(u => u.Trim('/', '\\')));
+        }
     }
 }

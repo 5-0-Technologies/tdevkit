@@ -1,11 +1,6 @@
 ﻿using Core.Enum;
 using SDK.Contracts.Data;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Main
 {
@@ -201,7 +196,6 @@ namespace Main
                 DataType = "Int32",
                 Unit = "unit"
             };
-            SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2, data3 };
 
             SensorContract sensor = new SensorContract
             {

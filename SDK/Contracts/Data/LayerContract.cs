@@ -1,9 +1,4 @@
 ﻿using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDK.Contracts.Data
 {
@@ -26,5 +21,9 @@ namespace SDK.Contracts.Data
         public long Updated { get; set; }
 
         public AreaContract[] Areas { get; set; }
+
+        public DeviceContract[] Devices { get; set; }
+
+        public bool IsNoGo { get; set; }
     }
 }

@@ -1,81 +1,72 @@
-﻿using Flurl;
-using SDK.Communication;
+﻿using SDK.Communication;
 using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(9/10)
     public partial class DevkitConnectorV3
     {
         public async Task<SensorContract[]> GetSensors(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sensors, queryString);
+            string subUrl = Address.UrlCombine(Address.Sensors, queryString);
             var response = await GetRequest<SensorContract[]>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(int id, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Sensors, Convert.ToString(id), queryString);
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(id), queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> GetSensor(string login, string queryString = "")
         {
-            string subUrl = Url.Combine(Address.SensorsLogin, login, queryString);
+            string subUrl = Address.UrlCombine(Address.SensorsLogin, login, queryString);
             var response = await GetRequest<SensorContract>(subUrl);
 
             return response;
         }
         public async Task<SensorContract> AddSensor(SensorContract sensorContract)
         {
-            string subUrl = Address.Sensors;
+            string subUrl = Address.UrlCombine(Address.Sensors);
             var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             return (SensorContract)response;
         }
-        public async Task<PatchResponseContract> UpdateSensor(SensorContract sensorContract)
+        public async Task UpdateSensor(SensorContract sensorContract)
         {
             if (sensorContract.Id == 0)
             {
                 throw new BadRequestException(NotFoundException.message + " Sensor object has no Id.");
             }
-            string subUrl = Address.Sensors + sensorContract.Id;
-            var response = await PatchRequest(subUrl, sensorContract);
-
-            if (response.ErrorMessage != null)
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-
-            return response;
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(sensorContract.Id));
+            await PatchRequest(subUrl, sensorContract);
         }
-        public async Task<HttpResponseMessage> DeleteSensor(int id)
+        public async Task DeleteSensor(int id)
         {
-            string subUrl = Address.Sensors + id;
-            var response = await DeleteRequest(subUrl);
-
-            return response;
+            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(id));
+            await DeleteRequest(subUrl);
         }
         public async Task<PostResponseContract[]> AddSensorData(SensorContract[] sensors)
         {
-            string subUrl = Address.SensorsAddDataBatch;
+            string subUrl = Address.UrlCombine(Address.SensorsAddDataBatch);
             var response = await PostRequest<AddSensorDataResponseContract[]>(subUrl, sensors);
 
 
             for (int i = 0; i < response.Length; i++)
             {
                 if (response[i].SensorData != null)
+                {
                     for (int j = 0; j < response[i].SensorData.Length; j++)
                     {
                         var sensorDataResult = response[i].SensorData[j];
@@ -85,18 +76,23 @@ namespace tDevkit
                                 " Quantity: " + sensorDataResult.Quantity + " - " + sensorDataResult.ErrorMessage);
                         }
                     }
+                }
+
                 if (response[i].ErrorMessage != null)
+                {
                     throw new ServerResponseException(ServerResponseException.message + " " + response[i].ErrorMessage);
+                }
             }
 
             return response;
         }
         public async Task<PostResponseContract> AddSensorData(SensorDataContract[] sensorData)
         {
-            string subUrl = Address.SensorsAddData;
+            string subUrl = Address.UrlCombine(Address.SensorsAddData);
             var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract
 
             if (response != null)
+            {
                 for (int i = 0; i < response.Length; i++)
                 {
                     var sensorDataResult = response[i];
@@ -106,24 +102,27 @@ namespace tDevkit
                             " Quantity: " + sensorDataResult.Quantity + " - " + sensorDataResult.ErrorMessage);
                     }
                 }
+            }
 
-            return new AddSensorDataResponseContract {
+            return new AddSensorDataResponseContract
+            {
                 SensorData = response
             };
         }
         public async Task<SensorAppInfoContract> GetSensorAppInfo()
         {
-            string subUrl = Address.SensorsAppInfo;
+            string subUrl = Address.UrlCombine(Address.SensorsAppInfo);
             var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             return response;
         }
-        public async void GetSensorAppFile()
+        public async Task GetSensorAppFile()
         {
             //string subUrl = Address.SensorsAppFile;
             //var response = await GetRequest<SensorAppInfoContract>(subUrl);
 
             //return response;
+            await Task.CompletedTask;
         }
     }
 }

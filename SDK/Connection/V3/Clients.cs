@@ -1,19 +1,14 @@
-﻿using Flurl;
-using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SDK.Models;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(1/1)
     public partial class DevkitConnectorV3
     {
         public async Task<ClientContract[]> GetClients(string queryString = "")
         {
-            string subUrl = Url.Combine(Address.Clients, queryString);
+            string subUrl = Address.UrlCombine(Address.Clients, queryString);
             var response = await GetRequest<ClientContract[]>(subUrl);
 
             return response;

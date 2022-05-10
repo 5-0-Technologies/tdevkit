@@ -1,10 +1,5 @@
 ﻿using SDK.Communication;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDK.Contracts.Communication
 {
@@ -48,7 +43,7 @@ namespace SDK.Contracts.Communication
 
         public long Update { get; set; }
 
-        public static explicit operator BeaconContract (AddBeaconResponseContract addBeaconResponseContract)
+        public static explicit operator BeaconContract(AddBeaconResponseContract addBeaconResponseContract)
         {
             return new BeaconContract
             {

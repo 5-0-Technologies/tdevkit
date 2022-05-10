@@ -1,15 +1,20 @@
-﻿using SDK.Communication;
+﻿using SDK;
+using SDK.Communication;
 using SDK.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using tDevkit;
 
 namespace Main
 {
     class Program
     {
         static async Task Main(string[] args)
+        {
+            await Task.CompletedTask;
+        }
+
+        public static async Task TestSensor()
         {
             const string ClientName = "{insert}";
             const string ClientGuid = "{insert}";
@@ -48,7 +53,7 @@ namespace Main
                         Value = "120",
                         Unit = "V",
                         DataType = "Single",
-                        Index = 0
+                        Index = 0,
                     },
                     new SensorDataContract
                     {
@@ -56,7 +61,7 @@ namespace Main
                         Value = "1",
                         Unit = "Hz",
                         DataType = "Single",
-                        Index = 1
+                        Index = 0,
                     },
                     new SensorDataContract
                     {
@@ -64,7 +69,7 @@ namespace Main
                         Value = "600",
                         Unit = "pcs",
                         DataType = "Int32",
-                        Index = 2
+                        Index = 0,
                     }
                 };
 

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-
-namespace Core.Contract.V3.Aos
+﻿namespace Core.Contract.V3.Aos
 {
     public class MemberContract
     {

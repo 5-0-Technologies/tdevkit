@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SDK.Contracts.Data
 {
@@ -36,6 +30,10 @@ namespace SDK.Contracts.Data
         public bool IsMoving { get; set; }
 
         public DistanceContract[] Distances { get; set; }
+
+        public int[] LocalizationAreas { get; set; }
+
+        public int[] NoGoAreas { get; set; }
     }
 
     public class DistanceContract

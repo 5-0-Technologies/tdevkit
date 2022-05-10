@@ -1,50 +1,50 @@
-﻿using SDK;
-using SDK.Communication;
+﻿using SDK.Communication;
 using SDK.Exceptions;
 using SDK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace tDevkit
+namespace SDK
 {
     //(3/3)
     public partial class DevkitConnectorV3
     {
-        public async Task<HttpResponseMessage> DeleteCurrentToken()
+        public async Task DeleteCurrentToken()
         {
-            string subUrl = Address.AuthorizationToken;
+            string subUrl = Address.UrlCombine(Address.AuthorizationToken);
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
 
-            var response = await DeleteRequest(subUrl);
+            await DeleteRequest(subUrl);
 
             connectionOptions.Token = null;
 
-            resetHttpClientHeaders();
-
-            return response;
+            ResetHttpClientHeaders();
         }
+
         public async Task<AuthenticationResponseContract> GetToken()
         {
-            string subUrl = Address.AuthorizationToken;
+            string subUrl = Address.UrlCombine(Address.AuthorizationToken);
 
             var response = await GetRequest<AuthenticationResponseContract>(subUrl);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             connectionOptions.Token = response.Token;
             if (response.Client != null)
+            {
                 connectionOptions.ClientGuid = response.Client;
-            if (response.Branch != null)
-                connectionOptions.BranchGuid = response.Branch;
+            }
 
-            resetHttpClientHeaders();
+            if (response.Branch != null)
+            {
+                connectionOptions.BranchGuid = response.Branch;
+            }
+
+            ResetHttpClientHeaders();
 
             return response;
         }
@@ -54,7 +54,7 @@ namespace tDevkit
         }
         public async Task<AuthenticationResponseContract> Authenticate(string login, string password, bool superUser)
         {
-            string subUrl = Address.AuthorizationAuthenticate;
+            string subUrl = Address.UrlCombine(Address.AuthorizationAuthenticate);
 
             CredentialContract credentialContract = new CredentialContract
             {
@@ -64,20 +64,29 @@ namespace tDevkit
 
 
             if (!superUser)
+            {
                 credentialContract.Client = connectionOptions.Client;
+            }
 
             var response = await PostRequest<AuthenticationResponseContract>(subUrl, credentialContract);
 
             if (response.ErrorMessage != null)
+            {
                 throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+            }
 
             connectionOptions.Token = response.Token;
             if (response.Client != null)
+            {
                 connectionOptions.ClientGuid = response.Client;
-            if (response.Branch != null)
-                connectionOptions.BranchGuid = response.Branch;
+            }
 
-            resetHttpClientHeaders();
+            if (response.Branch != null)
+            {
+                connectionOptions.BranchGuid = response.Branch;
+            }
+
+            ResetHttpClientHeaders();
 
             return response;
         }

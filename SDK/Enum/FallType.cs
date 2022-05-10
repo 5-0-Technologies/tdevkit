@@ -1,5 +1,8 @@
-﻿namespace Core.Enum
+﻿using System.Text.Json.Serialization;
+
+namespace Core.Enum
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FallType : byte
     {
         OK = 0,
