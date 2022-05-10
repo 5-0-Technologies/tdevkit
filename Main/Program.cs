@@ -47,21 +47,24 @@ namespace Main
                         Quantity = "Voltage",
                         Value = "120",
                         Unit = "V",
-                        DataType = "Single"
+                        DataType = "Single",
+                        Index = 0
                     },
                     new SensorDataContract
                     {
                         Quantity = "Frequency",
                         Value = "1",
                         Unit = "Hz",
-                        DataType = "Single"
+                        DataType = "Single",
+                        Index = 1
                     },
                     new SensorDataContract
                     {
                         Quantity = "OK parts",
                         Value = "600",
                         Unit = "pcs",
-                        DataType = "Int32"
+                        DataType = "Int32",
+                        Index = 2
                     }
                 };
 
