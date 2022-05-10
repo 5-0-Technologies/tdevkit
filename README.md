@@ -90,14 +90,16 @@ SensorDataContract data1 = new SensorDataContract
     Quantity = "Temperature",
     Value = "16",
     Unit = "°C",
-    DataType = "Single"
+    DataType = "Single",
+	Index = 0
 };
 SensorDataContract data2 = new SensorDataContract
 {
     Quantity = "Humidity",
     Value = "31",
     Unit = "%",
-    DataType = "Single"
+    DataType = "Single",
+	Index = 1
 };
 SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2 };
 
@@ -141,14 +143,16 @@ SensorDataContract data1 = new SensorDataContract
     Quantity = "Temperature",
     Value = "16",
     Unit = "°C",
-    DataType = "Single"
+    DataType = "Single",
+	Index = 0
 };
 SensorDataContract data2 = new SensorDataContract
 {
     Quantity = "Humidity",
     Value = "31",
     Unit = "%",
-    DataType = "Single"
+    DataType = "Single",
+	Index = 1
 };
 SensorDataContract data3 = new SensorDataContract
 {
@@ -156,7 +160,8 @@ SensorDataContract data3 = new SensorDataContract
     Timestamp = 1614599484673,
     Value = "800",
     DataType = "Int32",
-    Unit = "unit"
+    Unit = "unit",
+	Index = 2
 };
 SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2, data3 };
 
