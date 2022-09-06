@@ -8,7 +8,8 @@ stages:
 
 build:
   stage: build
-  tags: net5
+  tags: 
+    - net5
   script:
     - dotnet build
 
