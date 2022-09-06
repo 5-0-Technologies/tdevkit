@@ -15,5 +15,6 @@
         public long Timestamp { get; set; }
 
         public int Index { get; set; }
+
     }
 }
