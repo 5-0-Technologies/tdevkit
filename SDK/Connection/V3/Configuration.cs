@@ -1,5 +1,6 @@
 ﻿using SDK.Models;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -32,6 +33,15 @@ namespace SDK
             {
                 Value = responseString
             };
+        }
+
+        public async Task<JsonDocument> GetAccountConfiguration(string login, string key)
+        {
+            string subUrl = Address.UrlCombine(Address.ConfigurationAccount, login, key);
+
+            var response = await httpClient.GetAsync(subUrl);
+
+            return await JsonResponse<JsonDocument>(response);
         }
 
         public async Task<long> GetConfigurationLastChange(string key)
