@@ -22,6 +22,8 @@ test:
 
 release:
   stage: release
+  tags: 
+    - net5
   only:
     - master
   artifacts:
@@ -33,6 +35,8 @@ release:
 
 deploy:
   stage: deploy
+  tags: 
+    - net5
   artifacts:
     paths:
       - SDK/
