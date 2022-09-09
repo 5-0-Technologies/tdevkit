@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace SDK.Contracts.Data
+﻿namespace SDK.Contracts.Data
 {
     public class FileInfoContract
     {

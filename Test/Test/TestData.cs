@@ -196,7 +196,7 @@ namespace Main
                 DataType = "Int32",
                 Unit = "unit"
             };
-            var sensorDataContracts = new[] {data1, data2, data3 };
+            var sensorDataContracts = new[] { data1, data2, data3 };
 
             SensorContract sensor = new SensorContract
             {
