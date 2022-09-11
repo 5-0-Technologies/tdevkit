@@ -43,7 +43,7 @@ deploy:
     expire_in: 1 week
   script:
     - dotnet pack -c Release
-    - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u lorant.bugar -p Yx5G3Xnp-QnVsCo4FwyJ --store-password-in-clear-text
+    - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u patrik.pasko -p APH_A1nynCz1KwDMTMrY --store-password-in-clear-text
     - dotnet nuget push "SDK/bin/Release/*.nupkg" --source gitlab_tDevkit
   only:
     - master
