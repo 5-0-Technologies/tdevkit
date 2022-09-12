@@ -44,7 +44,7 @@ deploy:
   script:
     - dotnet pack -c Release
     - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u tdevkit-cicd-token -p DGNWkU2xbAXkRH3xo7jL --store-password-in-clear-text
-    - dotnet nuget push "SDK/bin/Release/*.nupkg" --source gitlab_tDevkit -u tdevkit-cicd-token -p DGNWkU2xbAXkRH3xo7jL --store-password-in-clear-text
+    - dotnet nuget push "SDK/bin/Release/*.nupkg" --source gitlab_tDevkit -k DGNWkU2xbAXkRH3xo7jL
   only:
     - master
 
