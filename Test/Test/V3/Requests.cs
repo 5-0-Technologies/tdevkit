@@ -233,7 +233,7 @@ namespace Test.V3
                 Login = "login"
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + LOG + "/localization").UsingPost())
+            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/localization").UsingPost())
                 .RespondWith(
                     Response.Create()
                     .WithStatusCode(200)
