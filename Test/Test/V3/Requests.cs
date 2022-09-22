@@ -26,6 +26,7 @@ namespace Test.V3
         const string CONFIGURATION = "configuration";
         const string DEVICES = "devices";
         const string LAYERS = "layers";
+        const string LOG = "logs";
         const string SECTORS = "sectors";
 
         static WireMockServer server;
@@ -232,7 +233,7 @@ namespace Test.V3
                 Login = "login"
             };
 
-            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/localization").UsingPost())
+            server.Given(Request.Create().WithPath(PATH_BASE + LOG + "/localization").UsingPost())
                 .RespondWith(
                     Response.Create()
                     .WithStatusCode(200)
@@ -246,6 +247,30 @@ namespace Test.V3
             var response = await devkitConnector.GetLocalizationLayers(bodyContent);
 
             Assert.IsInstanceOfType(response, typeof(LayerContract[]));
+        }
+
+        [TestCategory("Log")]
+        [TestMethod]
+        public async Task PostLog_ShouldReturnLogContract()
+        {
+            var bodyContent = new LogContract()
+            {
+                Login = "login",
+                AccountId = 1,
+                Level = "Info",
+                Message = "message"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + LOG).UsingPost())
+                .RespondWith(
+                    Response.Create()
+                    .WithStatusCode(200)
+                    .WithBodyAsJson(bodyContent)
+            );
+
+            var response = await devkitConnector.AddLog(bodyContent);
+
+            Assert.IsInstanceOfType(response, typeof(LogContract));
         }
 
         [TestCategory("Sector")]

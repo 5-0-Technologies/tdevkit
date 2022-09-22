@@ -48,6 +48,8 @@ namespace SDK.Models
         public const string LocalizationAddData = "localization/";
         public const string LocalizationAddDataBatch = "localization/batch/";
 
+        public const string LogAdd = "logs";
+
         public const string Sectors = "sectors/";
 
         public const string Sensors = "sensors/";
