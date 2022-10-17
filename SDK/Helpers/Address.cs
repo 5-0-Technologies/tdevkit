@@ -29,7 +29,7 @@ namespace SDK.Models
 
         public const string Branches = "branches/";
 
-        public const string Clients = "branches/";
+        public const string Clients = "clients/";
 
         public const string Configuration = "configuration/";
         public const string ConfigurationBranch = "configuration/branch/";
