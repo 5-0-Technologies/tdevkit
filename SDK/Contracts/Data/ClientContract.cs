@@ -9,5 +9,7 @@ namespace SDK.Models
         public Guid Guid { get; set; }
 
         public string Title { get; set; }
+
+        public string DBName { get; set; }
     }
 }
