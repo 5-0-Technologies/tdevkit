@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace SDK
 {
+    public static class HttpHeaders
+    {
+        public static string BRANCH { get; } = "Branch";
+        public static string CLIENT { get; } = "Client";
+        public static string TOKEN { get; } = "Token";
+        public static string APIKEY { get; } = "Api-Key";
+        public static string MAINAPIKEY { get; } = "mApi-Key";
+    }
+
     public abstract class DevkitConnector
     {
+
         protected readonly ConnectionOptions connectionOptions;
         protected HttpClient httpClient;
 
@@ -25,15 +35,6 @@ namespace SDK
             httpClient.BaseAddress = new Uri(connectionOptions.Url + "/" + connectionOptions.Version + "/");
 
             ResetHttpClientHeaders();
-        }
-
-        protected void ResetHttpClientHeaders()
-        {
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Add("Client", connectionOptions.ClientGuid);
-            httpClient.DefaultRequestHeaders.Add("Branch", connectionOptions.BranchGuid);
-            httpClient.DefaultRequestHeaders.Add("Token", connectionOptions.Token);
-            httpClient.DefaultRequestHeaders.Add("Api-Key", connectionOptions.ApiKey);
         }
 
         #region REQUESTS
@@ -113,5 +114,76 @@ namespace SDK
                 _ => throw new ServerResponseException(stringContent),
             };
         }
+
+        #region HEADERS
+        protected void ResetHttpClientHeaders()
+        {
+            httpClient.DefaultRequestHeaders.Clear();
+            if (connectionOptions.ClientGuid != null) SetHeader(HttpHeaders.CLIENT, connectionOptions.ClientGuid);
+            if (connectionOptions.BranchGuid != null) SetHeader(HttpHeaders.BRANCH, connectionOptions.BranchGuid);
+            if (connectionOptions.Token != null) SetHeader(HttpHeaders.TOKEN, connectionOptions.Token);
+            if (connectionOptions.ApiKey != null) SetHeader(HttpHeaders.APIKEY, connectionOptions.ApiKey);
+            if (connectionOptions.MainApiKey != null) SetHeader(HttpHeaders.MAINAPIKEY, connectionOptions.MainApiKey);
+        }
+
+        public void ChangeClientGuid(string value)
+        {
+            SetHeader(HttpHeaders.CLIENT, value);
+        }
+        public void ChangeClientGuid(Guid value)
+        {
+            SetHeader(HttpHeaders.CLIENT, value.ToString());
+        }
+        public void ChangeBranchGuid(string value)
+        {
+            SetHeader(HttpHeaders.BRANCH, value);
+        }
+        public void ChangeBranchGuid(Guid value)
+        {
+            SetHeader(HttpHeaders.BRANCH, value.ToString());
+        }
+        public void ChangeToken(string value)
+        {
+            SetHeader(HttpHeaders.TOKEN, value);
+        }
+        public void ChangeApiKey(string value)
+        {
+            SetHeader(HttpHeaders.APIKEY, value);
+        }
+        public void ChangeMainApiKey(string value)
+        {
+            SetHeader(HttpHeaders.MAINAPIKEY, value);
+        }
+
+        public void RemoveClientGuid()
+        {
+            RemoveHeader(HttpHeaders.CLIENT);
+        }
+        public void RemoveBranchGuid()
+        {
+            RemoveHeader(HttpHeaders.BRANCH);
+        }
+        public void RemoveToken()
+        {
+            RemoveHeader(HttpHeaders.TOKEN);
+        }
+        public void RemoveApiKey()
+        {
+            RemoveHeader(HttpHeaders.APIKEY);
+        }
+        public void RemoveMainApiKey()
+        {
+            RemoveHeader(HttpHeaders.MAINAPIKEY);
+        }
+
+        private void SetHeader(string header, string value)
+        {
+            httpClient.DefaultRequestHeaders.Add(header, value);
+        }
+        private void RemoveHeader(string header)
+        {
+            httpClient.DefaultRequestHeaders.Remove(header);
+        }
+        #endregion
     }
 }

@@ -14,6 +14,7 @@
         private string branchGuid;
         private int timeout;
         private string apiKey;
+        private string mainApiKey;
         private string version;
         private string login;
         private string password;
@@ -60,6 +61,11 @@
             this.apiKey = apiKey;
             return this;
         }
+        public ConnectionOptionsBuilder MainApiKey(string mainApiKey)
+        {
+            this.mainApiKey = mainApiKey;
+            return this;
+        }
 
         public ConnectionOptionsBuilder Version(string version)
         {
@@ -90,6 +96,7 @@
                 BranchGuid = this.branchGuid,
                 Timeout = this.timeout,
                 ApiKey = this.apiKey,
+                MainApiKey = this.mainApiKey,
                 Version = this.version,
                 Login = this.login,
                 Password = this.password
