@@ -128,31 +128,31 @@ namespace SDK
 
         public void ChangeClientGuid(string value)
         {
-            SetHeader(HttpHeaders.CLIENT, value);
+            ChangeHeader(HttpHeaders.CLIENT, value);
         }
         public void ChangeClientGuid(Guid value)
         {
-            SetHeader(HttpHeaders.CLIENT, value.ToString());
+            ChangeHeader(HttpHeaders.CLIENT, value.ToString());
         }
         public void ChangeBranchGuid(string value)
         {
-            SetHeader(HttpHeaders.BRANCH, value);
+            ChangeHeader(HttpHeaders.BRANCH, value);
         }
         public void ChangeBranchGuid(Guid value)
         {
-            SetHeader(HttpHeaders.BRANCH, value.ToString());
+            ChangeHeader(HttpHeaders.BRANCH, value.ToString());
         }
         public void ChangeToken(string value)
         {
-            SetHeader(HttpHeaders.TOKEN, value);
+            ChangeHeader(HttpHeaders.TOKEN, value);
         }
         public void ChangeApiKey(string value)
         {
-            SetHeader(HttpHeaders.APIKEY, value);
+            ChangeHeader(HttpHeaders.APIKEY, value);
         }
         public void ChangeMainApiKey(string value)
         {
-            SetHeader(HttpHeaders.MAINAPIKEY, value);
+            ChangeHeader(HttpHeaders.MAINAPIKEY, value);
         }
 
         public void RemoveClientGuid()
@@ -176,6 +176,11 @@ namespace SDK
             RemoveHeader(HttpHeaders.MAINAPIKEY);
         }
 
+        private void ChangeHeader(string header, string value)
+        {
+            RemoveHeader(header);
+            SetHeader(header, value);
+        }
         private void SetHeader(string header, string value)
         {
             httpClient.DefaultRequestHeaders.Add(header, value);
