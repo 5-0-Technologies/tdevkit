@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>tDevKit</PackageId>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
     <Version>4.10.0</Version>
