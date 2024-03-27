@@ -6,7 +6,9 @@ Providing whole API Endpoint communication methods and data contracts for easy s
 ## Nuget package
 SDK Nuget package is publicly available for developers to use twinzo platform API right from Visual Studio IDE. 
 
-Please read [Package & Repository - tDevKit](https://gitlab.twinzo.eu/digital-twin/twinzo/tdevkit/-/packages) section for more informations and instructions do get known, how to install SDK. 
+Please read 
+[Package & Repository - tDevKit](https://gitlab.twinzo.eu/digital-twin/twinzo/tdevkit/-/packages) section
+and [Developers Twinzo Documentation](https://twinzo.atlassian.net/wiki/spaces/PUBD/pages/232652871/Developers) for more informations and instructions do get known, how to install SDK. 
 
 ## API
 Rest json/protobuf API for registered twinzo clients and partners provides fully capable interface for bidirectional digital twin integration.
