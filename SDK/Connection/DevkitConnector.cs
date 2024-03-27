@@ -111,7 +111,7 @@ namespace SDK
 
             throw response.StatusCode switch
             {
-                _ => throw new ServerResponseException(stringContent),
+                _ => throw new ServerResponseException(response.StatusCode + stringContent),
             };
         }
 
