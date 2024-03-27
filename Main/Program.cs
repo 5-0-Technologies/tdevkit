@@ -28,7 +28,7 @@ namespace Main
                 // Define connection options with specific credentials and client identifiers
                 ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
                 ConnectionOptions connectionOptions = optionsBuilder
-                    .Url("https://twin.rtls.solutions/api/")
+                    .Url("http://api.platform.twinzo.eu/")
                     .Client(ClientName)
                     .ClientGuid(ClientGuid)
                     .BranchGuid(BranchGuid)
