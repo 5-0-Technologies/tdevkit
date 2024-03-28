@@ -22,7 +22,7 @@ The first thing you need to do is create the base object by which the functional
 ```c# 
 ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
 ConnectionOptions connectionOptions = optionsBuilder
-	.Url("https://twin.rtls.solutions/api")
+	.Url("https://api.platform.twinzo.eu/")
 	.Client("YourClient")
 	.BranchGuid("YourBranchGuid")
 	.Timeout(1000)
@@ -32,6 +32,8 @@ ConnectionOptions connectionOptions = optionsBuilder
 	
 DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevkitConnector(connectionOptions);
 ```
+You can find api links at: https://twinzo.atlassian.net/wiki/spaces/PUBD/pages/72712207/Basics.
+
 Through the `DevkitConnectorV3` object are accessible all the functions implemented in tDevkit. As of **V3**, Most of the functionality is ready to be used after specifying the Api Key in `ConnectionOptions` object. However, there is a small number of functions you need to be authenticated for due to their nature. These functions are mentioned in the 
 [Full list of functions](#full-list-of-functions) section.
 
