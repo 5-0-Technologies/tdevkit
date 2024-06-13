@@ -25,5 +25,6 @@ namespace SDK.Contracts.Data
         public DeviceContract[] Devices { get; set; }
 
         public bool IsNoGo { get; set; }
+        public string ExternalId { get; set; }
     }
 }
