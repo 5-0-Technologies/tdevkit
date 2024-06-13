@@ -25,6 +25,7 @@ namespace SDK.Models
         public long Created { get; set; }
 
         public long Updated { get; set; }
+        public string ExternalId { get; set; }
     }
 
     public class PointContract
