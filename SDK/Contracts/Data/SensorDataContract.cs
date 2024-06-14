@@ -1,4 +1,6 @@
-﻿namespace SDK.Models
+﻿using SDK.Enum;
+
+namespace SDK.Models
 {
     public class SensorDataContract
     {
@@ -10,7 +12,7 @@
 
         public string Unit { get; set; }
 
-        public string DataType { get; set; }
+        public SensorDataType DataType { get; set; }
 
         public long Timestamp { get; set; }
 

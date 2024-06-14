@@ -1,6 +1,5 @@
 ﻿namespace SDK.Enum
 {
-    //[JsonConverter(typeof(StringEnumConverter))]
     public enum ActionType : byte
     {
         NoAction,

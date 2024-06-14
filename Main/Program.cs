@@ -1,5 +1,6 @@
 using SDK;
 using SDK.Communication;
+using SDK.Enum;
 using SDK.Models;
 using System;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace Main
                         Quantity = "Voltage",
                         Value = "120",
                         Unit = "V",
-                        DataType = "Single",
+                        DataType = SensorDataType.Decimal,
                         Index = 0,
                     },
                     new SensorDataContract
@@ -60,7 +61,7 @@ namespace Main
                         Quantity = "Frequency",
                         Value = "1",
                         Unit = "Hz",
-                        DataType = "Single",
+                        DataType = SensorDataType.Decimal,
                         Index = 0,
                     },
                     new SensorDataContract
@@ -68,7 +69,7 @@ namespace Main
                         Quantity = "OK parts",
                         Value = "600",
                         Unit = "pcs",
-                        DataType = "Int32",
+                        DataType = SensorDataType.Int32,
                         Index = 0,
                     }
                 };
