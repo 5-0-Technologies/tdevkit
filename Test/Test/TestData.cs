@@ -1,5 +1,6 @@
 ﻿using Core.Enum;
 using SDK.Contracts.Data;
+using SDK.Enum;
 using SDK.Models;
 
 namespace Main
@@ -72,15 +73,15 @@ namespace Main
 
         public static DeviceLocationContract[] GetLocalizationDataBatch()
         {
-            DistanceContract[] distanceContract1 = new DistanceContract[]
-            {
+            DistanceContract[] distanceContract1 =
+            [
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
-            };
+            ];
 
-            LocationContract[] locationContract = new LocationContract[]
-            {
+            LocationContract[] locationContract =
+            [
                 new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
@@ -89,21 +90,21 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            };
+            ];
 
-            return new DeviceLocationContract[] { new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract } };
+            return [new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract }];
         }
         public static LocationContract[] GetLocalizationData()
         {
-            DistanceContract[] distanceContract1 = new DistanceContract[]
-            {
+            DistanceContract[] distanceContract1 =
+            [
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
-            };
+            ];
 
-            return new LocationContract[]
-            {
+            return
+            [
                 new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
@@ -112,7 +113,7 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            };
+            ];
         }
 
         public static SectorContract GetSector()
@@ -135,16 +136,16 @@ namespace Main
                 Quantity = "Temperature",
                 Value = "16",
                 Unit = "°C",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
             SensorDataContract data2 = new SensorDataContract
             {
                 Quantity = "Humidity",
                 Value = "31",
                 Unit = "%",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
-            SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2 };
+            SensorDataContract[] sensorDataContracts = [data1, data2];
 
             SensorContract sensor = new SensorContract
             {
@@ -179,21 +180,21 @@ namespace Main
                 Quantity = "Temperature",
                 Value = "16",
                 Unit = "°C",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
             SensorDataContract data2 = new SensorDataContract
             {
                 Quantity = "Humidity",
                 Value = "31",
                 Unit = "%",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
             SensorDataContract data3 = new SensorDataContract
             {
                 Quantity = "CO2",
                 Timestamp = 1614599484673,
                 Value = "800",
-                DataType = "Int32",
+                DataType = SensorDataType.Int32,
                 Unit = "unit"
             };
             var sensorDataContracts = new[] { data1, data2, data3 };
@@ -216,24 +217,25 @@ namespace Main
                 Quantity = "Temperature",
                 Value = "16",
                 Unit = "°C",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
             SensorDataContract data2 = new SensorDataContract
             {
                 Quantity = "Humidity",
                 Value = "31",
                 Unit = "%",
-                DataType = "Single"
+                DataType = SensorDataType.Decimal
             };
             SensorDataContract data3 = new SensorDataContract
             {
                 Quantity = "CO2",
                 Timestamp = 1614599484673,
                 Value = "800",
-                DataType = "Int32",
+                DataType = SensorDataType.Int32,
                 Unit = "unit"
             };
-            SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2, data3 };
+
+            SensorDataContract[] sensorDataContracts = [data1, data2, data3];
 
             return sensorDataContracts;
         }
