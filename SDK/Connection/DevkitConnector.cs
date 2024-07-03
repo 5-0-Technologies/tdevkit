@@ -1,5 +1,6 @@
 ﻿using SDK.Exceptions;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -32,6 +33,7 @@ namespace SDK
         {
             this.connectionOptions = connectionOptions;
             this.httpClient = httpClient;
+            this.httpClient.DefaultRequestVersion = HttpVersion.Version30;
             httpClient.BaseAddress = new Uri(connectionOptions.Url + "/" + connectionOptions.Version + "/");
 
             ResetHttpClientHeaders();
