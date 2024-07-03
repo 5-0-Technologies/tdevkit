@@ -1,6 +1,7 @@
 ﻿
 using SDK.Contracts.Data;
 using SDK.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -50,6 +51,51 @@ namespace SDK
             var response = await GetRequest<FileInfoContract>(subUrl);
 
             return response;
+        }
+
+        /// <summary>
+        /// Generic GET request
+        /// </summary>
+        /// <typeparam name="T">Returns type of T</typeparam>
+        /// <param name="subUrl"></param>
+        /// <returns></returns>
+        public async Task<T> Get<T>(string subUrl)
+        {
+            return await GetRequest<T>(subUrl);
+        }
+
+        /// <summary>
+        /// Generic POST request
+        /// </summary>
+        /// <typeparam name="T">Returns type of T</typeparam>
+        /// <param name="subUrl"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public async Task<T> Post<T>(string subUrl, object body)
+        {
+            return await PostRequest<T>(subUrl, body);
+        }
+
+        /// <summary>
+        /// Generic PATCH request
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subUrl"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public async Task Patch(string subUrl, object body)
+        {
+            await PatchRequest(subUrl, body);
+        }
+
+        /// <summary>
+        /// Generic DELETE request
+        /// </summary>
+        /// <param name="subUrl"></param>
+        /// <returns></returns>
+        public async Task Delete(string subUrl)
+        {
+            await DeleteRequest(subUrl);
         }
     }
 }
