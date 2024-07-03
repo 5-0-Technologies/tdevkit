@@ -80,7 +80,7 @@ namespace Main
                     Login = "buffer",
                     SensorData = dataList.ToArray(),
                 };
-
+                
                 // Send sensor with specified data to Twinzo server
                 PostResponseContract[] response = await devkitConnector.AddSensorData(new[] { sensor });
                 Console.WriteLine(response);
