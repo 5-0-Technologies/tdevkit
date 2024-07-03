@@ -4,7 +4,7 @@
     public class ConnectionOptions
     {
         public const string VERSION_2 = "v2";
-        public const string VERSION_3 = "v3.0";
+        public const string VERSION_3 = "v3";
 
         private string url;
         private string token;
