@@ -242,6 +242,11 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetDemoFile(fileName)` - Get byte representation of the specified demo file
 	* `GetUnityLastVersion(platform)` - Get the last version of the Unity app
 	* `GetUnityBundleInfo(bundleName)` - Get information (version, size, name) about the Unity Bundle
+	* **Generic methods**
+		* `Get(string subUrl)`
+		* `Post(string subUrl, object body)`
+		* `Patch(string subUrl, object body)`
+		* `Delete(string subUrl)`
 
 ## Future features
 - **protobuffers** serialization
