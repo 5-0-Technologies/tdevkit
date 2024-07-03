@@ -56,28 +56,24 @@ namespace SDK
         /// <summary>
         /// Generic GET request
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Returns type of T</typeparam>
         /// <param name="subUrl"></param>
         /// <returns></returns>
         public async Task<T> Get<T>(string subUrl)
         {
-            var response = await GetRequest<T>(subUrl);
-
-            return response;
+            return await GetRequest<T>(subUrl);
         }
 
         /// <summary>
         /// Generic POST request
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Returns type of T</typeparam>
         /// <param name="subUrl"></param>
         /// <param name="body"></param>
         /// <returns></returns>
         public async Task<T> Post<T>(string subUrl, object body)
         {
-            var response = await PostRequest<T>(subUrl, body);
-
-            return response;
+            return await PostRequest<T>(subUrl, body);
         }
 
         /// <summary>
@@ -87,11 +83,9 @@ namespace SDK
         /// <param name="subUrl"></param>
         /// <param name="body"></param>
         /// <returns></returns>
-        public async Task<T> Patch<T>(string subUrl, object body)
+        public async Task Patch(string subUrl, object body)
         {
-            var response = await PatchRequest<T>(subUrl, body);
-
-            return response;
+            await PatchRequest(subUrl, body);
         }
 
         /// <summary>
