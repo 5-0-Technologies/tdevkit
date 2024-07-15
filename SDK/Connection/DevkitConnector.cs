@@ -54,12 +54,11 @@ namespace SDK
             return await JsonResponse<Type>(response);
         }
 
-        protected async Task<Type> PatchRequest<Type>(string subUrl, object body)
+        protected async Task PatchRequest<Type>(string subUrl, object body)
         {
             string bodyContent = JsonSerializer.Serialize(body);
             HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
-            var response = await httpClient.PatchAsync(subUrl, httpContent);
-            return await JsonResponse<Type>(response);
+            await httpClient.PatchAsync(subUrl, httpContent);
         }
 
         protected async Task PatchRequest(string subUrl, object body)

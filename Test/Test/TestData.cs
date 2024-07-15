@@ -7,6 +7,7 @@ namespace Main
 {
     public static class TestData
     {
+        #region Beacons
         public static BeaconContract GetBeacon()
         {
             return new BeaconContract
@@ -48,10 +49,9 @@ namespace Main
                 UseGps = false,
             };
         }
-
         public static DeviceContract GetDevice()
         {
-            DeviceContract device = new DeviceContract
+            return new DeviceContract
             {
                 Mac = "00:00:00:00:00:00",
                 BranchId = 1,
@@ -60,27 +60,23 @@ namespace Main
                 Title = "sdk-device",
                 X = 10.0,
                 Y = 10.0,
-                //AppVersion = "1.0",
                 IsMoving = false,
                 FallStatus = FallType.OK,
-                //Battery = 46f,
                 DeviceTypeId = 8,
                 Position = false,
                 Geofence = false
             };
-            return device;
         }
-
         public static DeviceLocationContract[] GetLocalizationDataBatch()
         {
-            DistanceContract[] distanceContract1 = new [] 
+            DistanceContract[] distanceContract1 = new[]
             {
                 new DistanceContract { BeaconId = 34, RSSI = -56 },
                 new DistanceContract { BeaconId = 34, RSSI = -56 },
                 new DistanceContract { BeaconId = 34, RSSI = -56 },
             };
 
-            LocationContract[] locationContract = new[]
+            return new[] { new DeviceLocationContract { Login = "rtu-sdk", Locations =  new[]
             {
                 new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
@@ -90,9 +86,8 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            };
-
-            return new[] { new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract } };
+                }
+            }};
         }
         public static LocationContract[] GetLocalizationData()
         {
@@ -115,7 +110,9 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
             };
         }
+        #endregion
 
+        #region Sectors
         public static SectorContract GetSector()
         {
             return new()
@@ -128,41 +125,41 @@ namespace Main
                 SectorHeight = 10000
             };
         }
-
         public static SensorContract GetSensor()
         {
-            SensorDataContract data1 = new SensorDataContract
+            return new SensorContract
             {
-                Quantity = "Temperature",
-                Value = "16",
-                Unit = "°C",
-                DataType = SensorDataType.Decimal
-            };
-            SensorDataContract data2 = new SensorDataContract
+                Login = "sdk-sensor1",
+                SensorData = new[]
             {
-                Quantity = "Humidity",
-                Value = "31",
-                Unit = "%",
-                DataType = SensorDataType.Decimal
+                new SensorDataContract
+                {
+                    Quantity = "Temperature",
+                    Value = "16",
+                    Unit = "°C",
+                    DataType = SensorDataType.Decimal
+                },
+                new SensorDataContract
+                {
+                    Quantity = "Humidity",
+                    Value = "31",
+                    Unit = "%",
+                    DataType = SensorDataType.Decimal
+                },
+                new SensorDataContract
+                {
+                    Quantity = "CO2",
+                    Timestamp = 1614599484673,
+                    Value = "800",
+                    DataType = SensorDataType.Int32,
+                    Unit = "unit"
+                }
+                }
             };
-            SensorDataContract[] sensorDataContracts = new [] { data1, data2 };
-
-            SensorContract sensor = new SensorContract
-            {
-                //Id = 7351,
-                Login = "sdk-sensor",
-                //Password = "sdk",
-                Title = "sdk-sensor",
-                SectorId = 2,
-                SensorData = sensorDataContracts,
-                //AreaId = 19
-            };
-
-            return sensor;
         }
         public static SensorContract GetSensorUpdate()
         {
-            SensorContract sensor = new SensorContract
+            return new SensorContract
             {
                 Id = 7351,
                 Login = "sdk-sensor2",
@@ -170,74 +167,84 @@ namespace Main
                 SectorId = 2,
                 AreaId = 19
             };
-
-            return sensor;
         }
         public static SensorContract[] GetSensorDataBatch()
         {
-            SensorDataContract data1 = new SensorDataContract
+            return new[]
             {
-                Quantity = "Temperature",
-                Value = "16",
-                Unit = "°C",
-                DataType = SensorDataType.Decimal
+                new SensorContract
+                {
+                    Login = "sdk-sensor1",
+                    SensorData = GetSensorData()
+                },
+                new SensorContract
+                {
+                    Login = "sdk-sensor2",
+                    SensorData = GetSensorData()
+                }
             };
-            SensorDataContract data2 = new SensorDataContract
-            {
-                Quantity = "Humidity",
-                Value = "31",
-                Unit = "%",
-                DataType = SensorDataType.Decimal
-            };
-            SensorDataContract data3 = new SensorDataContract
-            {
-                Quantity = "CO2",
-                Timestamp = 1614599484673,
-                Value = "800",
-                DataType = SensorDataType.Int32,
-                Unit = "unit"
-            };
-            var sensorDataContracts = new[] { data1, data2, data3 };
-
-            SensorContract sensor = new SensorContract
-            {
-                Login = "enviro-sdk",
-                //SectorId = 2,
-                SensorData = sensorDataContracts,
-                //AreaId = 24
-            };
-            SensorContract[] sensorContracts = new SensorContract[] { sensor };
-
-            return sensorContracts;
         }
         public static SensorDataContract[] GetSensorData()
         {
-            SensorDataContract data1 = new SensorDataContract
+            return new[]
             {
-                Quantity = "Temperature",
-                Value = "16",
-                Unit = "°C",
-                DataType = SensorDataType.Decimal
+                new SensorDataContract
+                {
+                    Quantity = "Temperature",
+                    Value = "16",
+                    Unit = "°C",
+                    DataType = SensorDataType.Decimal
+                },
+                new SensorDataContract
+                {
+                    Quantity = "Humidity",
+                    Value = "31",
+                    Unit = "%",
+                    DataType = SensorDataType.Decimal
+                },
+                new SensorDataContract
+                {
+                    Quantity = "CO2",
+                    Timestamp = 1614599484673,
+                    Value = "800",
+                    DataType = SensorDataType.Int32,
+                    Unit = "unit"
+                }
             };
-            SensorDataContract data2 = new SensorDataContract
-            {
-                Quantity = "Humidity",
-                Value = "31",
-                Unit = "%",
-                DataType = SensorDataType.Decimal
-            };
-            SensorDataContract data3 = new SensorDataContract
-            {
-                Quantity = "CO2",
-                Timestamp = 1614599484673,
-                Value = "800",
-                DataType = SensorDataType.Int32,
-                Unit = "unit"
-            };
-
-            SensorDataContract[] sensorDataContracts = new[] { data1, data2, data3 };
-
-            return sensorDataContracts;
         }
+        #endregion
+
+        #region Shifts
+        public static ShiftContract GetShift()
+        {
+            return new ShiftContract
+            {
+                BranchId = 1,
+                Title = "shift1",
+                StartTime = 1599644652178,
+                StopTime = 1599644652178
+            };
+        }
+        public static ShiftContract[] GetShifts()
+        {
+            return new[]
+            {
+                new ShiftContract
+                {
+                    BranchId = 1,
+                    Title = "shift1",
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178
+                },
+                new ShiftContract
+                {
+                    BranchId = 1,
+                    Title = "shift2",
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178
+                }
+            };
+        }
+        #endregion
     }
 }

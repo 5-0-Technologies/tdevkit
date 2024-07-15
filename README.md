@@ -234,6 +234,9 @@ await devkitConnector.AddSensorData(sensorContracts);
 * **Shifts**
 	* `GetShifts()` - Get all shifts
 	* `GetShift(id)` - Get shift by ID
+	* `AddShift(shiftContract)` - Add a shift with specified properties
+	* `UpdateShift(shiftContract)` - Update an existing shift with new properties
+	* `DeleteShift(id)` - Delete an existing shift by ID
 * **Users**
 	* `GetUserInfo()` - Get information about the current user (in order to do this you need to be **authenticated** as said user)
 * **Utils**
