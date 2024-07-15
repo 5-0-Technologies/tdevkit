@@ -28,6 +28,7 @@ namespace Test.V3
         const string LAYERS = "layers";
         const string LOG = "logs";
         const string SECTORS = "sectors";
+        const string SHIFTS = "shifts";
 
         static WireMockServer server;
         static DevkitConnectorV3 devkitConnector;
@@ -62,6 +63,8 @@ namespace Test.V3
             server.Dispose();
         }
 
+        #region Device
+
         [TestMethod]
         public async Task GetDevices_ErrorHandling_ShouldThrowsException()
         {
@@ -82,7 +85,7 @@ namespace Test.V3
         public async Task GetDevice_GetAllDevices_ShouldReturn200()
         {
             var bodyContent = new DeviceContract[] {
-                new DeviceContract(){}
+                new DeviceContract(){ }
             };
 
             server.Reset();
@@ -224,6 +227,9 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(ManDownResponseContract[]));
         }
 
+        #endregion
+
+        #region Layer
         [TestCategory("Layer")]
         [TestMethod]
         public async Task GetLocalizationLayers_ShouldReturnLayers()
@@ -248,6 +254,9 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(LayerContract[]));
         }
+        #endregion
+
+        #region Log
 
         [TestCategory("Log")]
         [TestMethod]
@@ -273,6 +282,9 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(LogContract));
         }
 
+        #endregion
+
+        #region Sector
         [TestCategory("Sector")]
         [TestMethod]
         public async Task GetSector_GetDeviceByLogin_ShouldReturn200()
@@ -290,7 +302,117 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(SectorContract[]));
         }
+        #endregion
 
+        #region Shifts
+        [TestCategory("Shifts")]
+        [TestMethod]
+        public async Task GetShift_ShouldReturnShiftContract()
+        {
+            const int Id = 1;
+            var bodyContent = new ShiftContract()
+            {
+                Id = 1,
+                BranchId = 1,
+                StartTime = 1599644652178,
+                StopTime = 1599644652178,
+                Title = "shift1"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + Id).UsingGet())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            ShiftContract response = await devkitConnector.GetShift(1);
+            Assert.IsInstanceOfType(response, typeof(ShiftContract));
+        }
+
+        [TestCategory("Shifts")]
+        [TestMethod]
+        public async Task GetShifts_ShouldReturnShiftContracts()
+        {
+            var bodyContent = new ShiftContract[]
+            {
+                new ShiftContract
+                {
+                    Id = 1,
+                    BranchId = 1,
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178,
+                    Title = "shift1"
+                },
+                new ShiftContract
+                {
+                    Id = 2,
+                    BranchId = 1,
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178,
+                    Title = "shift2"
+                }
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            ShiftContract[] response = await devkitConnector.GetShifts();
+
+            Assert.IsInstanceOfType(response, typeof(ShiftContract[]));
+        }
+
+        [TestCategory("Shifts")]
+        [TestMethod]
+        public async Task AddShift_ShouldReturnShiftContract()
+        {
+            var bodyContent = new ShiftContract
+            {
+                Id = 1,
+                BranchId = 1,
+                StartTime = 1599644652178,
+                StopTime = 1599644652178,
+                Title = "shift1"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS).UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            ShiftContract response = await devkitConnector.AddShift(bodyContent);
+
+            Assert.IsInstanceOfType(response, typeof(ShiftContract));
+        }
+
+        [TestCategory("Shifts")]
+        [TestMethod]
+        public async Task UpdateShift()
+        {
+            var bodyContent = new ShiftContract
+            {
+                Id = 1,
+                BranchId = 1,
+                StartTime = 1599644652178,
+                StopTime = 1599644652178,
+                Title = "shift1"
+            };
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + bodyContent.Id).UsingPatch())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.UpdateShift(bodyContent);
+            Assert.IsTrue(true);
+        }
+
+        [TestCategory("Shifts")]
+        [TestMethod]
+        public async Task DeleteShift()
+        {
+            const int Id = 1;
+            server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + Id).UsingDelete())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.DeleteShift(Id);
+            Assert.IsTrue(true);
+        }
+        #endregion
+
+        #region GetAccountConfiguration
 
         [TestCategory("GetAccountConfiguration")]
         [TestMethod]
@@ -306,5 +428,6 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(JsonDocument));
         }
+        #endregion
     }
 }
