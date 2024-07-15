@@ -50,47 +50,124 @@ namespace Main
 
         public static DeviceLocationContract[] GetLocalizationDataBatch()
         {
-            DistanceContract[] distanceContract1 =
-            [
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-            ];
+            DistanceContract[] distanceContract1 = new DistanceContract[3];
+            distanceContract1[0] = new DistanceContract { BeaconId = 34, RSSI = -56 };
+            distanceContract1[1] = new DistanceContract { BeaconId = 34, RSSI = -56 };
+            distanceContract1[2] = new DistanceContract { BeaconId = 34, RSSI = -56 };
 
-            LocationContract[] locationContract =
-            [
-                new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 3, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            ];
+            LocationContract[] locationContract = new LocationContract[4];
+            locationContract[0] = new LocationContract
+            {
+                SectorId = 1,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[1] = new LocationContract
+            {
+                SectorId = 2,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[2] = new LocationContract
+            {
+                SectorId = 3,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[3] = new LocationContract
+            {
+                SectorId = 4,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
 
-            return [new DeviceLocationContract { Login = "sdk-device", Locations = locationContract }];
+            DeviceLocationContract[] deviceLocationContracts = new DeviceLocationContract[1];
+            deviceLocationContracts[0] = new DeviceLocationContract { Login = "sdk-device", Locations = locationContract };
+
+            return deviceLocationContracts;
         }
         public static LocationContract[] GetLocalizationData()
         {
-            DistanceContract[] distanceContract1 =
-            [
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-            ];
+            DistanceContract[] distanceContract1 = new DistanceContract[3];
+            distanceContract1[0] = new DistanceContract { BeaconId = 34, RSSI = -56 };
+            distanceContract1[1] = new DistanceContract { BeaconId = 34, RSSI = -56 };
+            distanceContract1[2] = new DistanceContract { BeaconId = 34, RSSI = -56 };
 
-            return
-            [
-                new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 3, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-                new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
-                    X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            ];
+            LocationContract[] locationContract = new LocationContract[4];
+            locationContract[0] = new LocationContract
+            {
+                SectorId = 1,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[1] = new LocationContract
+            {
+                SectorId = 2,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[2] = new LocationContract
+            {
+                SectorId = 3,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+            locationContract[3] = new LocationContract
+            {
+                SectorId = 4,
+                Battery = 100,
+                IsMoving = true,
+                Timestamp = 1599644652178,
+                X = 0,
+                Y = 0,
+                Z = 0,
+                Interval = 300,
+                Distances = distanceContract1
+            };
+
+            return locationContract;
         }
 
         public static SensorContract GetSensor()
@@ -111,13 +188,14 @@ namespace Main
                 DataType = SensorDataType.Decimal,
                 Index = 1
             };
-            SensorDataContract[] sensorDataContracts = [data1, data2];
+            SensorDataContract[] sensorDataContracts = new SensorDataContract[2];
+            sensorDataContracts[0] = data1;
+            sensorDataContracts[1] = data2;
 
             SensorContract sensor = new SensorContract
             {
                 Id = 7351,
                 Login = "sdk-sensor2",
-                //Password = "sdk",
                 Title = "testtt",
                 SectorId = 2,
                 SensorData = sensorDataContracts,
@@ -166,7 +244,10 @@ namespace Main
                 Unit = "unit",
                 Index = 2
             };
-            SensorDataContract[] sensorDataContracts = [data1, data2, data3];
+            SensorDataContract[] sensorDataContracts = new SensorDataContract[3];
+            sensorDataContracts[0] = data1;
+            sensorDataContracts[1] = data2;
+            sensorDataContracts[2] = data3;
 
             SensorContract sensor = new SensorContract
             {
@@ -175,7 +256,8 @@ namespace Main
                 SensorData = sensorDataContracts,
                 AreaId = 24
             };
-            SensorContract[] sensorContracts = [sensor];
+            SensorContract[] sensorContracts = new SensorContract[1];
+            sensorContracts[0] = sensor;
 
             return sensorContracts;
         }
@@ -206,7 +288,10 @@ namespace Main
                 Unit = "unit",
                 Index = 2
             };
-            SensorDataContract[] sensorDataContracts = [data1, data2, data3];
+            SensorDataContract[] sensorDataContracts = new SensorDataContract[3];
+            sensorDataContracts[0] = data1;
+            sensorDataContracts[1] = data2;
+            sensorDataContracts[2] = data3;
 
             return sensorDataContracts;
         }

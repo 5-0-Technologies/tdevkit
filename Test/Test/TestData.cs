@@ -73,15 +73,15 @@ namespace Main
 
         public static DeviceLocationContract[] GetLocalizationDataBatch()
         {
-            DistanceContract[] distanceContract1 =
-            [
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-                new DistanceContract {BeaconId = 34, RSSI= -56},
-            ];
+            DistanceContract[] distanceContract1 = new [] 
+            {
+                new DistanceContract { BeaconId = 34, RSSI = -56 },
+                new DistanceContract { BeaconId = 34, RSSI = -56 },
+                new DistanceContract { BeaconId = 34, RSSI = -56 },
+            };
 
-            LocationContract[] locationContract =
-            [
+            LocationContract[] locationContract = new[]
+            {
                 new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
@@ -90,21 +90,21 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            ];
+            };
 
-            return [new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract }];
+            return new[] { new DeviceLocationContract { Login = "rtu-sdk", Locations = locationContract } };
         }
         public static LocationContract[] GetLocalizationData()
         {
-            DistanceContract[] distanceContract1 =
-            [
+            DistanceContract[] distanceContract1 = new[]
+            {
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
                 new DistanceContract {BeaconId = 34, RSSI= -56},
-            ];
+            };
 
-            return
-            [
+            return new[]
+            {
                 new LocationContract {SectorId = 1, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 2, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
@@ -113,7 +113,7 @@ namespace Main
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
                 new LocationContract {SectorId = 4, Battery = 100, IsMoving = true, Timestamp = 1599644652178,
                     X = 0, Y = 0, Z = 0, Interval = 300, Distances = distanceContract1 },
-            ];
+            };
         }
 
         public static SectorContract GetSector()
@@ -145,7 +145,7 @@ namespace Main
                 Unit = "%",
                 DataType = SensorDataType.Decimal
             };
-            SensorDataContract[] sensorDataContracts = [data1, data2];
+            SensorDataContract[] sensorDataContracts = new [] { data1, data2 };
 
             SensorContract sensor = new SensorContract
             {
@@ -235,7 +235,7 @@ namespace Main
                 Unit = "unit"
             };
 
-            SensorDataContract[] sensorDataContracts = [data1, data2, data3];
+            SensorDataContract[] sensorDataContracts = new[] { data1, data2, data3 };
 
             return sensorDataContracts;
         }
