@@ -295,5 +295,40 @@ namespace Main
 
             return sensorDataContracts;
         }
+
+        public static ShiftContract GetShift()
+        {
+            return new ShiftContract
+            {
+                Id = 1,
+                Title = "shift1",
+                BranchId = 1,
+                StartTime = 1599644652178,
+                StopTime = 1599644652178
+            };
+        }
+
+        public static ShiftContract[] GetShifts()
+        {
+            return new[]
+            {
+                new ShiftContract
+                {
+                    Id = 1,
+                    Title = "shift1",
+                    BranchId = 1,
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178
+                },
+                new ShiftContract
+                {
+                    Id = 2,
+                    Title = "shift2",
+                    BranchId = 1,
+                    StartTime = 1599644652178,
+                    StopTime = 1599644652178
+                }
+            };
+        }
     }
 }
