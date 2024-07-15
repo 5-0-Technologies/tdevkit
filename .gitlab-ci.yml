@@ -6,11 +6,19 @@ stages:
   - release
   - deploy
 
+before_script:
+  - apt-get update && apt-get install -y wget
+  - wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+  - chmod +x dotnet-install.sh
+
 build:
   stage: build
   tags: 
     - net5
   script:
+    - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
+    - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
+    - export PATH="$PATH:/usr/share/dotnet"
     - dotnet build
 
 test:
@@ -18,6 +26,9 @@ test:
   tags: 
     - net5
   script:
+    - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
+    - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
+    - export PATH="$PATH:/usr/share/dotnet"
     - dotnet test
 
 release:
@@ -31,7 +42,9 @@ release:
       - SDK/
     expire_in: 1 week
   script:
-    - dotnet publish -c Release -o ../SDK SDK/SDK.csproj
+    - dotnet publish -c Release -o ../SDK -f net6.0 SDK/SDK.csproj
+    - dotnet publish -c Release -o ../SDK -f net7.0 SDK/SDK.csproj
+    - dotnet publish -c Release -o ../SDK -f net8.0 SDK/SDK.csproj
 
 deploy:
   stage: deploy
