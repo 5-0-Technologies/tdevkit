@@ -10,16 +10,30 @@ namespace SDK
         public async Task<AreaContract[]> GetAreas(string queryString = "")
         {
             string subUrl = Address.UrlCombine(Address.Areas, queryString);
-            var response = await GetRequest<AreaContract[]>(subUrl);
-
-            return response;
+            return await GetRequest<AreaContract[]>(subUrl);
         }
         public async Task<AreaContract> GetArea(int id, string queryString = "")
         {
             string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(id), queryString);
-            var response = await GetRequest<AreaContract>(subUrl);
+            return await GetRequest<AreaContract>(subUrl);
+        }
 
-            return response;
+        public async Task<AreaContract> AddArea(AreaContract area)
+        {
+            string subUrl = Address.UrlCombine(Address.Areas);
+            return await PostRequest<AreaContract>(subUrl, area);
+        }
+
+        public async Task UpdateArea(AreaContract area)
+        {
+            string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(area.Id));
+            await PatchRequest<AreaContract>(subUrl, area);
+        }
+
+        public async Task DeleteArea(int id)
+        {
+            string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(id));
+            await DeleteRequest(subUrl);
         }
     }
 }
