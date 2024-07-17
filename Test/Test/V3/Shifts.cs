@@ -16,14 +16,7 @@ namespace Test.V3
         public async Task GetShift_ShouldReturnShiftContract()
         {
             const int Id = 1;
-            var bodyContent = new ShiftContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                StartTime = 1599644652178,
-                StopTime = 1599644652178,
-                Title = "shift1"
-            };
+            var bodyContent = TestData.Shifts.GetShift();
 
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + Id).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -36,25 +29,7 @@ namespace Test.V3
         [TestMethod]
         public async Task GetShifts_ShouldReturnShiftContracts()
         {
-            var bodyContent = new ShiftContract[]
-            {
-                new ShiftContract
-                {
-                    Id = 1,
-                    BranchId = 1,
-                    StartTime = 1599644652178,
-                    StopTime = 1599644652178,
-                    Title = "shift1"
-                },
-                new ShiftContract
-                {
-                    Id = 2,
-                    BranchId = 1,
-                    StartTime = 1599644652178,
-                    StopTime = 1599644652178,
-                    Title = "shift2"
-                }
-            };
+            var bodyContent = TestData.Shifts.GetShifts();
 
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS).UsingGet())
                 .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -68,14 +43,7 @@ namespace Test.V3
         [TestMethod]
         public async Task AddShift_ShouldReturnShiftContract()
         {
-            var bodyContent = new ShiftContract
-            {
-                Id = 1,
-                BranchId = 1,
-                StartTime = 1599644652178,
-                StopTime = 1599644652178,
-                Title = "shift1"
-            };
+            var bodyContent = TestData.Shifts.GetShift();
 
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS).UsingPost())
                 .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -88,14 +56,7 @@ namespace Test.V3
         [TestMethod]
         public async Task UpdateShift()
         {
-            var bodyContent = new ShiftContract
-            {
-                Id = 1,
-                BranchId = 1,
-                StartTime = 1599644652178,
-                StopTime = 1599644652178,
-                Title = "shift1"
-            };
+            var bodyContent = TestData.Shifts.GetShift();
 
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + bodyContent.Id).UsingPatch())
                 .RespondWith(Response.Create().WithStatusCode(200));

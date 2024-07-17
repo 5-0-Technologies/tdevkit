@@ -36,9 +36,7 @@ namespace Test.V3
         [TestMethod]
         public async Task GetDevice_GetAllDevices_ShouldReturn200()
         {
-            var bodyContent = new DeviceContract[] {
-                new DeviceContract(){ }
-            };
+            var bodyContent = TestData.Devices.GetDevices();
 
             server.Reset();
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingGet())
@@ -54,10 +52,7 @@ namespace Test.V3
         public async Task GetDevice_GetDeviceById_ShouldReturn200()
         {
             const int Id = 3;
-            var bodyContent = new DeviceContract()
-            {
-                Id = Id
-            };
+            var bodyContent = TestData.Devices.GetDevice();
 
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/" + Id).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -72,10 +67,7 @@ namespace Test.V3
         public async Task GetDevice_GetDeviceByLogin_ShouldReturn200()
         {
             const string Login = "login";
-            var bodyContent = new DeviceContract()
-            {
-                Login = Login
-            };
+            var bodyContent = TestData.Devices.GetDevice();
 
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/login/" + Login).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -90,10 +82,7 @@ namespace Test.V3
         public async Task AddDevice_AddDevice_ShouldReturn200()
         {
             const string Login = "login";
-            var bodyContent = new DeviceContract()
-            {
-                Login = Login
-            };
+            var bodyContent = TestData.Devices.GetDevice();
 
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -109,13 +98,9 @@ namespace Test.V3
         {
 
             const int Id = 1;
-            var bodyContent = new DeviceContract()
-            {
-                Id = Id
-            };
 
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/" + Id).UsingDelete())
-                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+                    .RespondWith(Response.Create().WithStatusCode(200));
 
             await devkitConnector.DeleteDevice(Id);
         }
@@ -126,13 +111,7 @@ namespace Test.V3
         {
             const string device = "Device1";
             const long ts = 1000;
-            var bodyContent = new ManDownResponseContract()
-            {
-                Login = device,
-                Timestamp = ts,
-                Action = ActionType.Create,
-                Success = true
-            };
+            var bodyContent = TestData.Devices.GetManDownDataContract();
 
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES + "/man-down").UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -154,15 +133,7 @@ namespace Test.V3
             const string PATH = PATH_BASE + DEVICES + "/man-down/batch";
             const string device = "Device1";
             const long ts = 1000;
-            var bodyContent = new ManDownResponseContract[] {
-                new ManDownResponseContract()
-                {
-                    Login = device,
-                    Timestamp = ts,
-                    Action = ActionType.Create,
-                    Success = true
-                }
-            };
+            var bodyContent = TestData.Devices.GetManDownDataContracts();
 
             server.Given(Request.Create().WithPath(PATH).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));

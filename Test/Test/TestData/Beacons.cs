@@ -2,7 +2,7 @@
 
 namespace Test.TestData
 {
-    public static partial class TestData
+    public static class Beacons
     {
         public static BeaconContract GetBeacon()
         {

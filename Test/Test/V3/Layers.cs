@@ -13,41 +13,29 @@ namespace Test.V3
 
         [TestCategory("Layer")]
         [TestMethod]
-        public async Task GetLocalizationLayers_ShouldReturnLayers()
+        public async Task GetLocalizationLayersForDevice_ShouldReturnLayers()
         {
-            var bodyContent = new LoginContract()
-            {
-                Login = "login"
-            };
+            var deviceLogin = "device1";
 
-            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/localization").UsingPost())
+            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + $"/localization/{deviceLogin}").UsingGet())
                 .RespondWith(Response.Create().WithStatusCode(200)
-                .WithBodyAsJson(
-                    new LayerContract[] {
-                        new LayerContract(){
-                            Id = 1,
-                        }
-                    }));
+                .WithBodyAsJson(TestData.Layers.GetLayers()));
 
-            var response = await devkitConnector.GetLocalizationLayers(bodyContent);
+            var response = await devkitConnector.GetLocalizationLayers(deviceLogin);
             Assert.IsInstanceOfType(response, typeof(LayerContract[]));
         }
 
         [TestCategory("Layer")]
         [TestMethod]
-        public async Task GetNoGoLayers_ShouldReturnLayers()
+        public async Task GetNoGoLayersForDevice_ShouldReturnLayers()
         {
-            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/device/login").UsingGet())
-                .RespondWith(Response.Create().WithStatusCode(200)
-                .WithBodyAsJson(new LayerContract[]
-                {
-                    new LayerContract()
-                    {
-                        Id = 1,
-                    }
-                }));
+            var deviceLogin = "device1";
 
-            var response = await devkitConnector.GetNoGoLayers("login");
+            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + $"/device/{deviceLogin}").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200)
+                .WithBodyAsJson(TestData.Layers.GetLayers()));
+
+            var response = await devkitConnector.GetNoGoLayers(deviceLogin);
             Assert.IsInstanceOfType(response, typeof(LayerContract[]));
         }
 
@@ -57,13 +45,7 @@ namespace Test.V3
         {
             server.Given(Request.Create().WithPath(PATH_BASE + LAYERS).UsingGet())
                 .RespondWith(Response.Create().WithStatusCode(200)
-                .WithBodyAsJson(new LayerContract[]
-                {
-                    new LayerContract()
-                    {
-                        Id = 1,
-                    }
-                }));
+                .WithBodyAsJson(TestData.Layers.GetLayers()));
 
             var response = await devkitConnector.GetLayers();
             Assert.IsInstanceOfType(response, typeof(LayerContract[]));
@@ -75,10 +57,7 @@ namespace Test.V3
         {
             server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/1").UsingGet())
                 .RespondWith(Response.Create().WithStatusCode(200)
-                               .WithBodyAsJson(new LayerContract()
-                               {
-                    Id = 1,
-                }));
+                .WithBodyAsJson(TestData.Layers.GetLayer()));
 
             var response = await devkitConnector.GetLayer(1);
             Assert.IsInstanceOfType(response, typeof(LayerContract));
@@ -86,14 +65,12 @@ namespace Test.V3
 
         public async Task AddLayer_ShouldReturnLayer()
         {
-            var layer = new LayerContract()
-            {
-                Id = 1,
-            };
+            ;
+            var layer = TestData.Layers.GetLayer();
 
             server.Given(Request.Create().WithPath(PATH_BASE + LAYERS).UsingPost())
                 .RespondWith(Response.Create().WithStatusCode(200)
-                               .WithBodyAsJson(layer));
+                .WithBodyAsJson(layer));
 
             var response = await devkitConnector.AddLayer(layer);
             Assert.IsInstanceOfType(response, typeof(LayerContract));
@@ -103,14 +80,11 @@ namespace Test.V3
         [TestMethod]
         public async Task UpdateLayer_ShouldReturnOk()
         {
-            var layer = new LayerContract()
-            {
-                Id = 1,
-            };
+            var layer = TestData.Layers.GetLayer();
 
             server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + "/1").UsingPatch())
                 .RespondWith(Response.Create().WithStatusCode(200)
-                                              .WithBodyAsJson(layer));
+                .WithBodyAsJson(layer));
 
             await devkitConnector.UpdateLayer(layer);
         }
