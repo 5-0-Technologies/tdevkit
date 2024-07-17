@@ -2,14 +2,15 @@
 
 namespace Test.TestData
 {
-    public static partial class TestData
+    public static class Shifts
     {
         public static ShiftContract GetShift()
         {
             return new ShiftContract
             {
-                BranchId = 1,
+                Id = 1,
                 Title = "shift1",
+                BranchId = 1,
                 StartTime = 1599644652178,
                 StopTime = 1599644652178
             };
@@ -21,6 +22,7 @@ namespace Test.TestData
             {
                 new ShiftContract
                 {
+                    Id = 1,
                     BranchId = 1,
                     Title = "shift1",
                     StartTime = 1599644652178,
@@ -28,6 +30,7 @@ namespace Test.TestData
                 },
                 new ShiftContract
                 {
+                    Id = 2,
                     BranchId = 1,
                     Title = "shift2",
                     StartTime = 1599644652178,

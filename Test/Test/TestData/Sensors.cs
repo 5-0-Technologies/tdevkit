@@ -3,7 +3,7 @@ using SDK.Models;
 
 namespace Test.TestData
 {
-    public static partial class TestData
+    public static class Sensors
     {
         public static SensorContract GetSensor()
         {
