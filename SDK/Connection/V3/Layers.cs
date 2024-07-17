@@ -47,5 +47,25 @@ namespace SDK
 
             return response;
         }
+
+        public async Task<LayerContract> AddLayer(LayerContract layer)
+        {
+            string subUrl = Address.UrlCombine(Address.Layers);
+            var response = await PostRequest<LayerContract>(subUrl, layer);
+
+            return response;
+        }
+
+        public async Task UpdateLayer(LayerContract layer)
+        {
+            string subUrl = Address.UrlCombine(Address.Layers, Convert.ToString(layer.Id));
+            await PatchRequest<LayerContract>(subUrl, layer);
+        }
+
+        public async Task DeleteLayer(int id)
+        {
+            string subUrl = Address.UrlCombine(Address.Layers, Convert.ToString(id));
+            await DeleteRequest(subUrl);
+        }
     }
 }

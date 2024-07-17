@@ -183,6 +183,9 @@ await devkitConnector.AddSensorData(sensorContracts);
 * **Areas**
 	* `GetAreas()` - Get all areas
 	* `GetArea(id)` - Get area by ID
+	* `AddArea(areaContract)` - Add an area with specified properties
+	* `UpdateArea(areaContract)` - Update an existing area with new properties
+	* `DeleteArea(id)` - Delete an existing area by ID
 * **Authorization**
 	* `Authenticate(login, password)` - Authenticate with login and password as user/device/sensor
 * **Beacons**
