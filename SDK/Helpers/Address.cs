@@ -69,6 +69,8 @@ namespace SDK.Models
         public const string UtilsUnityLastVersion = "utils/unity-last-version/";
         public const string UtilsUnityBundleInfo = "utils/unity-bundle-info/";
 
+        public const string Quantities = "quantities/";
+
         public static string UrlCombine(params string[] items)
         {
             if (items?.Any() != true)

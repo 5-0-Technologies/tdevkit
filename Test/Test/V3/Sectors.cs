@@ -16,11 +16,7 @@ namespace Test.V3
         [TestMethod]
         public async Task GetSector_GetDeviceByLogin_ShouldReturn200()
         {
-            var bodyContent = new SectorContract()
-            {
-                Id = 1,
-                Guid = Guid.NewGuid(),
-            };
+            var bodyContent = TestData.Sectors.GetSector();
 
             server.Given(Request.Create().WithPath(PATH_BASE + SECTORS).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new SectorContract[] { bodyContent }));
