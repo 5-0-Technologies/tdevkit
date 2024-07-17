@@ -16,16 +16,7 @@ namespace Test.V3
         [TestMethod]
         public async Task GetAreas_ShouldReturnAreas()
         {
-            var bodyContent = new AreaContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                Guid = Guid.NewGuid(),
-                Title = "area1",
-                Description = "description",
-                SectorId = 1,
-                LayerId = 1,
-            };
+            var bodyContent = TestData.Areas.GetArea();
 
             server.Given(Request.Create().WithPath(PATH_BASE + AREAS).UsingGet())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new AreaContract[] { bodyContent }));
@@ -39,22 +30,11 @@ namespace Test.V3
         [TestMethod]
         public async Task GetArea_ShouldReturnArea()
         {
-            const int Id = 1;
-            var bodyContent = new AreaContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                Guid = Guid.NewGuid(),
-                Title = "area1",
-                Description = "description",
-                SectorId = 1,
-                LayerId = 1,
-            };
+            server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/1").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200)
+                .WithBodyAsJson(TestData.Areas.GetArea()));
 
-            server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/" + Id).UsingGet())
-                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
-
-            AreaContract response = await devkitConnector.GetArea(1);
+            var response = await devkitConnector.GetArea(1);
             Assert.IsInstanceOfType(response, typeof(AreaContract));
         }
 
@@ -62,16 +42,7 @@ namespace Test.V3
         [TestMethod]
         public async Task AddArea_ShouldReturnArea()
         {
-            var bodyContent = new AreaContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                Guid = Guid.NewGuid(),
-                Title = "area1",
-                Description = "description",
-                SectorId = 1,
-                LayerId = 1,
-            };
+            var bodyContent = TestData.Areas.GetArea();
 
             server.Given(Request.Create().WithPath(PATH_BASE + AREAS).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -84,16 +55,7 @@ namespace Test.V3
         [TestMethod]
         public async Task UpdateArea_ShouldReturn200()
         {
-            var bodyContent = new AreaContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                Guid = Guid.NewGuid(),
-                Title = "area1",
-                Description = "description",
-                SectorId = 1,
-                LayerId = 1,
-            };
+            var bodyContent = TestData.Areas.GetArea();
 
             server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/" + bodyContent.Id).UsingPatch())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
@@ -107,19 +69,9 @@ namespace Test.V3
         public async Task DeleteArea_ShouldReturn200()
         {
             const int Id = 1;
-            var bodyContent = new AreaContract()
-            {
-                Id = 1,
-                BranchId = 1,
-                Guid = Guid.NewGuid(),
-                Title = "area1",
-                Description = "description",
-                SectorId = 1,
-                LayerId = 1,
-            };
 
             server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/" + Id).UsingDelete())
-                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+                    .RespondWith(Response.Create().WithStatusCode(200));
 
             await devkitConnector.DeleteArea(Id);
             Assert.IsTrue(true);

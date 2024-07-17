@@ -3,12 +3,13 @@ using System;
 
 namespace Test.TestData
 {
-    public static partial class TestData
+    public static class Areas
     {
         public static AreaContract GetArea()
         {
             return new AreaContract
             {
+                Id = 1,
                 BranchId = 1,
                 Guid = Guid.NewGuid(),
                 Title = "area1",
