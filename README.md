@@ -215,6 +215,11 @@ await devkitConnector.AddSensorData(sensorContracts);
 * **Layers**
 	* `GetLayers()` - Get all layers
 	* `GetLayer(id)` - Get layer by ID
+	* `GetNoGoLayers()` - Get all NoGo Layers
+	* `GetLocalizationLayers(deviceLogin)` - Get all localization layers for specified device
+	* `AddLayer(layerContract)` - Add a layer with specified properties
+	* `UpdateLayer(layerContract)` - Update an existing layer with new properties
+	* `DeleteLayer(id)` - Delete an existing layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
 	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above - [Example](#localization))
