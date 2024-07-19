@@ -8,7 +8,7 @@
 
         public string Title { get; set; }
 
-        public string Timezone { get; set; }
+        public string TimeZone { get; set; }
 
         public double Latitude { get; set; }
 
