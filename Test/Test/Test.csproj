@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <!-- Default target frameworks -->
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net6.0;net7.0;net8.0</TargetFrameworks>
+    <!-- Override target framework if specified -->
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
 
     <IsPackable>false</IsPackable>
 
