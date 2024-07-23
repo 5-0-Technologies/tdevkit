@@ -2,7 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <!-- Default target frameworks -->
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net6.0;net7.0;net8.0</TargetFrameworks>
+    <!-- Override target framework if specified -->
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <AssemblyVersion>2021.6.22.8</AssemblyVersion>
     <FileVersion>2021.6.22.8</FileVersion>
     <Version>1.0</Version>
