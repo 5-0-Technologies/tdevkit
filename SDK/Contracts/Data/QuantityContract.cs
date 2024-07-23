@@ -29,7 +29,7 @@ namespace SDK.Models
 
         [Required]
         [DataMember(Order = 2)]
-        public RangesContract[] Ranges { get; set; }
+        public RangesContract[] ranges { get; set; }
     }
 
 
@@ -38,10 +38,10 @@ namespace SDK.Models
     {
         [Required]
         [DataMember(Order = 1)]
-        public string Color { get; set; }
+        public string color { get; set; }
 
         [Required]
         [DataMember(Order = 2)]
-        public string Value { get; set; }
+        public string value { get; set; }
     }
 }
