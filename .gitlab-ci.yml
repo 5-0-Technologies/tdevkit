@@ -4,58 +4,109 @@ stages:
   - release
   - deploy
 
-before_script:
-  - apt-get update && apt-get install -y wget
-  - wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-  - chmod +x dotnet-install.sh
-
-build:
+# .NET 6 jobs
+build_net6:
   stage: build
   tags: 
-    - dotnet
+    - dotnet6
   script:
-    - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
-    - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
-    - export PATH="$PATH:/usr/share/dotnet"
-    - dotnet build
+    - dotnet build -p:TargetFrameworkOverride=net6.0
 
-test:
+test_net6:
   stage: test
   tags: 
-    - dotnet
+    - dotnet6
   script:
-    - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
-    - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
-    - export PATH="$PATH:/usr/share/dotnet"
-    - dotnet test
+    - dotnet test -p:TargetFrameworkOverride=net6.0
 
-release:
+release_net6:
   stage: release
-  tags: 
-    - dotnet
+  tags:
+    - dotnet6
   only:
     - master
   artifacts:
     paths:
-      - SDK/
+      - SDK/net6.0/*.nupkg
     expire_in: 1 week
   script:
-    - dotnet publish -c Release -o ../SDK -f net6.0 SDK/SDK.csproj
-    - dotnet publish -c Release -o ../SDK -f net7.0 SDK/SDK.csproj
-    - dotnet publish -c Release -o ../SDK -f net8.0 SDK/SDK.csproj
+    - mkdir -p SDK/net6.0
+    - dotnet publish -c Release -p:TargetFrameworkOverride=net6.0 -f net6.0 -o SDK/net6.0 SDK/SDK.csproj
+    - dotnet pack -c Release -p:TargetFrameworkOverride=net6.0 -o SDK/net6.0 SDK/SDK.csproj
 
+# .NET 7 jobs
+build_net7:
+  stage: build
+  tags: 
+    - dotnet7
+  script:
+    - dotnet build -p:TargetFrameworkOverride=net7.0
+
+test_net7:
+  stage: test
+  tags: 
+    - dotnet7
+  script:
+    - dotnet test -p:TargetFrameworkOverride=net7.0
+
+release_net7:
+  stage: release
+  tags:
+    - dotnet7
+  only:
+    - master
+  artifacts:
+    paths:
+      - SDK/net7.0/*.nupkg
+    expire_in: 1 week
+  script:
+    - mkdir -p SDK/net7.0
+    - dotnet publish -c Release -p:TargetFrameworkOverride=net7.0 -f net7.0 -o SDK/net7.0 SDK/SDK.csproj
+    - dotnet pack -c Release -p:TargetFrameworkOverride=net7.0 -o SDK/net7.0 SDK/SDK.csproj
+
+# .NET 8 jobs
+build_net8:
+  stage: build
+  tags: 
+    - dotnet8
+  script:
+    - dotnet build -p:TargetFrameworkOverride=net8.0
+
+test_net8:
+  stage: test
+  tags: 
+    - dotnet8
+  script:
+    - dotnet test -p:TargetFrameworkOverride=net8.0
+
+release_net8:
+  stage: release
+  tags:
+    - dotnet8
+  only:
+    - master
+  artifacts:
+    paths:
+      - SDK/net8.0/*.nupkg
+    expire_in: 1 week
+  script:
+    - mkdir -p SDK/net8.0
+    - dotnet publish -c Release -p:TargetFrameworkOverride=net8.0 -f net8.0 -o SDK/net8.0 SDK/SDK.csproj
+    - dotnet pack -c Release -p:TargetFrameworkOverride=net8.0 -o SDK/net8.0 SDK/SDK.csproj
+
+# Deploy stage to push NuGet packages using released artifacts
 deploy:
   stage: deploy
-  tags: 
-    - dotnet
-  artifacts:
-    paths:
-      - SDK/
-    expire_in: 1 week
-  script:
-    - dotnet pack -c Release
-    - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u $deploy_user -p $deploy_token --store-password-in-clear-text
-    - dotnet nuget push "SDK/bin/Release/*.nupkg" --source gitlab_tDevkit
+  tags:
+    - dotnet8
+  dependencies:
+    - release_net6
+    - release_net7
+    - release_net8
   only:
     - master
-
+  script:
+    - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u $deploy_user -p $deploy_token --store-password-in-clear-text
+    - dotnet nuget push "SDK/net6.0/*.nupkg" --source gitlab_tDevkit
+    - dotnet nuget push "SDK/net7.0/*.nupkg" --source gitlab_tDevkit
+    - dotnet nuget push "SDK/net8.0/*.nupkg" --source gitlab_tDevkit
