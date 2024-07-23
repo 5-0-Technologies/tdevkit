@@ -1,5 +1,3 @@
-image : mcr.microsoft.com/dotnet/sdk:8.0
-
 stages:
   - build
   - test
@@ -14,7 +12,7 @@ before_script:
 build:
   stage: build
   tags: 
-    - net5
+    - dotnet
   script:
     - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
     - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
@@ -24,7 +22,7 @@ build:
 test:
   stage: test
   tags: 
-    - net5
+    - dotnet
   script:
     - ./dotnet-install.sh -c 6.0 --install-dir /usr/share/dotnet
     - ./dotnet-install.sh -c 7.0 --install-dir /usr/share/dotnet
@@ -34,7 +32,7 @@ test:
 release:
   stage: release
   tags: 
-    - net5
+    - dotnet
   only:
     - master
   artifacts:
@@ -49,7 +47,7 @@ release:
 deploy:
   stage: deploy
   tags: 
-    - net5
+    - dotnet
   artifacts:
     paths:
       - SDK/
