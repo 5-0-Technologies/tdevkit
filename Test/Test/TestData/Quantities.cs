@@ -14,17 +14,17 @@ namespace Test.TestData
                 Range = new RangeContract
                 {
                     Type = "type",
-                    Ranges = new[]
+                    ranges = new[]
                     {
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         },
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         }
                     }
                 }
@@ -43,17 +43,17 @@ namespace Test.TestData
                 Range = new RangeContract
                 {
                     Type = "type",
-                    Ranges = new[]
+                    ranges = new[]
                     {
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         },
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         }
                     }
                 }
@@ -66,17 +66,17 @@ namespace Test.TestData
                 Range = new RangeContract
                 {
                     Type = "type",
-                    Ranges = new[]
+                    ranges = new[]
                     {
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         },
                         new RangesContract
                         {
-                            Color = "color",
-                            Value = "value"
+                            color = "color",
+                            value = "value"
                         }
                     }
                 }
