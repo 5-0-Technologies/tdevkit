@@ -25,7 +25,7 @@ namespace SDK.Models
     {
         [Required]
         [DataMember(Order = 1)]
-        public string Type { get; set; }
+        public string type { get; set; }
 
         [Required]
         [DataMember(Order = 2)]
