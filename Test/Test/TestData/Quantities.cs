@@ -13,7 +13,7 @@ namespace Test.TestData
                 Title = "quantity",
                 Range = new RangeContract
                 {
-                    Type = "type",
+                    type = "type",
                     ranges = new[]
                     {
                         new RangesContract
@@ -42,7 +42,7 @@ namespace Test.TestData
                 Title = "quantity1",
                 Range = new RangeContract
                 {
-                    Type = "type",
+                    type = "type",
                     ranges = new[]
                     {
                         new RangesContract
@@ -65,7 +65,7 @@ namespace Test.TestData
                 Title = "quantity2",
                 Range = new RangeContract
                 {
-                    Type = "type",
+                    type = "type",
                     ranges = new[]
                     {
                         new RangesContract
