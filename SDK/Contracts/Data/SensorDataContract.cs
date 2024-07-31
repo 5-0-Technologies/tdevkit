@@ -18,5 +18,6 @@ namespace SDK.Models
 
         public int Index { get; set; }
 
+        public bool VisibleInApp { get; set; }
     }
 }
