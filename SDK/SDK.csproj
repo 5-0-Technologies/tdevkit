@@ -1,14 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>tDevKit-$(TargetFrameworkOverride)</PackageId>
+    <PackageIdBase>tDevkit</PackageIdBase>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId Condition="'$(TargetFrameworkOverride)' == ''">$(PackageIdBase)</PackageId>
+    <PackageId Condition="'$(TargetFrameworkOverride)' != ''">$(PackageIdBase)-$(TargetFrameworkOverride)</PackageId>
     <!-- Default target frameworks -->
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net6.0;net7.0;net8.0</TargetFrameworks>
     <!-- Override target framework if specified -->
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
-    <Version>5.5.2</Version>
+    <Version>5.5.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
