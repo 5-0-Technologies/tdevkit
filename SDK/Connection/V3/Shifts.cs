@@ -39,14 +39,10 @@ namespace SDK
             return (ShiftContract)response;
         }
 
-        public async Task UpdateShift(ShiftContract shiftContract)
+        public async Task UpdateShift(int id, object changes)
         {
-            if (shiftContract.Id == 0)
-            {
-                throw new BadRequestException(NotFoundException.message + " Shift object has no Id.");
-            }
-            string subUrl = Address.UrlCombine(Address.Shifts, Convert.ToString(shiftContract.Id));
-            await PatchRequest<string>(subUrl, shiftContract);
+            string subUrl = Address.UrlCombine(Address.Shifts, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteShift(int id)
