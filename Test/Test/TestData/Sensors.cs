@@ -11,29 +11,29 @@ namespace Test.TestData
             {
                 Login = "sdk-sensor1",
                 SensorData = new[]
-            {
-                new SensorDataContract
                 {
-                    Quantity = "Temperature",
-                    Value = "16",
-                    Unit = "°C",
-                    DataType = SensorDataType.Decimal
-                },
-                new SensorDataContract
-                {
-                    Quantity = "Humidity",
-                    Value = "31",
-                    Unit = "%",
-                    DataType = SensorDataType.Decimal
-                },
-                new SensorDataContract
-                {
-                    Quantity = "CO2",
-                    Timestamp = 1614599484673,
-                    Value = "800",
-                    DataType = SensorDataType.Int32,
-                    Unit = "unit"
-                }
+                    new SensorDataContract
+                    {
+                        Quantity = "Temperature",
+                        Value = "16",
+                        Unit = "°C",
+                        DataType = SensorDataType.Decimal
+                    },
+                    new SensorDataContract
+                    {
+                        Quantity = "Humidity",
+                        Value = "31",
+                        Unit = "%",
+                        DataType = SensorDataType.Decimal
+                    },
+                    new SensorDataContract
+                    {
+                        Quantity = "CO2",
+                        Timestamp = 1614599484673,
+                        Value = "800",
+                        DataType = SensorDataType.Int32,
+                        Unit = "unit"
+                    }
                 }
             };
         }
@@ -45,7 +45,8 @@ namespace Test.TestData
                 Login = "sdk-sensor2",
                 Title = "tests",
                 SectorId = 2,
-                AreaId = 19
+                AreaId = 19,
+                ExternalId = "externalId",
             };
         }
         public static SensorContract[] GetSensorDataBatch()
