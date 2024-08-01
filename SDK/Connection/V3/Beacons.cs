@@ -36,14 +36,10 @@ namespace SDK
             return (BeaconContract)response;
         }
 
-        public async Task UpdateBeacon(BeaconContract beaconContract)
+        public async Task UpdateBeacon(int id, object changes)
         {
-            if (beaconContract.Id == 0)
-            {
-                throw new BadRequestException(NotFoundException.message + " Beacon object has no Id.");
-            }
-            string subUrl = Address.UrlCombine(Address.Beacons, Convert.ToString(beaconContract.Id));
-            await PatchRequest<string>(subUrl, beaconContract);
+            string subUrl = Address.UrlCombine(Address.Beacons, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteBeacon(int id)

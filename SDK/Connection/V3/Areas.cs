@@ -24,10 +24,10 @@ namespace SDK
             return await PostRequest<AreaContract>(subUrl, area);
         }
 
-        public async Task UpdateArea(AreaContract area)
+        public async Task UpdateArea(int id, object changes)
         {
-            string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(area.Id));
-            await PatchRequest<AreaContract>(subUrl, area);
+            string subUrl = Address.UrlCombine(Address.Areas, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteArea(int id)

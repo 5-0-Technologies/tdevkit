@@ -2,6 +2,7 @@
 using SDK.Exceptions;
 using SDK.Models;
 using System;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -37,14 +38,10 @@ namespace SDK
             return (SectorContract)response;
         }
 
-        public async Task UpdateSector(SectorContract sectorContract)
+        public async Task UpdateSector(int id, object changes)
         {
-            if (sectorContract.Id == 0)
-            {
-                throw new BadRequestException(NotFoundException.message + " Sector object has no Id.");
-            }
-            string subUrl = Address.UrlCombine(Address.Sectors, Convert.ToString(sectorContract.Id));
-            await PatchRequest<string>(subUrl, sectorContract);
+            string subUrl = Address.UrlCombine(Address.Sectors, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteSector(int id)
