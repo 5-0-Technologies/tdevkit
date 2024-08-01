@@ -23,5 +23,6 @@ namespace SDK.Models
         public SensorDataContract[] SensorData { get; set; }
 
         public int? AreaId { get; set; }
+        public string ExternalId { get; set; }
     }
 }
