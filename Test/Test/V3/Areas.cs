@@ -60,7 +60,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/" + bodyContent.Id).UsingPatch())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            await devkitConnector.UpdateArea(bodyContent);
+            await devkitConnector.UpdateArea(bodyContent.Id, bodyContent);
             Assert.IsTrue(true);
         }
 

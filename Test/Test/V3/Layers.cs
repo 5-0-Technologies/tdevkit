@@ -86,7 +86,7 @@ namespace Test.V3
                 .RespondWith(Response.Create().WithStatusCode(200)
                 .WithBodyAsJson(layer));
 
-            await devkitConnector.UpdateLayer(layer);
+            await devkitConnector.UpdateLayer(layer.Id, layer);
         }
 
         [TestCategory("Layer")]

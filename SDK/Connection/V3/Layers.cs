@@ -56,10 +56,10 @@ namespace SDK
             return response;
         }
 
-        public async Task UpdateLayer(LayerContract layer)
+        public async Task UpdateLayer(int id, object changes)
         {
-            string subUrl = Address.UrlCombine(Address.Layers, Convert.ToString(layer.Id));
-            await PatchRequest<LayerContract>(subUrl, layer);
+            string subUrl = Address.UrlCombine(Address.Layers, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteLayer(int id)

@@ -4,6 +4,7 @@ using SDK.Exceptions;
 using SDK.Models;
 using System;
 using System.Net.Http;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -55,14 +56,10 @@ namespace SDK
             return await PostRequest<DeviceContract>(subUrl, deviceContract);
         }
 
-        public async Task UpdateDevice(DeviceContract deviceContract)
+        public async Task UpdateDevice(int id, object changes)
         {
-            if (deviceContract.Id == 0)
-            {
-                throw new BadRequestException(NotFoundException.message + " Device object has no Id.");
-            }
-            string subUrl = Address.Devices + deviceContract.Id;
-            await PatchRequest(subUrl, deviceContract);
+            string subUrl = Address.UrlCombine(Address.Devices, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
 
         public async Task DeleteDevice(int id)

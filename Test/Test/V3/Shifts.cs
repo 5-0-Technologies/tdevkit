@@ -61,7 +61,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS + "/" + bodyContent.Id).UsingPatch())
                 .RespondWith(Response.Create().WithStatusCode(200));
 
-            await devkitConnector.UpdateShift(bodyContent);
+            await devkitConnector.UpdateShift(bodyContent.Id, bodyContent);
             Assert.IsTrue(true);
         }
 

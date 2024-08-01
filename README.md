@@ -184,7 +184,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetAreas()` - Get all areas
 	* `GetArea(id)` - Get area by ID
 	* `AddArea(areaContract)` - Add an area with specified properties
-	* `UpdateArea(areaContract)` - Update an existing area with new properties
+	* `UpdateArea(id, areaContract)` - Update an existing area with new properties
 	* `DeleteArea(id)` - Delete an existing area by ID
 * **Authorization**
 	* `Authenticate(login, password)` - Authenticate with login and password as user/device/sensor
@@ -192,7 +192,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetBeacons()` - Get all beacons
 	* `GetBeacon(id)` - Get beacon by ID
 	* `AddBeacon(beaconContract)` - Add a beacon with specified properties
-	* `UpdateBeacon(beaconContract)` - Update an existing beacon with new properties
+	* `UpdateBeacon(id, beaconContract)` - Update an existing beacon with new properties
 	* `DeleteBeacon(id)` - Delete an existing beacon by ID
 * **Branches**
 	* `GetBranches()` - Get all branches
@@ -210,7 +210,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetDynamicDevices()` - Get devices with dynamic position
 	* `GetDynamicDevicesShort()` - Get shortened form of dynamic devices grouped by sectors
 	* `AddDevice(deviceContract)` - Add a device with specified properties
-	* `UpdateDevice(deviceContract)` - Update an existing device with new properties
+	* `UpdateDevice(id, deviceContract)` - Update an existing device with new properties
 	* `DeleteDevice(id)` - Delete an existing device by ID
 * **Layers**
 	* `GetLayers()` - Get all layers
@@ -218,7 +218,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetNoGoLayers()` - Get all NoGo Layers
 	* `GetLocalizationLayers(deviceLogin)` - Get all localization layers for specified device
 	* `AddLayer(layerContract)` - Add a layer with specified properties
-	* `UpdateLayer(layerContract)` - Update an existing layer with new properties
+	* `UpdateLayer(id, layerContract)` - Update an existing layer with new properties
 	* `DeleteLayer(id)` - Delete an existing layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
@@ -233,14 +233,14 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetSectors()` - Get all sectors
 	* `GetSector(id)` - Get sector by ID
 	* `AddSector(sectorContract)` - Add a sector with specified properties
-	* `UpdateSector(sectorContract)` - Update an existing sector with new properties
+	* `UpdateSector(id, sectorContract)` - Update an existing sector with new properties
 	* `DeleteSector(id)` - Delete an existing sector by ID
 * **Sensors**
 	* `GetSensors()` - Get all sensors
 	* `GetSensor(id)` - Get sensor by ID
 	* `GetSensor(login)` - Get sensor by login
 	* `AddSensor(sensorContract)` - Add a sensor with specified properties
-	* `UpdateSensor(sensorContract)` - Update an existing sensor with new properties
+	* `UpdateSensor(id, sensorContract)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
 	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above - [Example](#sensor-data))
@@ -249,7 +249,7 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetShifts()` - Get all shifts
 	* `GetShift(id)` - Get shift by ID
 	* `AddShift(shiftContract)` - Add a shift with specified properties
-	* `UpdateShift(shiftContract)` - Update an existing shift with new properties
+	* `UpdateShift(id, shiftContract)` - Update an existing shift with new properties
 	* `DeleteShift(id)` - Delete an existing shift by ID
 * **Users**
 	* `GetUserInfo()` - Get information about the current user (in order to do this you need to be **authenticated** as said user)

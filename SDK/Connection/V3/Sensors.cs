@@ -43,14 +43,10 @@ namespace SDK
 
             return (SensorContract)response;
         }
-        public async Task UpdateSensor(SensorContract sensorContract)
+        public async Task UpdateSensor(int id, object changes)
         {
-            if (sensorContract.Id == 0)
-            {
-                throw new BadRequestException(NotFoundException.message + " Sensor object has no Id.");
-            }
-            string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(sensorContract.Id));
-            await PatchRequest(subUrl, sensorContract);
+            string subUrl = Address.UrlCombine(Address.Sensors, id.ToString());
+            await PatchRequest(subUrl, changes);
         }
         public async Task DeleteSensor(int id)
         {
