@@ -59,6 +59,8 @@ namespace SDK.Models
         public const string SensorsAddData = "sensors/sensor-data/";
         public const string SensorsLogin = "sensors/login/";
 
+        public const string SensorDatas = "sensor-datas/";
+
         public const string Shifts = "shifts/";
 
         public const string Users = "users/detail";
