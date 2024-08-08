@@ -6,6 +6,8 @@ namespace SDK.Models
     {
         public int Id { get; set; }
 
+        public int SensorId { get; set; }
+
         public string Quantity { get; set; }
 
         public string Value { get; set; }
@@ -19,5 +21,7 @@ namespace SDK.Models
         public int Index { get; set; }
 
         public bool VisibleInApp { get; set; }
+
+        public RangeContract Range { get; set; }
     }
 }

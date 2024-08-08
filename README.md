@@ -245,6 +245,12 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
 	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above - [Example](#sensor-data))
 	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
+* **SensorDatas**
+	* `GetSensorDatas()` - Get all sensor datas
+	* `GetSensorData(id)` - Get sensor data by ID
+	* `AddSensorData(sensorDataContract)` - Add a sensor data with specified properties
+	* `UpdateSensorData(id, sensorDataContract)` - Update an existing sensor data with new properties
+	* `DeleteSensorData(id)` - Delete an existing sensor data by ID
 * **Shifts**
 	* `GetShifts()` - Get all shifts
 	* `GetShift(id)` - Get shift by ID
