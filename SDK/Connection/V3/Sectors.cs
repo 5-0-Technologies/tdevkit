@@ -25,17 +25,12 @@ namespace SDK
             return response;
         }
 
-        public async Task<SectorContract> AddSector(SectorContract sectorContract)
+        public async Task<SectorContract> AddSector(SectorWriteContract sectorContract)
         {
             string subUrl = Address.UrlCombine(Address.Sectors);
-            var response = await PostRequest<AddSectorResponseContract>(subUrl, sectorContract);
+            var response = await PostRequest<SectorContract>(subUrl, sectorContract);
 
-            if (response.ErrorMessage != null)
-            {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-            }
-
-            return (SectorContract)response;
+            return response;
         }
 
         public async Task UpdateSector(int id, object changes)

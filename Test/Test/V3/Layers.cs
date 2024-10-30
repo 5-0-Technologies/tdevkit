@@ -72,7 +72,7 @@ namespace Test.V3
                 .RespondWith(Response.Create().WithStatusCode(200)
                 .WithBodyAsJson(layer));
 
-            var response = await devkitConnector.AddLayer(layer);
+            var response = await devkitConnector.AddLayer((LayerWriteContract) layer);
             Assert.IsInstanceOfType(response, typeof(LayerContract));
         }
 

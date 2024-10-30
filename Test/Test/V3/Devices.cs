@@ -88,7 +88,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            DeviceContract response = await devkitConnector.AddDevice(bodyContent);
+            DeviceContract response = await devkitConnector.AddDevice((DeviceWriteContract)bodyContent);
 
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }
