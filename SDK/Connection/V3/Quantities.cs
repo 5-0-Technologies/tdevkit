@@ -18,7 +18,7 @@ namespace SDK
             return await GetRequest<QuantityContract>(subUrl);
         }
 
-        public async Task<QuantityContract> AddQuantity(QuantityContract Quantity)
+        public async Task<QuantityContract> AddQuantity(QuantityWriteContract Quantity)
         {
             string subUrl = Address.UrlCombine(Address.Quantities);
             return await PostRequest<QuantityContract>(subUrl, Quantity);
@@ -27,7 +27,7 @@ namespace SDK
         public async Task UpdateQuantity(QuantityContract Quantity)
         {
             string subUrl = Address.UrlCombine(Address.Quantities, Convert.ToString(Quantity.Id));
-            await PatchRequest<QuantityContract>(subUrl, Quantity);
+            await PatchRequest(subUrl, Quantity);
         }
 
         public async Task DeleteQuantity(int id)

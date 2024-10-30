@@ -48,7 +48,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + SHIFTS).UsingPost())
                 .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            ShiftContract response = await devkitConnector.AddShift(bodyContent);
+            ShiftContract response = await devkitConnector.AddShift((ShiftWriteContract)bodyContent);
             Assert.IsInstanceOfType(response, typeof(ShiftContract));
         }
 

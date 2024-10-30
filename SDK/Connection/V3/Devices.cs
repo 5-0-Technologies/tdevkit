@@ -50,7 +50,7 @@ namespace SDK
             return response;
         }
 
-        public async Task<DeviceContract> AddDevice(DeviceContract deviceContract)
+        public async Task<DeviceContract> AddDevice(DeviceWriteContract deviceContract)
         {
             string subUrl = Address.UrlCombine(Address.Devices);
             return await PostRequest<DeviceContract>(subUrl, deviceContract);

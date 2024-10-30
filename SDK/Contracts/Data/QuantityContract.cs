@@ -18,6 +18,15 @@ namespace SDK.Models
 
         [DataMember(Order = 4)]
         public RangeContract Range { get; set; }
+
+        public static explicit operator QuantityWriteContract(QuantityContract contract)
+        {
+            return new QuantityWriteContract
+            {
+                Title = contract.Title,
+                Range = contract.Range,
+            };
+        }
     }
 
     [DataContract]
@@ -43,5 +52,16 @@ namespace SDK.Models
         [Required]
         [DataMember(Order = 2)]
         public string value { get; set; }
+    }
+
+    public class QuantityWriteContract
+    {
+        [DataMember(Order = 1)]
+        [Required]
+        [StringLength(255)]
+        public string Title { get; set; }
+
+        [DataMember(Order = 2)]
+        public RangeContract Range { get; set; }
     }
 }

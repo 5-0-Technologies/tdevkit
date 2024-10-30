@@ -7,7 +7,7 @@ namespace SDK
 {
     public partial class DevkitConnectorV3
     {
-        public async Task<LogContract> AddLog(LogContract logContract)
+        public async Task<LogContract> AddLog(LogWriteContract logContract)
         {
             string subUrl = Address.UrlCombine(Address.LogAdd);
             return await PostRequest<LogContract>(subUrl, logContract);

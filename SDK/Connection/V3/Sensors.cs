@@ -31,7 +31,7 @@ namespace SDK
 
             return response;
         }
-        public async Task<SensorContract> AddSensor(SensorContract sensorContract)
+        public async Task<SensorContract> AddSensor(SensorWriteContract sensorContract)
         {
             string subUrl = Address.UrlCombine(Address.Sensors);
             var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
@@ -53,7 +53,7 @@ namespace SDK
             string subUrl = Address.UrlCombine(Address.Sensors, Convert.ToString(id));
             await DeleteRequest(subUrl);
         }
-        public async Task<PostResponseContract[]> AddSensorData(SensorContract[] sensors)
+        public async Task<PostResponseContract[]> AddSensorData(SensorWriteContract[] sensors)
         {
             string subUrl = Address.UrlCombine(Address.SensorsAddDataBatch);
             var response = await PostRequest<AddSensorDataResponseContract[]>(subUrl, sensors);
@@ -82,7 +82,7 @@ namespace SDK
 
             return response;
         }
-        public async Task<PostResponseContract> AddSensorData(SensorDataContract[] sensorData)
+        public async Task<PostResponseContract> AddSensorData(SensorDataWriteContract[] sensorData)
         {
             string subUrl = Address.UrlCombine(Address.SensorsAddData);
             var response = await PostRequest<SensorDataResponseContract[]>(subUrl, sensorData); //AddSensorDataResponseContract

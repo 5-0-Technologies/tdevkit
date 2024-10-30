@@ -23,17 +23,12 @@ namespace SDK
 
             return response;
         }
-        public async Task<BeaconContract> AddBeacon(BeaconContract beaconContract)
+        public async Task<BeaconContract> AddBeacon(BeaconWriteContract beaconContract)
         {
             string subUrl = Address.UrlCombine(Address.Beacons);
-            var response = await PostRequest<AddBeaconResponseContract>(subUrl, beaconContract);
+            var response = await PostRequest<BeaconContract>(subUrl, beaconContract);
 
-            if (response.ErrorMessage != null)
-            {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-            }
-
-            return (BeaconContract)response;
+            return response;
         }
 
         public async Task UpdateBeacon(int id, object changes)

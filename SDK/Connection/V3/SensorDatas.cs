@@ -25,17 +25,10 @@ namespace SDK
             return response;
         }
 
-        public async Task<PostResponseContract> AddSensorData(SensorDataContract shiftContract)
+        public async Task<SensorDataContract> AddSensorData(SensorDataWriteContract shiftContract)
         {
             string subUrl = Address.UrlCombine(Address.SensorDatas);
-            var response = await PostRequest<AddSensorDataResponseContract>(subUrl, shiftContract);
-
-            if (response.ErrorMessage != null)
-            {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
-            }
-
-            return response;
+            return await PostRequest<SensorDataContract>(subUrl, shiftContract);
         }
 
         public async Task UpdateSensorData(int id, object changes)
