@@ -24,14 +24,6 @@ namespace SDK
             return response;
         }
 
-        public async Task<LayerContract[]> GetNoGoLayers(string deviceLogin, string queryString = "")
-        {
-            string subUrl = Address.UrlCombine(Address.LayersNoGo, deviceLogin, queryString);
-            var response = await GetRequest<LayerContract[]>(subUrl);
-
-            return response;
-        }
-
         public async Task<LayerContract[]> GetLocalizationLayers(string deviceLogin, string queryString = "")
         {
             string subUrl = Address.UrlCombine(Address.Layerslocalization, deviceLogin, queryString);
