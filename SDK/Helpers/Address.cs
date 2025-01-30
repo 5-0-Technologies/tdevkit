@@ -50,6 +50,8 @@ namespace SDK.Models
 
         public const string LogAdd = "logs";
 
+        public const string Paths = "paths/";
+
         public const string Sectors = "sectors/";
 
         public const string Sensors = "sensors/";
