@@ -18,7 +18,7 @@ namespace SDK
             return await GetRequest<AreaContract>(subUrl);
         }
 
-        public async Task<AreaContract> AddArea(AreaContract area)
+        public async Task<AreaContract> AddArea(AreaWriteContract area)
         {
             string subUrl = Address.UrlCombine(Address.Areas);
             return await PostRequest<AreaContract>(subUrl, area);

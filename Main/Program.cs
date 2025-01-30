@@ -48,7 +48,7 @@ namespace Main
                 // Define sensors data list of SensorDataContract
                 var dataList = new[]
                 {
-                    new SensorDataContract
+                    new SensorDataWriteContract
                     {
                         Quantity = "Voltage",
                         Value = "120",
@@ -56,7 +56,7 @@ namespace Main
                         DataType = SensorDataType.Decimal,
                         Index = 0,
                     },
-                    new SensorDataContract
+                    new SensorDataWriteContract
                     {
                         Quantity = "Frequency",
                         Value = "1",
@@ -64,7 +64,7 @@ namespace Main
                         DataType = SensorDataType.Decimal,
                         Index = 0,
                     },
-                    new SensorDataContract
+                    new SensorDataWriteContract
                     {
                         Quantity = "OK parts",
                         Value = "600",
@@ -75,7 +75,7 @@ namespace Main
                 };
 
                 // Create sensor contract with specific data
-                SensorContract sensor = new SensorContract
+                SensorWriteContract sensor = new SensorWriteContract
                 {
                     Login = "buffer",
                     SensorData = dataList.ToArray(),

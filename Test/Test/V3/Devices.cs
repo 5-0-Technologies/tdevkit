@@ -1,4 +1,5 @@
 ﻿using Core.Enum;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Communication;
 using SDK.Contracts.Data;
@@ -20,10 +21,10 @@ namespace Test.V3
         [TestMethod]
         public async Task GetDevices_ErrorHandling_ShouldThrowsException()
         {
-            var bodyContent = new ExceptionContent
+            var bodyContent = new ProblemDetails
             {
-                Code = "10",
-                Message = "Error"
+                Title = "Specify the Error from Type property more.",
+                Detail = "How to solve error."
             };
 
             server.Reset();
@@ -87,7 +88,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + DEVICES).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            DeviceContract response = await devkitConnector.AddDevice(bodyContent);
+            DeviceContract response = await devkitConnector.AddDevice((DeviceWriteContract)bodyContent);
 
             Assert.IsInstanceOfType(response, typeof(DeviceContract));
         }

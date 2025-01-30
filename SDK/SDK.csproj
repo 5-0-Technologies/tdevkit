@@ -13,7 +13,7 @@
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
-    <Version>5.7.0</Version>
+    <Version>5.8.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

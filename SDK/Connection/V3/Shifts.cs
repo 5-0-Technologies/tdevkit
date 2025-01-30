@@ -26,7 +26,7 @@ namespace SDK
             return response;
         }
 
-        public async Task<ShiftContract> AddShift(ShiftContract shiftContract)
+        public async Task<ShiftContract> AddShift(ShiftWriteContract shiftContract)
         {
             string subUrl = Address.UrlCombine(Address.Shifts);
             var response = await PostRequest<AddShiftResponseContract>(subUrl, shiftContract);
