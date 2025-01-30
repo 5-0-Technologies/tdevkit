@@ -15,7 +15,7 @@ namespace Test.V3
         [TestMethod]
         public async Task PostLog_ShouldReturnLogContract()
         {
-            var bodyContent = new LogContract()
+            var bodyContent = new LogWriteContract()
             {
                 Login = "login",
                 AccountId = 1,

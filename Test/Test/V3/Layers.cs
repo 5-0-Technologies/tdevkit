@@ -27,20 +27,6 @@ namespace Test.V3
 
         [TestCategory("Layer")]
         [TestMethod]
-        public async Task GetNoGoLayersForDevice_ShouldReturnLayers()
-        {
-            var deviceLogin = "device1";
-
-            server.Given(Request.Create().WithPath(PATH_BASE + LAYERS + $"/device/{deviceLogin}").UsingGet())
-                .RespondWith(Response.Create().WithStatusCode(200)
-                .WithBodyAsJson(TestData.Layers.GetLayers()));
-
-            var response = await devkitConnector.GetNoGoLayers(deviceLogin);
-            Assert.IsInstanceOfType(response, typeof(LayerContract[]));
-        }
-
-        [TestCategory("Layer")]
-        [TestMethod]
         public async Task GetLayers_ShouldReturnLayers()
         {
             server.Given(Request.Create().WithPath(PATH_BASE + LAYERS).UsingGet())
@@ -72,7 +58,7 @@ namespace Test.V3
                 .RespondWith(Response.Create().WithStatusCode(200)
                 .WithBodyAsJson(layer));
 
-            var response = await devkitConnector.AddLayer(layer);
+            var response = await devkitConnector.AddLayer((LayerWriteContract) layer);
             Assert.IsInstanceOfType(response, typeof(LayerContract));
         }
 

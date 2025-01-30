@@ -48,7 +48,7 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + QUANTITIES).UsingPost())
                 .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            QuantityContract response = await devkitConnector.AddQuantity(bodyContent);
+            QuantityContract response = await devkitConnector.AddQuantity((QuantityWriteContract)bodyContent);
             Assert.IsInstanceOfType(response, typeof(QuantityContract));
         }
 
