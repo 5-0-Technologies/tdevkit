@@ -270,6 +270,9 @@ await devkitConnector.AddSensorData(sensorContracts);
 		* `Post(string subUrl, object body)`
 		* `Patch(string subUrl, object body)`
 		* `Delete(string subUrl)`
+* **Paths**
+	* `GetPaths()` - Get all paths
+	* `GetPath(id)` - Get path by ID
 
 ## Future features
 - **protobuffers** serialization
