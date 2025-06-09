@@ -4,66 +4,6 @@ stages:
   - release
   - deploy
 
-# .NET 6 jobs
-build_net6:
-  stage: build
-  tags: 
-    - dotnet6
-  script:
-    - dotnet build -p:TargetFrameworkOverride=net6.0
-
-test_net6:
-  stage: test
-  tags: 
-    - dotnet6
-  script:
-    - dotnet test -p:TargetFrameworkOverride=net6.0
-
-release_net6:
-  stage: release
-  tags:
-    - dotnet6
-  only:
-    - master
-  artifacts:
-    paths:
-      - SDK/net6.0/*.nupkg
-    expire_in: 1 week
-  script:
-    - mkdir -p SDK/net6.0
-    - dotnet publish -c Release -p:TargetFrameworkOverride=net6.0 -f net6.0 -o SDK/net6.0 SDK/SDK.csproj
-    - dotnet pack -c Release -p:TargetFrameworkOverride=net6.0 -o SDK/net6.0 SDK/SDK.csproj
-
-# .NET 7 jobs
-build_net7:
-  stage: build
-  tags: 
-    - dotnet7
-  script:
-    - dotnet build -p:TargetFrameworkOverride=net7.0
-
-test_net7:
-  stage: test
-  tags: 
-    - dotnet7
-  script:
-    - dotnet test -p:TargetFrameworkOverride=net7.0
-
-release_net7:
-  stage: release
-  tags:
-    - dotnet7
-  only:
-    - master
-  artifacts:
-    paths:
-      - SDK/net7.0/*.nupkg
-    expire_in: 1 week
-  script:
-    - mkdir -p SDK/net7.0
-    - dotnet publish -c Release -p:TargetFrameworkOverride=net7.0 -f net7.0 -o SDK/net7.0 SDK/SDK.csproj
-    - dotnet pack -c Release -p:TargetFrameworkOverride=net7.0 -o SDK/net7.0 SDK/SDK.csproj
-
 # .NET 8 jobs
 build_net8:
   stage: build
@@ -94,19 +34,45 @@ release_net8:
     - dotnet publish -c Release -p:TargetFrameworkOverride=net8.0 -f net8.0 -o SDK/net8.0 SDK/SDK.csproj
     - dotnet pack -c Release -p:TargetFrameworkOverride=net8.0 -o SDK/net8.0 SDK/SDK.csproj
 
+# .NET 9 jobs
+build_net9:
+  stage: build
+  tags: 
+    - dotnet9
+  script:
+    - dotnet build -p:TargetFrameworkOverride=net9.0
+
+test_net9:
+  stage: test
+  tags: 
+    - dotnet9
+  script:
+    - dotnet test -p:TargetFrameworkOverride=net9.0
+
+release_net9:
+  stage: release
+  tags:
+    - dotnet9
+  only:
+    - master
+  artifacts:
+    paths:
+      - SDK/net9.0/*.nupkg
+    expire_in: 1 week
+  script:
+    - mkdir -p SDK/net9.0
+    - dotnet publish -c Release -p:TargetFrameworkOverride=net9.0 -f net9.0 -o SDK/net9.0 SDK/SDK.csproj
+    - dotnet pack -c Release -p:TargetFrameworkOverride=net9.0 -o SDK/net9.0 SDK/SDK.csproj
+
 # Deploy stage to push NuGet packages using released artifacts
 deploy:
   stage: deploy
-  tags:
-    - dotnet8
   dependencies:
-    - release_net6
-    - release_net7
     - release_net8
+    - release_net9
   only:
     - master
   script:
     - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u $deploy_user -p $deploy_token --store-password-in-clear-text
-    - dotnet nuget push "SDK/net6.0/*.nupkg" --source gitlab_tDevkit
-    - dotnet nuget push "SDK/net7.0/*.nupkg" --source gitlab_tDevkit
     - dotnet nuget push "SDK/net8.0/*.nupkg" --source gitlab_tDevkit
+    - dotnet nuget push "SDK/net9.0/*.nupkg" --source gitlab_tDevkit
