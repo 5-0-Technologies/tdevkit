@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Default target frameworks -->
-    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net8.0;net9.0</TargetFrameworks>
     <!-- Override target framework if specified -->
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
 
@@ -14,10 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.2.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
-    <PackageReference Include="WireMock.Net" Version="1.5.49" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.9.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.9.1" />
+    <PackageReference Include="WireMock.Net" Version="1.8.9" />
   </ItemGroup>
 
   <ItemGroup>

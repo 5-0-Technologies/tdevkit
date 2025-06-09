@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <!-- Default target frameworks -->
-    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net8.0;net9.0</TargetFrameworks>
     <!-- Override target framework if specified -->
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <AssemblyVersion>2021.6.22.8</AssemblyVersion>
