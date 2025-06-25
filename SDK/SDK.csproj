@@ -47,8 +47,4 @@
     <None Remove="Managers\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\Data\Aos\" />
-  </ItemGroup>
-
 </Project>

@@ -1,5 +1,5 @@
 # Twinzo C# development kit
-.NET 8 SDK for digital twin developers used to connect your C# code with twinzo platform.
+.NET 8/9 SDK for digital twin developers used to connect your C# code with twinzo platform.
 
 Providing whole API Endpoint communication methods and data contracts for easy serialization and transporting.
 
@@ -55,7 +55,7 @@ Getting an object by login (if said object's class has `login` property):
 ```c#
 SensorContract sensor = await devkitConnector.GetSensor("login");
 ```
-\
+
 Most of the `GET` functions are able to be further customized to your needs by taking in `queryString` parameter. With this parameter you can specify additional query options (order, limit, expand etc.) according to the [OData standard](https://www.odata.org/documentation/odata-version-3-0/url-conventions/).\
 Ordering by property:
 ```c#
@@ -70,7 +70,7 @@ And more...
 #### Adding objects
 Successfully adding an object returns it back with its alocated ID (and with freshly generated GUID, if such object is in question).
 ```c#
-DeviceContract deviceDummy = new DeviceContract
+DeviceWriteContract deviceDummy = new DeviceWriteContract
 {
     Mac = "00:00:00:00:00:00",
     BranchId = 1,
@@ -89,25 +89,25 @@ DeviceContract deviceDummy = new DeviceContract
 DeviceContract device = await devkitConnector.AddDevice(deviceDummy);
 ```
 ```c#
-SensorDataContract data1 = new SensorDataContract
+SensorDataWriteContract data1 = new SensorDataWriteContract
 {
     Quantity = "Temperature",
     Value = "16",
     Unit = "°C",
-    DataType = "Single",
+    DataType = SensorDataType.Single,
 	Index = 0
 };
-SensorDataContract data2 = new SensorDataContract
+SensorDataWriteContract data2 = new SensorDataWriteContract
 {
     Quantity = "Humidity",
     Value = "31",
     Unit = "%",
-    DataType = "Single",
+    DataType = SensorDataType.Single,
 	Index = 1
 };
-SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2 };
+SensorDataWriteContract[] sensorDataContracts = new SensorDataWriteContract[] { data1, data2 };
 
-SensorContract sensorDummy = new SensorContract
+SensorWriteContract sensorDummy = new SensorWriteContract
 {
     Login = "login",
     Title = "title",
@@ -142,120 +142,161 @@ await devkitConnector.AddLocalizationData(deviceLocationContract);
 
 #### Sensor Data
 ```c#
-SensorDataContract data1 = new SensorDataContract
+SensorDataWriteContract data1 = new SensorDataWriteContract
 {
     Quantity = "Temperature",
     Value = "16",
     Unit = "°C",
-    DataType = "Single",
+    DataType = SensorDataType.Single,
 	Index = 0
 };
-SensorDataContract data2 = new SensorDataContract
+SensorDataWriteContract data2 = new SensorDataWriteContract
 {
     Quantity = "Humidity",
     Value = "31",
     Unit = "%",
-    DataType = "Single",
+    DataType = SensorDataType.Single,
 	Index = 1
 };
-SensorDataContract data3 = new SensorDataContract
+SensorDataWriteContract data3 = new SensorDataWriteContract
 {
     Quantity = "CO2",
     Timestamp = 1614599484673,
     Value = "800",
-    DataType = "Int32",
+    DataType = SensorDataType.Int32,
     Unit = "unit",
 	Index = 2
 };
-SensorDataContract[] sensorDataContracts = new SensorDataContract[] { data1, data2, data3 };
+SensorDataWriteContract[] sensorDataContracts = new SensorDataWriteContract[] { data1, data2, data3 };
 
-SensorContract sensor = new SensorContract
+SensorWriteContract sensor = new SensorWriteContract
 {
     Login = "login",
     SensorData = sensorDataContracts,
 };
-SensorContract[] sensorContracts = new SensorContract[] { sensor };
+SensorWriteContract[] sensorContracts = new SensorWriteContract[] { sensor };
 
 await devkitConnector.AddSensorData(sensorContracts);
 ```
 
+#### Man Down
+```c#
+ManDownContract manDownContract = new ManDownContract
+{
+    Login = "deviceLogin",
+    FallStatus = FallType.ManDown,
+    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+};
+
+ManDownResponseContract response = await devkitConnector.ManDown(manDownContract);
+```
+
+#### Logs
+```c#
+LogWriteContract logContract = new LogWriteContract
+{
+    Login = "deviceLogin",
+    Message = "Device started successfully",
+    Level = "Info",
+    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+};
+
+LogContract log = await devkitConnector.AddLog(logContract);
+```
+
+#### AOS (Automated Order System)
+```c#
+OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, stopTimestamp);
+```
+
 ### Full list of functions
 * **Areas**
-	* `GetAreas()` - Get all areas
-	* `GetArea(id)` - Get area by ID
-	* `AddArea(areaContract)` - Add an area with specified properties
-	* `UpdateArea(id, areaContract)` - Update an existing area with new properties
+	* `GetAreas(queryString)` - Get all areas
+	* `GetArea(id, queryString)` - Get area by ID
+	* `AddArea(areaWriteContract)` - Add an area with specified properties
+	* `UpdateArea(id, changes)` - Update an existing area with new properties
 	* `DeleteArea(id)` - Delete an existing area by ID
+	* `GetGridAreaOccurence(deviceId, shiftId, start, stop)` - Get grid area occurrence data
 * **Authorization**
-	* `Authenticate(login, password)` - Authenticate with login and password as user/device/sensor
+	* `Authenticate(login, password, superUser)` - Authenticate with login and password as user/device/sensor
+	* `Authenticate(superUser)` - Authenticate using connection options credentials
+	* `GetToken()` - Get authentication token
+	* `DeleteCurrentToken()` - Delete current authentication token
+* **AOS (Automated Order System)**
+	* `GetOrders(start, stop)` - Get orders within specified time range
 * **Beacons**
-	* `GetBeacons()` - Get all beacons
-	* `GetBeacon(id)` - Get beacon by ID
-	* `AddBeacon(beaconContract)` - Add a beacon with specified properties
-	* `UpdateBeacon(id, beaconContract)` - Update an existing beacon with new properties
+	* `GetBeacons(queryString)` - Get all beacons
+	* `GetBeacon(id, queryString)` - Get beacon by ID
+	* `AddBeacon(beaconWriteContract)` - Add a beacon with specified properties
+	* `UpdateBeacon(id, changes)` - Update an existing beacon with new properties
 	* `DeleteBeacon(id)` - Delete an existing beacon by ID
 * **Branches**
-	* `GetBranches()` - Get all branches
-	* `GetBranch(id)` - Get branch by ID
+	* `GetBranches(queryString)` - Get all branches
+	* `GetBranch(id, queryString)` - Get branch by ID
 * **Clients**
-	* `GetClients()` - Get all clients
+	* `GetClients(queryString)` - Get all clients
 * **Configuration**
 	* `GetBranchConfiguration(key)` - Get branch configuration with specified key
 	* `GetAccountConfiguration(key)` - Get account configuration with specified key
-	* `GetConfigurationLastChange(key)` - Get branch configuration with specified key
+	* `GetAccountConfiguration(login, key)` - Get account configuration for specific login and key
+	* `GetConfigurationLastChange(key)` - Get configuration last change timestamp
 * **Devices**
-	* `GetDevices()` - Get all devices
-	* `GetDevice(id)` - Get device by ID
-	* `GetDevice(login)` - Get device by login
-	* `GetDynamicDevices()` - Get devices with dynamic position
-	* `GetDynamicDevicesShort()` - Get shortened form of dynamic devices grouped by sectors
-	* `AddDevice(deviceContract)` - Add a device with specified properties
-	* `UpdateDevice(id, deviceContract)` - Update an existing device with new properties
+	* `GetDevices(queryString)` - Get all devices
+	* `GetDevice(id, queryString)` - Get device by ID
+	* `GetDevice(login, queryString)` - Get device by login
+	* `GetDynamicDevices(queryString)` - Get devices with dynamic position
+	* `GetDynamicDevicesShort(queryString)` - Get shortened form of dynamic devices grouped by sectors
+	* `AddDevice(deviceWriteContract)` - Add a device with specified properties
+	* `UpdateDevice(id, changes)` - Update an existing device with new properties
 	* `DeleteDevice(id)` - Delete an existing device by ID
+	* `ManDown(manDownContract)` - Send man down alert for single device
+	* `ManDownBatch(manDownBatchContracts)` - Send man down alerts for multiple devices
+	* `GetDeviceLocations(deviceId, from, to, queryString)` - Get device location history
 * **Layers**
-	* `GetLayers()` - Get all layers
-	* `GetLayer(id)` - Get layer by ID
-	* `GetNoGoLayers()` - Get all NoGo Layers
-	* `GetLocalizationLayers(deviceLogin)` - Get all localization layers for specified device
-	* `AddLayer(layerContract)` - Add a layer with specified properties
-	* `UpdateLayer(id, layerContract)` - Update an existing layer with new properties
+	* `GetLayers(queryString)` - Get all layers
+	* `GetLayer(id, queryString)` - Get layer by ID
+	* `GetLocalizationLayers(deviceLogin, queryString)` - Get all localization layers for specified device
+	* `AddLayer(layerWriteContract)` - Add a layer with specified properties
+	* `UpdateLayer(id, changes)` - Update an existing layer with new properties
 	* `DeleteLayer(id)` - Delete an existing layer by ID
 * **Localization**
 	* `AddLocalizationData(deviceLocationContract)` - Add localization data for multiple devices in batch mode
 	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above - [Example](#localization))
+* **Logs**
+	* `AddLog(logWriteContract)` - Add a log entry
 * **Quantities**
-	* `GetQuantities()` - Get all quantities
-	* `GetQuantity(id)` - Get quantity by ID
-	* `AddQuantity(quantityContract)` - Add a quantity with specified properties
+	* `GetQuantities(queryString)` - Get all quantities
+	* `GetQuantity(id, queryString)` - Get quantity by ID
+	* `AddQuantity(quantityWriteContract)` - Add a quantity with specified properties
 	* `UpdateQuantity(quantityContract)` - Update an existing quantity with new properties
 	* `DeleteQuantity(id)` - Delete an existing quantity by ID
 * **Sectors**
-	* `GetSectors()` - Get all sectors
-	* `GetSector(id)` - Get sector by ID
-	* `AddSector(sectorContract)` - Add a sector with specified properties
-	* `UpdateSector(id, sectorContract)` - Update an existing sector with new properties
+	* `GetSectors(queryString)` - Get all sectors
+	* `GetSector(id, queryString)` - Get sector by ID
+	* `AddSector(sectorWriteContract)` - Add a sector with specified properties
+	* `UpdateSector(id, changes)` - Update an existing sector with new properties
 	* `DeleteSector(id)` - Delete an existing sector by ID
 * **Sensors**
-	* `GetSensors()` - Get all sensors
-	* `GetSensor(id)` - Get sensor by ID
-	* `GetSensor(login)` - Get sensor by login
-	* `AddSensor(sensorContract)` - Add a sensor with specified properties
-	* `UpdateSensor(id, sensorContract)` - Update an existing sensor with new properties
+	* `GetSensors(queryString)` - Get all sensors
+	* `GetSensor(id, queryString)` - Get sensor by ID
+	* `GetSensor(login, queryString)` - Get sensor by login
+	* `AddSensor(sensorWriteContract)` - Add a sensor with specified properties
+	* `UpdateSensor(id, changes)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
 	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
 	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above - [Example](#sensor-data))
 	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
 * **SensorDatas**
-	* `GetSensorDatas()` - Get all sensor datas
-	* `GetSensorData(id)` - Get sensor data by ID
+	* `GetSensorDatas(queryString)` - Get all sensor datas
+	* `GetSensorData(id, queryString)` - Get sensor data by ID
 	* `AddSensorData(sensorDataContract)` - Add a sensor data with specified properties
-	* `UpdateSensorData(id, sensorDataContract)` - Update an existing sensor data with new properties
+	* `UpdateSensorData(id, changes)` - Update an existing sensor data with new properties
 	* `DeleteSensorData(id)` - Delete an existing sensor data by ID
 * **Shifts**
-	* `GetShifts()` - Get all shifts
-	* `GetShift(id)` - Get shift by ID
-	* `AddShift(shiftContract)` - Add a shift with specified properties
-	* `UpdateShift(id, shiftContract)` - Update an existing shift with new properties
+	* `GetShifts(queryString)` - Get all shifts
+	* `GetShift(id, queryString)` - Get shift by ID
+	* `AddShift(shiftWriteContract)` - Add a shift with specified properties
+	* `UpdateShift(id, changes)` - Update an existing shift with new properties
 	* `DeleteShift(id)` - Delete an existing shift by ID
 * **Users**
 	* `GetUserInfo()` - Get information about the current user (in order to do this you need to be **authenticated** as said user)
@@ -266,17 +307,36 @@ await devkitConnector.AddSensorData(sensorContracts);
 	* `GetUnityLastVersion(platform)` - Get the last version of the Unity app
 	* `GetUnityBundleInfo(bundleName)` - Get information (version, size, name) about the Unity Bundle
 	* **Generic methods**
-		* `Get(string subUrl)`
-		* `Post(string subUrl, object body)`
+		* `Get<T>(string subUrl)`
+		* `Post<T>(string subUrl, object body)`
 		* `Patch(string subUrl, object body)`
 		* `Delete(string subUrl)`
 * **Paths**
-	* `GetPaths()` - Get all paths
-	* `GetPath(id)` - Get path by ID
+	* `GetPaths(queryString)` - Get all paths
+	* `GetPath(id, queryString)` - Get path by ID
+
+## Data Types and Enums
+
+### Enums
+* **FallType** - Device fall status enumeration
+* **OrderStatus** - AOS order status enumeration  
+* **SensorDataType** - Sensor data type enumeration
+* **ActionType** - Action type enumeration
+
+### Write Contracts
+The SDK uses separate write contracts for creating and updating entities:
+* `AreaWriteContract`
+* `BeaconWriteContract`
+* `DeviceWriteContract`
+* `LayerWriteContract`
+* `LogWriteContract`
+* `QuantityWriteContract`
+* `SectorWriteContract`
+* `SensorWriteContract`
+* `SensorDataWriteContract`
+* `ShiftWriteContract`
 
 ## Future features
 - **protobuffers** serialization
-- automated order system(AOS) for logistics integration
 - TCS implementation
-- Logs implementation
 - **MQTT** communication protocol implementation
