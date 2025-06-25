@@ -34,7 +34,7 @@ namespace SDK
             this.connectionOptions = connectionOptions;
             this.httpClient = httpClient;
             this.httpClient.DefaultRequestVersion = HttpVersion.Version30;
-            httpClient.BaseAddress = new Uri(connectionOptions.Url + "/" + connectionOptions.Version + "/");
+            httpClient.BaseAddress = new Uri(connectionOptions.Url + connectionOptions.Version + "/");
 
             ResetHttpClientHeaders();
         }
