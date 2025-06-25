@@ -5,6 +5,7 @@ namespace SDK.Models
     public static class Address
     {
         public const string AosOrders = "aos/orders/";
+        public const string AosDataOrders = "aos/v2/data/orders/";
         public const string AosNodeInfo = "aos/node-info/";
         public const string AosWorkGroups = "aos/work-groups/";
         public const string AosTargets = "aos/targets/";
@@ -21,6 +22,7 @@ namespace SDK.Models
         public const string AosSendToBatch = "aos/send-to/batch/";
 
         public const string Areas = "areas/";
+        public const string AreasGridAreaOccurence = "areas/grid-area-occurrence";
 
         public const string AuthorizationAuthenticate = "Authorization/Authenticate/";
         public const string AuthorizationToken = "Authorization/Token/";
@@ -40,6 +42,7 @@ namespace SDK.Models
         public const string DevicesDynamicLocations = "devices/dynamic-locations/";
         public const string DevicesDynamicLocationsShort = "devices/dynamic-locations-short/";
         public const string DevicesRegister = "devices/register/";
+        public const string DevicesLocations = "devices/locations/";
 
         public const string Layers = "layers/";
         public const string LayersNoGo = "layers/device/";

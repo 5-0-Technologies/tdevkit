@@ -1,5 +1,6 @@
 ﻿using SDK.Contracts.Data;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace SDK.Models
@@ -26,6 +27,23 @@ namespace SDK.Models
 
         public int? AreaId { get; set; }
         public string ExternalId { get; set; }
+
+        public static explicit operator SensorContract(SensorWriteContract contract)
+        {
+            return new SensorContract
+            {
+                Title = contract.Title,
+                Mac = contract.Mac,
+                Note = contract.Note,
+                X = contract.X,
+                Y = contract.Y,
+                Battery = contract.Battery,
+                SectorId = contract.SectorId ?? 0,
+                //SensorData = contract.SensorData,
+                AreaId = contract.AreaId,
+                ExternalId = contract.ExternalId
+            };
+        }
     }
 
     public class SensorWriteContract : AccountContract
