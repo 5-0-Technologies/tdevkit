@@ -25,6 +25,22 @@ namespace SDK.Models
         public bool VisibleInApp { get; set; }
 
         public RangeContract Range { get; set; }
+
+        public static explicit operator SensorDataWriteContract(SensorDataContract contract)
+        {
+            return new SensorDataWriteContract
+            {
+                Quantity = contract.Quantity,
+                Value = contract.Value,
+                Unit = contract.Unit,
+                DataType = contract.DataType,
+                Timestamp = contract.Timestamp,
+                Index = contract.Index,
+                VisibleInApp = contract.VisibleInApp,
+                SensorId = contract.SensorId,
+                Range = contract.Range
+            };
+        }
     }
 
     public class SensorDataWriteContract

@@ -35,5 +35,11 @@ namespace SDK
             string subUrl = Address.UrlCombine(Address.Areas, Convert.ToString(id));
             await DeleteRequest(subUrl);
         }
+
+        public async Task<AreaOccurrence[]> GetGridAreaOccurence(int deviceId, int shiftId, long start, long stop)
+        {
+            string subUrl = Address.UrlCombine(Address.AreasGridAreaOccurence, $"?deviceId={deviceId}&shiftId={shiftId}&start={start}&stop={stop}");
+            return await GetRequest<AreaOccurrence[]>(subUrl);
+        }
     }
 }
