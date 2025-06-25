@@ -88,5 +88,11 @@ namespace SDK
         {
             return await Task.FromResult(new HttpResponseMessage());
         }
+
+        public async Task<LocationContract[]> GetDeviceLocations(int deviceId, long from, long to, string queryString = "")
+        {
+            string subUrl = Address.UrlCombine(Address.DevicesLocations, $"?deviceId={deviceId}&from={from}&to={to}", queryString);
+            return await GetRequest<LocationContract[]>(subUrl);
+        }
     }
 }

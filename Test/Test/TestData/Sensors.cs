@@ -1,5 +1,6 @@
-﻿using SDK.Enum;
-using SDK.Models;
+﻿using SDK.Models;
+using SDK.Communication;
+using System;
 
 namespace Test.TestData
 {
@@ -9,88 +10,124 @@ namespace Test.TestData
         {
             return new SensorContract
             {
-                Login = "sdk-sensor1",
-                SensorData = new[]
+                Id = 1,
+                Title = "Test Sensor",
+                Mac = "00:00:00:00:00:01",
+                Note = "Test note",
+                X = 10.0,
+                Y = 20.0,
+                Battery = 99.9f,
+                SectorId = 1,
+                AreaId = 2,
+                ExternalId = "ext-001"
+            };
+        }
+
+        public static SensorContract[] GetSensors()
+        {
+            return new SensorContract[]
+            {
+                new SensorContract
                 {
-                    new SensorDataContract
+                    Id = 1,
+                    Title = "Test Sensor 1",
+                    Mac = "00:00:00:00:00:01",
+                    Note = "Test note 1",
+                    X = 10.0,
+                    Y = 20.0,
+                    Battery = 99.9f,
+                    SectorId = 1,
+                    AreaId = 2,
+                    ExternalId = "ext-001"
+                },
+                new SensorContract
+                {
+                    Id = 2,
+                    Title = "Test Sensor 2",
+                    Mac = "00:00:00:00:00:02",
+                    Note = "Test note 2",
+                    X = 11.0,
+                    Y = 21.0,
+                    Battery = 88.8f,
+                    SectorId = 2,
+                    AreaId = 3,
+                    ExternalId = "ext-002"
+                }
+            };
+        }
+
+        public static SensorWriteContract[] GetSensorWriteContracts()
+        {
+            return new SensorWriteContract[]
+            {
+                new SensorWriteContract
+                {
+                    Title = "Test Sensor",
+                    Mac = "00:00:00:00:00:01",
+                    Note = "Test note",
+                    X = 10.0f,
+                    Y = 20.0f,
+                    Battery = 99.9f,
+                    SectorId = 1,
+                    AreaId = 2,
+                    ExternalId = "ext-001"
+                }
+            };
+        }
+
+        public static SensorDataWriteContract[] GetSensorDataWriteContracts()
+        {
+            return new SensorDataWriteContract[]
+            {
+                new SensorDataWriteContract
+                {
+                    SensorId = 1,
+                    Quantity = "temperature",
+                    Value = "25.5",
+                    Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+                }
+            };
+        }
+
+        public static AddSensorDataResponseContract[] GetSensorDataBatch()
+        {
+            return new AddSensorDataResponseContract[]
+            {
+                new AddSensorDataResponseContract
+                {
+                    Login = "sensor-001",
+                    SensorData = new SensorDataResponseContract[]
                     {
-                        Quantity = "Temperature",
-                        Value = "16",
-                        Unit = "°C",
-                        DataType = SensorDataType.Decimal
-                    },
-                    new SensorDataContract
-                    {
-                        Quantity = "Humidity",
-                        Value = "31",
-                        Unit = "%",
-                        DataType = SensorDataType.Decimal
-                    },
-                    new SensorDataContract
-                    {
-                        Quantity = "CO2",
-                        Timestamp = 1614599484673,
-                        Value = "800",
-                        DataType = SensorDataType.Int32,
-                        Unit = "unit"
+                        new SensorDataResponseContract
+                        {
+                            Quantity = "temperature",
+                            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(),
+                            Success = true
+                        }
                     }
                 }
             };
         }
-        public static SensorContract GetSensorUpdate()
+
+        public static SensorDataResponseContract[] GetSensorData()
         {
-            return new SensorContract
+            return new SensorDataResponseContract[]
             {
-                Id = 7351,
-                Login = "sdk-sensor2",
-                Title = "tests",
-                SectorId = 2,
-                AreaId = 19,
-                ExternalId = "externalId",
-            };
-        }
-        public static SensorContract[] GetSensorDataBatch()
-        {
-            return new[]
-            {
-                new SensorContract
+                new SensorDataResponseContract
                 {
-                    Login = "sdk-sensor1",
-                    SensorData = GetSensorData()
-                },
-                new SensorContract
-                {
-                    Login = "sdk-sensor2",
-                    SensorData = GetSensorData()
+                    Quantity = "temperature",
+                    Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(),
+                    Success = true
                 }
             };
         }
-        public static SensorDataContract[] GetSensorData()
+
+        public static SensorAppInfoContract GetSensorAppInfo()
         {
-            return new[]
+            return new SensorAppInfoContract
             {
-                new SensorDataContract
-                {
-                    Quantity = "Temperature",
-                    Value = "16",
-                    Unit = "°C",
-                    DataType = SensorDataType.Decimal
-                },
-                new SensorDataContract
-                {
-                    Quantity = "Humidity",
-                    Value = "31",
-                    Unit = "%",
-                    DataType = SensorDataType.Decimal
-                },
-                new SensorDataContract
-                {
-                    Quantity = "CO2",
-                    Timestamp = 1614599484673,
-                    Value = "800",
-                    DataType = SensorDataType.Int32,
-                    Unit = "unit"
-                }
+                Version = "1.0.0",
+                Size = 123456
             };
         }
     }
