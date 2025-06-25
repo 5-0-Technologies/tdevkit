@@ -29,7 +29,7 @@ namespace Main
                 // Define connection options with specific credentials and client identifiers
                 ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
                 ConnectionOptions connectionOptions = optionsBuilder
-                    .Url("https://api.platform.twinzo.eu/")
+                    .Url("https://api.platform.twinzo.com/")
                     .Client(ClientName)
                     .ClientGuid(ClientGuid)
                     .BranchGuid(BranchGuid)
