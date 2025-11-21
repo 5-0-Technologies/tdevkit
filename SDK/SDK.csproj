@@ -8,12 +8,12 @@
     <PackageId Condition="'$(TargetFrameworkOverride)' == ''">$(PackageIdBase)</PackageId>
     <PackageId Condition="'$(TargetFrameworkOverride)' != ''">$(PackageIdBase)-$(TargetFrameworkOverride)</PackageId>
     <!-- Default target frameworks -->
-    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworkOverride)' == ''">net9.0;net10.0</TargetFrameworks>
     <!-- Override target framework if specified -->
     <TargetFrameworks Condition="'$(TargetFrameworkOverride)' != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <AssemblyVersion>2021.6.28.25</AssemblyVersion>
     <FileVersion>2021.6.28.25</FileVersion>
-    <Version>6.1.2</Version>
+    <Version>7.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
