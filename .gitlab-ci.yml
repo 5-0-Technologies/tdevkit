@@ -4,36 +4,6 @@ stages:
   - release
   - deploy
 
-# .NET 8 jobs
-build_net8:
-  stage: build
-  tags: 
-    - dotnet8
-  script:
-    - dotnet build -p:TargetFrameworkOverride=net8.0
-
-test_net8:
-  stage: test
-  tags: 
-    - dotnet8
-  script:
-    - dotnet test -p:TargetFrameworkOverride=net8.0
-
-release_net8:
-  stage: release
-  tags:
-    - dotnet8
-  only:
-    - master
-  artifacts:
-    paths:
-      - SDK/net8.0/*.nupkg
-    expire_in: 1 week
-  script:
-    - mkdir -p SDK/net8.0
-    - dotnet publish -c Release -p:TargetFrameworkOverride=net8.0 -f net8.0 -o SDK/net8.0 SDK/SDK.csproj
-    - dotnet pack -c Release -p:TargetFrameworkOverride=net8.0 -o SDK/net8.0 SDK/SDK.csproj
-
 # .NET 9 jobs
 build_net9:
   stage: build
@@ -64,15 +34,46 @@ release_net9:
     - dotnet publish -c Release -p:TargetFrameworkOverride=net9.0 -f net9.0 -o SDK/net9.0 SDK/SDK.csproj
     - dotnet pack -c Release -p:TargetFrameworkOverride=net9.0 -o SDK/net9.0 SDK/SDK.csproj
 
+# .NET 10 jobs
+build_net10:
+  stage: build
+  tags: 
+    - dotnet10
+  script:
+    - dotnet build -p:TargetFrameworkOverride=net10.0
+
+test_net10:
+  stage: test
+  tags: 
+    - dotnet10
+  script:
+    - dotnet test -p:TargetFrameworkOverride=net10.0
+
+release_net10:
+  stage: release
+  tags:
+    - dotnet10
+  only:
+    - master
+  artifacts:
+    paths:
+      - SDK/net10.0/*.nupkg
+    expire_in: 1 week
+  script:
+    - mkdir -p SDK/net10.0
+    - dotnet publish -c Release -p:TargetFrameworkOverride=net10.0 -f net10.0 -o SDK/net10.0 SDK/SDK.csproj
+    - dotnet pack -c Release -p:TargetFrameworkOverride=net10.0 -o SDK/net10.0 SDK/SDK.csproj
 # Deploy stage to push NuGet packages using released artifacts
 deploy:
   stage: deploy
+  tags:
+    - dotnet10
   dependencies:
-    - release_net8
     - release_net9
+    - release_net10
   only:
     - master
   script:
     - dotnet nuget add source https://gitlab.twinzo.eu/api/v4/projects/189/packages/nuget/index.json -n gitlab_tDevkit -u $deploy_user -p $deploy_token --store-password-in-clear-text
-    - dotnet nuget push "SDK/net8.0/*.nupkg" --source gitlab_tDevkit
     - dotnet nuget push "SDK/net9.0/*.nupkg" --source gitlab_tDevkit
+    - dotnet nuget push "SDK/net10.0/*.nupkg" --source gitlab_tDevkit
