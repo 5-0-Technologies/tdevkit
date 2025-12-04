@@ -115,7 +115,7 @@ SensorWriteContract sensorDummy = new SensorWriteContract
     SensorData = sensorDataContracts,
 };
 
-SensorContract sensor = await devkitConnector.AddSensor(sensorDummy);
+SensorContract[] sensors = await devkitConnector.AddSensor(sensorDummy);
 ```
 
 #### Localization

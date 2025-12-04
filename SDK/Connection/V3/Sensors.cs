@@ -3,6 +3,7 @@ using SDK.Contracts.Communication;
 using SDK.Exceptions;
 using SDK.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -31,17 +32,23 @@ namespace SDK
 
             return response;
         }
-        public async Task<SensorContract> AddSensor(SensorWriteContract sensorContract)
+        public async Task<SensorContract[]> AddSensor(SensorWriteContract sensorContract)
         {
             string subUrl = Address.UrlCombine(Address.Sensors);
-            var response = await PostRequest<AddSensorResponseContract>(subUrl, sensorContract);
+            var response = await PostRequest<AddSensorResponseContract[]>(subUrl, sensorContract);
 
-            if (response.ErrorMessage != null)
+            if (response != null)
             {
-                throw new ServerResponseException(ServerResponseException.message + " " + response.ErrorMessage);
+                for (int i = 0; i < response.Length; i++)
+                {
+                    if (response[i].ErrorMessage != null)
+                    {
+                        throw new ServerResponseException(ServerResponseException.message + " " + response[i].ErrorMessage);
+                    }
+                }
             }
 
-            return (SensorContract)response;
+            return response?.Select(r => (SensorContract)r).ToArray() ?? Array.Empty<SensorContract>();
         }
         public async Task UpdateSensor(int id, object changes)
         {

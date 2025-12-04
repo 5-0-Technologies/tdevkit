@@ -3,51 +3,36 @@ using SDK.Communication;
 using SDK.Enum;
 using SDK.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Main
+
+internal class Program
 {
-    class Program
+    private static async Task Main(string[] args)
     {
-        static async Task Main(string[] args)
-        {
-            await Task.CompletedTask;
-        }
+        const string ClientGuid = "{client-guid}";
+        const string BranchGuid = "{branch-guid}";
+        const string ApiKey = "{api-token}";
 
-        public static async Task TestSensor()
+        try
         {
-            const string ClientName = "{insert}";
-            const string ClientGuid = "{insert}";
-            const string BranchGuid = "{insert}";
-            const string ApiKey = "{insert}";
-            const string Login = "{insert}";
-            const string Password = "{insert}";
+            // Define connection options with specific credentials and client identifiers
+            ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
+            ConnectionOptions connectionOptions = optionsBuilder
+                .Url("https://api.platform.twinzo.com/")
+                .ClientGuid(ClientGuid)
+                .BranchGuid(BranchGuid)
+                .Timeout(1000)
+                .ApiKey(ApiKey)
+                .Version(ConnectionOptions.VERSION_3)
+                .Build();
 
-            try
+            // Create tDevKit connector class instance and authorize by credentials in builder
+            DevkitConnectorV3 devkitConnector = (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
+
+            // Define sensors data list of SensorDataContract
+            var dataList = new[]
             {
-                // Define connection options with specific credentials and client identifiers
-                ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
-                ConnectionOptions connectionOptions = optionsBuilder
-                    .Url("https://api.platform.twinzo.com/")
-                    .Client(ClientName)
-                    .ClientGuid(ClientGuid)
-                    .BranchGuid(BranchGuid)
-                    .Timeout(1000)
-                    .ApiKey(ApiKey)
-                    .Version(ConnectionOptions.VERSION_3)
-                    .Login(Login)
-                    .Password(Password)
-                    .Build();
-
-                // Create tDevKit connector class instance and authorize by credentials in builder
-                DevkitConnectorV3 devkitConnector = (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
-                AuthenticationResponseContract auth = await devkitConnector.Authenticate(false);
-                Console.WriteLine(auth);
-
-                // Define sensors data list of SensorDataContract
-                var dataList = new[]
-                {
                     new SensorDataWriteContract
                     {
                         Quantity = "Voltage",
@@ -74,26 +59,25 @@ namespace Main
                     }
                 };
 
-                // Create sensor contract with specific data
-                SensorWriteContract sensor = new SensorWriteContract
-                {
-                    Login = "buffer",
-                    SensorData = dataList.ToArray(),
-                };
-                
-                // Send sensor with specified data to Twinzo server
-                PostResponseContract[] response = await devkitConnector.AddSensorData(new[] { sensor });
-                Console.WriteLine(response);
-            }
-            catch (Exception ex)
+            // Create sensor contract with specific data
+            SensorWriteContract sensor = new SensorWriteContract
             {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-            }
+                Login = "buffer",
+                Title = "Buffer Sensor",
+            };
+
+            // Send sensor with specified data to Twinzo server
+            PostResponseContract[] response = await devkitConnector.AddSensorData(new[] { sensor });
+            Console.WriteLine(response);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }
