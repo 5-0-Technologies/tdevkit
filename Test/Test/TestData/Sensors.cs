@@ -130,5 +130,42 @@ namespace Test.TestData
                 Size = 123456
             };
         }
+
+        public static SensorWriteContract GetSensorWriteContract()
+        {
+            return new SensorWriteContract
+            {
+                Title = "Test Sensor",
+                Mac = "00:00:00:00:00:01",
+                Note = "Test note",
+                X = 10.0f,
+                Y = 20.0f,
+                Battery = 99.9f,
+                SectorId = 1,
+                AreaId = 2,
+                ExternalId = "ext-001",
+                Login = "test-sensor"
+            };
+        }
+
+        public static object GetAddSensorResponse()
+        {
+            return new[]
+            {
+                new
+                {
+                    Id = 1,
+                    Title = "Test Sensor",
+                    Mac = "00:00:00:00:00:01",
+                    Note = "Test note",
+                    X = 10.0,
+                    Y = 20.0,
+                    Battery = 99,
+                    SectorId = 1,
+                    AreaId = 2,
+                    Login = "test-sensor"
+                }
+            };
+        }
     }
 }
