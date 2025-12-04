@@ -145,5 +145,40 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(SensorAppInfoContract));
         }
+
+        [TestCategory("Sensor")]
+        [TestMethod]
+        public async Task AddSensor_AddSensor_ShouldReturn200()
+        {
+            var bodyContent = TestData.Sensors.GetAddSensorResponse();
+            var sensorWriteContract = TestData.Sensors.GetSensorWriteContract();
+
+            server.Given(Request.Create().WithPath(PATH_BASE + SENSORS).UsingPost())
+                    .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
+
+            SensorContract[] response = await devkitConnector.AddSensor(sensorWriteContract);
+
+            Assert.IsInstanceOfType(response, typeof(SensorContract[]));
+            Assert.AreEqual(1, response.Length);
+            Assert.AreEqual(1, response[0].Id);
+            Assert.AreEqual("Test Sensor", response[0].Title);
+        }
+
+        [TestCategory("Sensor")]
+        [TestMethod]
+        public async Task AddSensor_ErrorHandling_ShouldThrowsException()
+        {
+            var bodyContent = new ProblemDetails
+            {
+                Title = "Specify the Error from Type property more.",
+                Detail = "How to solve error."
+            };
+            var sensorWriteContract = TestData.Sensors.GetSensorWriteContract();
+
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + SENSORS).UsingPost())
+                    .RespondWith(Response.Create().WithStatusCode(400).WithBodyAsJson(bodyContent));
+            await Assert.ThrowsExceptionAsync<ServerResponseException>(async () => await devkitConnector.AddSensor(sensorWriteContract));
+        }
     }
 } 
