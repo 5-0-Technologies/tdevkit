@@ -38,7 +38,8 @@ namespace Test.TestData
                     Battery = 99.9f,
                     SectorId = 1,
                     AreaId = 2,
-                    ExternalId = "ext-001"
+                    ExternalId = "ext-001",
+                    SensorTypeId = 1
                 },
                 new SensorContract
                 {
@@ -51,7 +52,8 @@ namespace Test.TestData
                     Battery = 88.8f,
                     SectorId = 2,
                     AreaId = 3,
-                    ExternalId = "ext-002"
+                    ExternalId = "ext-002",
+                    SensorTypeId = 1
                 }
             };
         }
@@ -70,7 +72,8 @@ namespace Test.TestData
                     Battery = 99.9f,
                     SectorId = 1,
                     AreaId = 2,
-                    ExternalId = "ext-001"
+                    ExternalId = "ext-001",
+                    SensorTypeId = 1
                 }
             };
         }
@@ -144,7 +147,8 @@ namespace Test.TestData
                 SectorId = 1,
                 AreaId = 2,
                 ExternalId = "ext-001",
-                Login = "test-sensor"
+                Login = "test-sensor",
+                SensorTypeId = 1
             };
         }
 

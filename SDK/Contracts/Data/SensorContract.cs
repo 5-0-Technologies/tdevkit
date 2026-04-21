@@ -27,6 +27,7 @@ namespace SDK.Models
 
         public int? AreaId { get; set; }
         public string ExternalId { get; set; }
+        public int? SensorTypeId { get; set; }
 
         public static explicit operator SensorContract(SensorWriteContract contract)
         {
@@ -41,7 +42,8 @@ namespace SDK.Models
                 SectorId = contract.SectorId ?? 0,
                 //SensorData = contract.SensorData,
                 AreaId = contract.AreaId,
-                ExternalId = contract.ExternalId
+                ExternalId = contract.ExternalId,
+                SensorTypeId = contract.SensorTypeId
             };
         }
     }
@@ -76,5 +78,7 @@ namespace SDK.Models
 
         [StringLength(50)]
         public string ExternalId { get; set; }
+        
+        public int? SensorTypeId { get; set; }
     }
 }
