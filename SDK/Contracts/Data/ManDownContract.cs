@@ -20,4 +20,10 @@ namespace SDK.Contracts.Data
         [DataMember(Order = 3)]
         public FallType FallType { get; set; }
     }
+
+    /// <summary>Same shape as <see cref="ManDownContract"/>; server batch item type.</summary>
+    [DataContract]
+    public class ManDownBatchContract : ManDownContract
+    {
+    }
 }

@@ -11,6 +11,8 @@
                 //    return new DevkitConnectorV2(connectionOptions);
                 case ConnectionOptions.VERSION_3:
                     return new DevkitConnectorV3(connectionOptions);
+                case ConnectionOptions.VERSION_5:
+                    return new DevkitConnectorV5(connectionOptions);
                 default:
                     return null;
             }

@@ -9,11 +9,11 @@ namespace Test.V3
     public class Requests
     {
         protected const string URL = "http://localhost:8000";
-        protected const string PATH_BASE = "/api/v3/";
+        protected const string PATH_BASE = "/api/v5/";
 
 
         protected static WireMockServer server;
-        protected static DevkitConnectorV3 devkitConnector;
+        protected static DevkitConnectorV5 devkitConnector;
 
         protected static WireMockServer Server { get => server; set => server = value; }
 
@@ -27,9 +27,9 @@ namespace Test.V3
                 .BranchGuid("00000000-0000-0000-0000-000000000003")
                 .Timeout(1000)
                 .ApiKey("X1fprPtlkvolW1Bl47UQV4SoW8siY3n8QDQkDsGJ")
-                .Version(ConnectionOptions.VERSION_3)
+                .Version(ConnectionOptions.VERSION_5)
                 .Build();
-            devkitConnector = (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
+            devkitConnector = (DevkitConnectorV5)DevkitFactory.CreateDevkitConnector(connectionOptions);
 
             server = WireMockServer.Start(new WireMockServerSettings()
             {

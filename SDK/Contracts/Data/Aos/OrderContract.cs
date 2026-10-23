@@ -1,9 +1,8 @@
 ﻿using Core.Enum;
-//using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Contract.V3.Aos
+namespace SDK.Contracts.Data.Aos
 {
     public class OrderContract
     {

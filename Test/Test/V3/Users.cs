@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Contracts.Data;
 using SDK.Exceptions;
+using SDK.Models;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -43,5 +44,41 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(UserContract));
         }
+
+        [TestCategory("User")]
+        [TestMethod]
+        public async Task AddUser_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + "users/").UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(TestData.Users.GetUser()));
+
+            var response = await devkitConnector.AddUser(new UserWriteContract { Login = "u1" });
+            Assert.IsInstanceOfType(response, typeof(UserContract));
+        }
+
+        [TestCategory("User")]
+        [TestMethod]
+        public async Task RegisterUsers_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + "users/register/true").UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.RegisterUsers(true, new UsersRegistrationContract { Emails = new[] { "a@b.c" } });
+        }
+
+        [TestCategory("User")]
+        [TestMethod]
+        public async Task DeleteUser_ShouldReturn200()
+        {
+            const int Id = 1;
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + "users/" + Id).UsingDelete())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.DeleteUser(Id);
+        }
     }
-} 
+}
+ 
