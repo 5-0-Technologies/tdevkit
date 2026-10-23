@@ -1,9 +1,6 @@
 ﻿namespace SDK.Communication
 {
-    public class AddSensorDataResponseContract : PostResponseContract
+    public class AddSensorDataResponseContract : SensorResponseContract
     {
-        public string Login { get; set; }
-
-        public SensorDataResponseContract[] SensorData { get; set; }
     }
 }

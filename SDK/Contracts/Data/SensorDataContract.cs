@@ -1,6 +1,5 @@
 ﻿using SDK.Enum;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace SDK.Models
 {
@@ -26,6 +25,8 @@ namespace SDK.Models
 
         public RangeContract Range { get; set; }
 
+        public string Tags { get; set; }
+
         public static explicit operator SensorDataWriteContract(SensorDataContract contract)
         {
             return new SensorDataWriteContract
@@ -38,7 +39,8 @@ namespace SDK.Models
                 Index = contract.Index,
                 VisibleInApp = contract.VisibleInApp,
                 SensorId = contract.SensorId,
-                Range = contract.Range
+                Range = contract.Range,
+                Tags = contract.Tags
             };
         }
     }
@@ -68,5 +70,7 @@ namespace SDK.Models
         public bool VisibleInApp { get; set; }
 
         public int SensorId { get; set; }
+
+        public string Tags { get; set; }
     }
 }

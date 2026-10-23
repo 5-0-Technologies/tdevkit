@@ -16,7 +16,6 @@ internal class Program
 
         try
         {
-            // Define connection options with specific credentials and client identifiers
             ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
             ConnectionOptions connectionOptions = optionsBuilder
                 .Url("https://api.platform.twinzo.com/")
@@ -24,50 +23,44 @@ internal class Program
                 .BranchGuid(BranchGuid)
                 .Timeout(1000)
                 .ApiKey(ApiKey)
-                .Version(ConnectionOptions.VERSION_3)
+                .Version(ConnectionOptions.VERSION_5)
                 .Build();
 
-            // Create tDevKit connector class instance and authorize by credentials in builder
-            DevkitConnectorV3 devkitConnector = (DevkitConnectorV3)DevkitFactory.CreateDevkitConnector(connectionOptions);
+            DevkitConnectorV5 devkitConnector = (DevkitConnectorV5)DevkitFactory.CreateDevkitConnector(connectionOptions);
 
-            // Define sensors data list of SensorDataContract
             var dataList = new[]
             {
-                    new SensorDataWriteContract
+                    new SensorDataBatchContract
                     {
                         Quantity = "Voltage",
                         Value = "120",
                         Unit = "V",
-                        DataType = SensorDataType.Decimal,
-                        Index = 0,
+                        DataType = "Decimal",
                     },
-                    new SensorDataWriteContract
+                    new SensorDataBatchContract
                     {
                         Quantity = "Frequency",
                         Value = "1",
                         Unit = "Hz",
-                        DataType = SensorDataType.Decimal,
-                        Index = 0,
+                        DataType = "Decimal",
                     },
-                    new SensorDataWriteContract
+                    new SensorDataBatchContract
                     {
                         Quantity = "OK parts",
                         Value = "600",
                         Unit = "pcs",
-                        DataType = SensorDataType.Int32,
-                        Index = 0,
+                        DataType = "Int32",
                     }
                 };
 
-            // Create sensor contract with specific data
-            SensorWriteContract sensor = new SensorWriteContract
+            SensorBatchContract sensor = new SensorBatchContract
             {
                 Login = "buffer",
                 Title = "Buffer Sensor",
+                SensorData = dataList
             };
 
-            // Send sensor with specified data to Twinzo server
-            PostResponseContract[] response = await devkitConnector.AddSensorData(new[] { sensor });
+            SensorResponseContract[] response = await devkitConnector.AddSensorData(new[] { sensor });
             Console.WriteLine(response);
         }
         catch (Exception ex)

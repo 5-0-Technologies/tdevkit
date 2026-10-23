@@ -41,5 +41,10 @@ namespace SDK
             string subUrl = Address.UrlCombine(Address.AreasGridAreaOccurence, $"?deviceId={deviceId}&shiftId={shiftId}&start={start}&stop={stop}");
             return await GetRequest<AreaOccurrence[]>(subUrl);
         }
+
+        public async Task<AreaImageInfoContract> GetAreaImageInfo(int id)
+        {
+            return await GetRequest<AreaImageInfoContract>(Address.UrlCombine(Address.Areas, id.ToString(), "image-info"));
+        }
     }
 }

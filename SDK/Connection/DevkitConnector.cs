@@ -55,6 +55,32 @@ namespace SDK
             return await JsonResponse<Type>(response);
         }
 
+        protected async Task PostRequest(string subUrl, object body = null)
+        {
+            HttpContent httpContent = new StringContent(
+                body == null ? "{}" : JsonSerializer.Serialize(body),
+                Encoding.UTF8,
+                "application/json");
+            var response = await httpClient.PostAsync(subUrl, httpContent);
+            await EmptyResponse(response);
+        }
+
+        protected async Task PutRequest(string subUrl, object body)
+        {
+            string bodyContent = JsonSerializer.Serialize(body);
+            HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(subUrl, httpContent);
+            await EmptyResponse(response);
+        }
+
+        protected async Task<Type> PutRequest<Type>(string subUrl, object body)
+        {
+            string bodyContent = JsonSerializer.Serialize(body);
+            HttpContent httpContent = new StringContent(bodyContent, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(subUrl, httpContent);
+            return await JsonResponse<Type>(response);
+        }
+
         protected async Task PatchRequest<Type>(string subUrl, object body)
         {
             string bodyContent = JsonSerializer.Serialize(body);

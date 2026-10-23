@@ -107,5 +107,42 @@ namespace Test.V3
 
             await devkitConnector.DeleteCurrentToken();
         }
+
+        [TestCategory("Authorization")]
+        [TestMethod]
+        public async Task PostFirebaseToken_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + AUTHORIZATION + "/FirebaseToken/").UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.PostFirebaseToken(new SDK.Models.FirebaseTokenContract { Value = "token" });
+        }
+
+        [TestCategory("Authorization")]
+        [TestMethod]
+        public async Task DeleteFirebaseToken_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + AUTHORIZATION + "/FirebaseToken/").UsingDelete())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.DeleteFirebaseToken();
+        }
+
+        [TestCategory("Authorization")]
+        [TestMethod]
+        public async Task GetFirebaseTokens_ShouldReturn200()
+        {
+            const string NotificationId = "n1";
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + AUTHORIZATION + "/FirebaseTokens/" + NotificationId).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200)
+                    .WithBodyAsJson(new[] { new SDK.Models.FirebaseTokenContract { Value = "t" } }));
+
+            var response = await devkitConnector.GetFirebaseTokens(NotificationId);
+            Assert.IsInstanceOfType(response, typeof(SDK.Models.FirebaseTokenContract[]));
+        }
     }
-} 
+}
+ 

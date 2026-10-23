@@ -15,27 +15,27 @@ Rest json/protobuf API for registered twinzo clients and partners provides fully
 
 [API Endpoint](https://twin.rtls.solutions/api/swagger/ui/index#/) for each digital twin module uses same authorization methods to provide all system unification into single instance - twinzo.
 
-## Documentation & Examples (V3)
+## Documentation & Examples (V5)
+
+API surface matches [platform swagger v5](https://api.platform.twinzo.com/swagger/v5/swagger.json). `VERSION_3` / `DevkitConnectorV3` remain available for legacy callers.
 
 ### Initialization
-The first thing you need to do is create the base object by which the functionality will be accessible:
 ```c# 
 ConnectionOptionsBuilder optionsBuilder = new ConnectionOptionsBuilder();
 ConnectionOptions connectionOptions = optionsBuilder
-	.Url("https://api.platform.twinzo.eu/")
+	.Url("https://api.platform.twinzo.com/")
 	.Client("YourClient")
 	.BranchGuid("YourBranchGuid")
 	.Timeout(1000)
 	.ApiKey("YourApiKey")
-	.Version(ConnectionOptions.VERSION_3)
+	.Version(ConnectionOptions.VERSION_5)
 	.Build();
 	
-DevkitConnectorV3 devkitConnector = (DevkitConnectorV3) DevkitFactory.CreateDevkitConnector(connectionOptions);
+DevkitConnectorV5 devkitConnector = (DevkitConnectorV5) DevkitFactory.CreateDevkitConnector(connectionOptions);
 ```
 You can find api links at: https://twinzo.atlassian.net/wiki/spaces/PUBD/pages/72712207/Basics.
 
-Through the `DevkitConnectorV3` object are accessible all the functions implemented in tDevkit. As of **V3**, Most of the functionality is ready to be used after specifying the Api Key in `ConnectionOptions` object. However, there is a small number of functions you need to be authenticated for due to their nature. These functions are mentioned in the 
-[Full list of functions](#full-list-of-functions) section.
+Through `DevkitConnectorV5` (inherits V3 methods) most functionality works with an Api Key. A few calls still require token auth; see [Full list of functions](#full-list-of-functions).
 
 ### Examples
 Below are a few examples with dummy data.
@@ -115,7 +115,7 @@ SensorWriteContract sensorDummy = new SensorWriteContract
     SensorData = sensorDataContracts,
 };
 
-SensorContract[] sensors = await devkitConnector.AddSensor(sensorDummy);
+SensorResponseContract[] sensors = await devkitConnector.AddSensor(sensorDummy);
 ```
 
 #### Localization
@@ -169,14 +169,17 @@ SensorDataWriteContract data3 = new SensorDataWriteContract
 };
 SensorDataWriteContract[] sensorDataContracts = new SensorDataWriteContract[] { data1, data2, data3 };
 
-SensorWriteContract sensor = new SensorWriteContract
+SensorBatchContract sensor = new SensorBatchContract
 {
     Login = "login",
-    SensorData = sensorDataContracts,
+    SensorData = new SensorDataBatchContract[]
+    {
+        new SensorDataBatchContract { Quantity = "Temperature", Value = "16", Unit = "°C", DataType = "Single" },
+        new SensorDataBatchContract { Quantity = "Humidity", Value = "31", Unit = "%", DataType = "Single" },
+    }
 };
-SensorWriteContract[] sensorContracts = new SensorWriteContract[] { sensor };
 
-await devkitConnector.AddSensorData(sensorContracts);
+await devkitConnector.AddSensorData(new[] { sensor });
 ```
 
 #### Man Down
@@ -223,7 +226,15 @@ OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, sto
 	* `GetToken()` - Get authentication token
 	* `DeleteCurrentToken()` - Delete current authentication token
 * **AOS (Automated Order System)**
-	* `GetOrders(start, stop)` - Get orders within specified time range
+	* `GetOrders(start, stop)` - Legacy order analytics (v3 path; on V5 uses `analytics/aos/orders`)
+	* `AosConnect` / `AosDisconnect` / `AosCreate` / `AosCreateAndSplit` / `AosSendTo` / `AosSendToBatch` / `AosAccept` / `AosAbort` / `AosDeliver` / `AosComplete` / `AosDiscard`
+	* `GetAosOrders` / `GetAosMemberOrders` / `GetAosOrderHistory` / `GetAosNodeInfo` / `GetAosTargets` / `GetAosWorkRoles` / `GetAosWorkGroups` / `GetAosItemAreas`
+	* Multirole: `AosMultiRole*` and `GetAosMultiRole*` counterparts
+* **Analytics**
+	* Device/shift/activity: `GetDeviceStatistics`, `GetDowntimeBundle`, `GetSectorOccurrence`, `GetGridSectorOccurrence`, `GetAreaOccurrence`, `GetAnalyticsGridAreaOccurrence`, `GetDeviceActivity`, `GetDeviceActivityStatus`, `GetActivitySummary`, `GetActivityDuration`, `GetDevicesActivity`, `GetDevicePerShift`, `GetShiftSummary`, `GetDeviceOverview`
+	* AOS analytics: `GetAosOrderAnalytics`, `GetAosDowntimeOrders`, `GetAosOrderActions`, `GetAosOrderItems`, `GetAosOrderCounts`, `GetDeviceAssignedOrdersHourly`, `GetDeviceFirstLastActivity`, `GetDeviceOrderWorkIntervals`, `GetPackageItemLocations`, `GetPackageItemRides`
+* **Alerts**
+	* Checks / notifications CRUD: `GetAlertChecks`, `AddAlertCheck`, `GetAlertNotifications`, …
 * **Beacons**
 	* `GetBeacons(queryString)` - Get all beacons
 	* `GetBeacon(id, queryString)` - Get beacon by ID
@@ -252,6 +263,11 @@ OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, sto
 	* `ManDown(manDownContract)` - Send man down alert for single device
 	* `ManDownBatch(manDownBatchContracts)` - Send man down alerts for multiple devices
 	* `GetDeviceLocations(deviceId, from, to, queryString)` - Get device location history
+	* `RegisterDevice`, `DeviceHeartbeat`, `UpdateDeviceStatus`, `PostDeviceEvent`, `GetDeviceHeatmap`, `GetDeviceApk`, `GetDeviceVersion`, `GetTConnectVersions`
+* **File**
+	* Platform files / tViewer bundles / thumbnails / area images / logo (`GetPlatformFile`, `GetTviewerBundle`, …)
+* **GpsItems**
+	* CRUD: `GetGpsItems`, `AddGpsItem`, …
 * **Layers**
 	* `GetLayers(queryString)` - Get all layers
 	* `GetLayer(id, queryString)` - Get layer by ID
@@ -264,6 +280,9 @@ OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, sto
 	* `AddLocalizationData(locationContract)` - Add localization data for single device (in order to do this you need to be **authenticated** as said device - this can be avoided when using the batch mode above - [Example](#localization))
 * **Logs**
 	* `AddLog(logWriteContract)` - Add a log entry
+	* `GetLogs(queryString)` / `GetLog(id, queryString)`
+* **Lookups**
+	* CRUD: `GetLookups`, `AddLookup`, …
 * **Quantities**
 	* `GetQuantities(queryString)` - Get all quantities
 	* `GetQuantity(id, queryString)` - Get quantity by ID
@@ -283,9 +302,10 @@ OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, sto
 	* `AddSensor(sensorWriteContract)` - Add a sensor with specified properties
 	* `UpdateSensor(id, changes)` - Update an existing sensor with new properties
 	* `DeleteSensor(id)` - Delete an existing sensor by ID
-	* `AddSensorData(sensors)` - Add sensor data for multiple sensors in batch mode
-	* `AddSensorData(sensorData)` - Add sensor data for single sensor (in order to do this you need to be **authenticated** as said sensor - this can be avoided when using the batch mode above - [Example](#sensor-data))
-	* `GetSensorAppInfo()` - Get information (version, size) about the sensor app
+	* `AddSensorData(SensorBatchContract[])` - Batch upsert sensor data
+	* `AddSensorData(SensorDataBatchContract[])` - Authenticated sensor-data post
+	* `GetSensorQuantities(sensorId, start, stop, quantities, aggregation)` - Time-series quantities
+	* `GetSensorAppInfo()` / `GetSensorAppFile()` - Sensor app metadata and binary
 * **SensorDatas**
 	* `GetSensorDatas(queryString)` - Get all sensor datas
 	* `GetSensorData(id, queryString)` - Get sensor data by ID
@@ -299,7 +319,11 @@ OrderDataContract[] orders = await devkitConnector.GetOrders(startTimestamp, sto
 	* `UpdateShift(id, changes)` - Update an existing shift with new properties
 	* `DeleteShift(id)` - Delete an existing shift by ID
 * **Users**
-	* `GetUserInfo()` - Get information about the current user (in order to do this you need to be **authenticated** as said user)
+	* `GetUserInfo()` / `AddUser` / `RegisterUsers` / `DeleteUser`
+* **Questions / Answers**
+	* `GetQuestionsByWorkRole(workRoleId)` / `SubmitAnswers(answers)`
+* **TCS**
+	* `GetTcsDriverInfo()`
 * **Utils**
 	* `GetDemoFilesInfo()` - Get information (version, size, name) about all the demo files
 	* `GetFile(fileName)` - Get byte representation of the specified file

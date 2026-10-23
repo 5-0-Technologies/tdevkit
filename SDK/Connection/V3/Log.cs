@@ -1,6 +1,6 @@
 ﻿using SDK.Contracts.Communication;
-using SDK.Exceptions;
 using SDK.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace SDK
@@ -11,6 +11,16 @@ namespace SDK
         {
             string subUrl = Address.UrlCombine(Address.LogAdd);
             return await PostRequest<LogContract>(subUrl, logContract);
+        }
+
+        public async Task<LogContract[]> GetLogs(string queryString = "")
+        {
+            return await GetRequest<LogContract[]>(Address.UrlCombine(Address.Logs, queryString));
+        }
+
+        public async Task<LogContract> GetLog(int id, string queryString = "")
+        {
+            return await GetRequest<LogContract>(Address.UrlCombine(Address.Logs, Convert.ToString(id), queryString));
         }
     }
 }

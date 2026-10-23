@@ -11,5 +11,9 @@ namespace SDK.Models
         public string Title { get; set; }
 
         public string DBName { get; set; }
+
+        public string Login { get; set; }
+
+        public string OdooPartnerId { get; set; }
     }
 }

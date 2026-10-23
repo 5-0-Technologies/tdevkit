@@ -45,5 +45,102 @@ namespace Test.V3
 
             Assert.IsInstanceOfType(response, typeof(ClientContract[]));
         }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task GetAllClients_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/all").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(TestData.Clients.GetClients()));
+
+            var response = await devkitConnector.GetAllClients();
+            Assert.IsInstanceOfType(response, typeof(ClientContract[]));
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task AddClient_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/").UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(TestData.Clients.GetClient()));
+
+            var response = await devkitConnector.AddClient(new RegisterClientContract { ClientName = "c" });
+            Assert.IsInstanceOfType(response, typeof(ClientContract));
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task DeleteClient_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/").UsingDelete())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.DeleteClient();
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task DeleteClient_ByLogin_ShouldReturn200()
+        {
+            const string Login = "client1";
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/login/" + Login).UsingDelete())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.DeleteClient(Login);
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task GetClientByLogin_ShouldReturn200()
+        {
+            const string Login = "client1";
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/getByLogin/" + Login).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(TestData.Clients.GetClient()));
+
+            var response = await devkitConnector.GetClientByLogin(Login);
+            Assert.IsInstanceOfType(response, typeof(ClientContract));
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task ClientExists_ShouldReturn200()
+        {
+            const string Login = "client1";
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/exists/" + Login).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(true));
+
+            var response = await devkitConnector.ClientExists(Login);
+            Assert.IsTrue(response);
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task EmailValidation_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/emailValidation/").UsingPost())
+                .RespondWith(Response.Create().WithStatusCode(200));
+
+            await devkitConnector.EmailValidation(new { email = "a@b.c" });
+        }
+
+        [TestCategory("Client")]
+        [TestMethod]
+        public async Task ValidateClientToken_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + CLIENTS + "/validateToken/").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(true));
+
+            var response = await devkitConnector.ValidateClientToken();
+            Assert.IsTrue(response);
+        }
     }
-} 
+}
+ 

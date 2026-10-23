@@ -5,6 +5,7 @@
     {
         public const string VERSION_2 = "v2";
         public const string VERSION_3 = "v3";
+        public const string VERSION_5 = "v5";
 
         private string url;
         private string token;

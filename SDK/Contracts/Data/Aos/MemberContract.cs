@@ -1,4 +1,4 @@
-﻿namespace Core.Contract.V3.Aos
+﻿namespace SDK.Contracts.Data.Aos
 {
     public class MemberContract
     {

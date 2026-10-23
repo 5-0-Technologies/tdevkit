@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace SDK.Enum
 {
@@ -20,6 +21,9 @@ namespace SDK.Enum
         String,
         Decimal,
         DateTime,
-        URL
+        URL,
+        [EnumMember(Value = "Button-Webhook")]
+        [JsonStringEnumMemberName("Button-Webhook")]
+        ButtonWebhook
     }
 }
