@@ -76,5 +76,37 @@ namespace Test.V3
             await devkitConnector.DeleteArea(Id);
             Assert.IsTrue(true);
         }
+
+        [TestCategory("Area")]
+        [TestMethod]
+        public async Task GetGridAreaOccurence_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create()
+                    .WithPath(PATH_BASE + AREAS + "/grid-area-occurrence/")
+                    .WithParam("deviceId", "1")
+                    .WithParam("shiftId", "2")
+                    .WithParam("start", "10")
+                    .WithParam("stop", "20")
+                    .UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new AreaOccurrence[0]));
+
+            var response = await devkitConnector.GetGridAreaOccurence(1, 2, 10, 20);
+            Assert.IsInstanceOfType(response, typeof(AreaOccurrence[]));
+        }
+
+        [TestCategory("Area")]
+        [TestMethod]
+        public async Task GetAreaImageInfo_ShouldReturn200()
+        {
+            const int Id = 1;
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + AREAS + "/" + Id + "/image-info").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new AreaImageInfoContract { AreaId = Id }));
+
+            var response = await devkitConnector.GetAreaImageInfo(Id);
+            Assert.IsInstanceOfType(response, typeof(AreaImageInfoContract));
+        }
     }
 }
+

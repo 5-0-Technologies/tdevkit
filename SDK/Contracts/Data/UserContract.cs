@@ -14,6 +14,14 @@
 
         public string Phone { get; set; }
 
+        public string Color { get; set; }
+
+        public string Login { get; set; }
+
+        public int RoleId { get; set; }
+
+        public string Tags { get; set; }
+
         public bool AllowDemo { get; set; }
     }
 }

@@ -35,5 +35,30 @@ namespace Test.V3
             Assert.IsInstanceOfType(response, typeof(LogContract));
         }
 
+        [TestCategory("Log")]
+        [TestMethod]
+        public async Task GetLogs_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + LOG).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new LogContract[0]));
+
+            var response = await devkitConnector.GetLogs();
+            Assert.IsInstanceOfType(response, typeof(LogContract[]));
+        }
+
+        [TestCategory("Log")]
+        [TestMethod]
+        public async Task GetLog_ShouldReturn200()
+        {
+            const int Id = 1;
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + LOG + "/" + Id).UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new LogContract { Id = Id }));
+
+            var response = await devkitConnector.GetLog(Id);
+            Assert.IsInstanceOfType(response, typeof(LogContract));
+        }
     }
 }
+

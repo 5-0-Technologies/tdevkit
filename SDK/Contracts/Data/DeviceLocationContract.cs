@@ -34,6 +34,12 @@ namespace SDK.Contracts.Data
         public int[] LocalizationAreas { get; set; }
 
         public int[] NoGoAreas { get; set; }
+
+        public DistanceContract[] ScannedAssets { get; set; }
+
+        public string CalculatedPositionLocationType { get; set; }
+
+        public LatLonContract GpsPosition { get; set; }
     }
 
     public class DistanceContract
@@ -43,5 +49,12 @@ namespace SDK.Contracts.Data
         public float Distance { get; set; }
 
         public int RSSI { get; set; }
+    }
+
+    public class LatLonContract
+    {
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
     }
 }

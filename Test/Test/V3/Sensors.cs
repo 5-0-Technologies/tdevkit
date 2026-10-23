@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SDK.Communication;
-using SDK.Contracts.Communication;
-using SDK.Contracts.Data;
-using SDK.Enum;
 using SDK.Exceptions;
 using SDK.Models;
-using System.Linq;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -113,9 +109,9 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + SENSORS + "/batch").UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            var response = await devkitConnector.AddSensorData(TestData.Sensors.GetSensorWriteContracts());
+            var response = await devkitConnector.AddSensorData(TestData.Sensors.GetSensorBatchContracts());
 
-            Assert.IsInstanceOfType(response, typeof(PostResponseContract[]));
+            Assert.IsInstanceOfType(response, typeof(SensorResponseContract[]));
         }
 
         [TestCategory("Sensor")]
@@ -127,9 +123,9 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + SENSORS + "/sensor-data").UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            var response = await devkitConnector.AddSensorData(TestData.Sensors.GetSensorDataWriteContracts());
+            var response = await devkitConnector.AddSensorData(TestData.Sensors.GetSensorDataBatchContracts());
 
-            Assert.IsInstanceOfType(response, typeof(PostResponseContract));
+            Assert.IsInstanceOfType(response, typeof(SensorDataResponseContract[]));
         }
 
         [TestCategory("Sensor")]
@@ -156,12 +152,12 @@ namespace Test.V3
             server.Given(Request.Create().WithPath(PATH_BASE + SENSORS).UsingPost())
                     .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(bodyContent));
 
-            SensorContract[] response = await devkitConnector.AddSensor(sensorWriteContract);
+            SensorResponseContract[] response = await devkitConnector.AddSensor(sensorWriteContract);
 
-            Assert.IsInstanceOfType(response, typeof(SensorContract[]));
+            Assert.IsInstanceOfType(response, typeof(SensorResponseContract[]));
             Assert.AreEqual(1, response.Length);
-            Assert.AreEqual(1, response[0].Id);
-            Assert.AreEqual("Test Sensor", response[0].Title);
+            Assert.AreEqual("sensor-login", response[0].Login);
+            Assert.IsTrue(response[0].Success);
         }
 
         [TestCategory("Sensor")]
@@ -180,5 +176,38 @@ namespace Test.V3
                     .RespondWith(Response.Create().WithStatusCode(400).WithBodyAsJson(bodyContent));
             await Assert.ThrowsExceptionAsync<ServerResponseException>(async () => await devkitConnector.AddSensor(sensorWriteContract));
         }
+
+        [TestCategory("Sensor")]
+        [TestMethod]
+        public async Task GetSensorQuantities_ShouldReturn200()
+        {
+            server.Reset();
+            server.Given(Request.Create()
+                    .WithPath(PATH_BASE + SENSORS + "/sensor-data")
+                    .WithParam("sensorId", "1")
+                    .WithParam("start", "10")
+                    .WithParam("stop", "20")
+                    .WithParam("aggregation", "mean")
+                    .WithParam("quantities", "temp/1")
+                    .UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBodyAsJson(new SensorQuantityContract[0]));
+
+            var response = await devkitConnector.GetSensorQuantities(1, 10, 20, new[] { "temp/1" });
+            Assert.IsInstanceOfType(response, typeof(SensorQuantityContract[]));
+        }
+
+        [TestCategory("Sensor")]
+        [TestMethod]
+        public async Task GetSensorAppFile_ShouldReturn200()
+        {
+            var bytes = new byte[] { 9, 9 };
+            server.Reset();
+            server.Given(Request.Create().WithPath(PATH_BASE + SENSORS + "/app-file").UsingGet())
+                .RespondWith(Response.Create().WithStatusCode(200).WithBody(bytes));
+
+            var response = await devkitConnector.GetSensorAppFile();
+            CollectionAssert.AreEqual(bytes, response);
+        }
     }
-} 
+}
+

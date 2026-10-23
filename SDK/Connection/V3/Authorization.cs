@@ -90,5 +90,20 @@ namespace SDK
 
             return response;
         }
+
+        public async Task PostFirebaseToken(FirebaseTokenContract contract)
+        {
+            await PostRequest(Address.AuthorizationFirebaseToken, contract);
+        }
+
+        public async Task DeleteFirebaseToken()
+        {
+            await DeleteRequest(Address.AuthorizationFirebaseToken);
+        }
+
+        public async Task<FirebaseTokenContract[]> GetFirebaseTokens(string notificationId)
+        {
+            return await GetRequest<FirebaseTokenContract[]>(Address.UrlCombine(Address.AuthorizationFirebaseTokens, notificationId));
+        }
     }
 }
