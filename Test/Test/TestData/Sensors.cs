@@ -43,7 +43,8 @@ namespace Test.TestData
                     Battery = 88.8f,
                     SectorId = 2,
                     AreaId = 3,
-                    ExternalId = "ext-002"
+                    ExternalId = "ext-002",
+                    SensorTypeId = 1
                 }
             };
         }
